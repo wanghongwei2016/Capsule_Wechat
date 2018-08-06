@@ -1,0 +1,58 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class='music_container'>
+  <view class='music_play'>
+    <image src='../../images/music_bg.png' mode="aspectFill" class='music_bg'></image>
+    <view class='music_play_wrap'>
+      <view class='music_play_wrap_container'>
+        <text class='music_copyright'>{{showHead ? music_head : ''}}</text>
+        <view class="music_logo">
+          <image src="../../images/music_logo.png" mode="aspectFill" class='music_logo_icon' bindtap='playButtonAction'></image>
+          <view class='small-pian-wrap' style='transform:rotate({{rotate || 0}}deg)'>
+            <view class="small-pian">
+              <view class="small-p"></view>
+            </view>
+          </view>
+        </view>
+        <view class='music_control'>
+          <view class='music_control_wrap'>
+            <text class='music_control_text'>{{currentTime}}</text>
+            <view class='music_control_bar_wrap' bindtouchmove='moveAction'>
+              <view class="music_control_bar" style="width:{{totalProgress}}rpx">
+                <view class='music_control_progress' style="width:{{musicProgressWidth}}">
+                  <view class='music_control_circle'></view>
+                </view>
+              </view>
+            </view>
+            <text class='music_control_text'>{{duration}}</text>
+          </view>
+        </view>
+        <image src="{{isPlay ? '../../images/music_play.png' : '../../images/music_pause.png'}}" mode="aspectFill" class='music_pause' bindtap='playButtonAction'></image>
+      </view>
+    </view>
+  </view>
+  <scroll-view scroll-y style="height: 546rpx" wx-if="{{music_list.length>1}}">
+    <view class='music_list_wrap'>
+      <view class="music_list_item {{item.play ? 'music_list_item_active' : ''}}" wx:for="{{music_list}}" wx:key="{{index}}" data-music='{{index}}' bindtap='chooseMusic'>
+        <view class='music_num'>
+          <text wx-if="{{!item.play}}">{{index+1}}</text>
+          <image wx-if="{{item.play}}" src='../../images/music_active.png' mode="aspectFill" class='music_active'></image>
+        </view>
+        <view class="music_info">
+          <view class='music_info_wrap'>
+            <text class='music_name'>{{item.music_title}}</text>
+            <text class='music_intro'>{{item.music_intro ? item.music_intro : '无'}}</text>
+          </view>
+        </view>
+        <view class='music_time_wrap'>
+          <text class='music_time'>{{item.music_time}}</text>
+        </view>
+      </view>
+      <view class='space'>
+        <text>{{music_end}}</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

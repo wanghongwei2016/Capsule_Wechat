@@ -1,0 +1,13 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<view class="container">
+  <view class="inputback">
+  <!--<view class="inputscrete_container">-->
+    <input class="inputscrete" auto-focus cursor-spacing="50" bindinput="inputBindNumber"/>  
+  <!--</view>-->
+    <text class="inputhint">请输入短信收到的编码解锁入住</text>
+  </view>
+  <button class="bindbutton" bindtap="bindScreteAction">绑定入住码</button>
+</view>

@@ -1,0 +1,44 @@
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<view class="redeem_container">
+  <view class='redeem_icon_wrap'>
+    <image src='../../images/redeem.png' class='redeem_icon'></image>
+  </view>
+  <view class='redeem_title_wrap'>
+    <text class='redeem_title'>请输入兑换码</text>
+  </view>
+  <view class='redeem_input_wrap'>
+    <input class='redeem_input' focus="true" value='{{verify_code}}' bindinput="inputVerifyCode"></input>
+    <view class='code_delete_wrap' bindtap="deleteAction"  wx:if="{{code_delete}}">
+      <image src='../../images/login_close.png' class='code_delete'></image>
+    </view>
+  </view>
+  <view class='redreem_btn_wrap' bindtap='handleRedeemAction'>
+    <button class='redreem_btn' hover-class='redreem_btn_tap'>立即兑换</button>
+  </view>
+  <view class='redreem_rule' bindtap='webViewAction'>
+    <text>兑换规则</text>
+  </view>
+
+  <view class="redeem_success_wrap {{redeemSuccess ? 'redeem_success_active' : ''}}" wx:if="{{redeemSuccess}}">
+    <view class="redeem_success_position">
+      <view class="redeem_success">
+        <view class='redeem_success_text_wrap'>
+          <text>兑换成功</text>
+        </view>
+        <view class='redeem_success_info_wrap'>
+          <text>恭喜获得现金红包</text>
+        </view>
+        <view class='redeem_success_price_wrap'>
+          <text>{{red_envelope}}</text>
+          <text class='redeem_success_price_text'>元</text>
+        </view>
+        <view class='redeem_success_btn' bindtap='handleCloseAction' hover-class='redreem_success_btn_tap'>立即收下</view>
+        <view class='redeem_success_intro'>
+          <text>请到「我的-钱包」查看</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

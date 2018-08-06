@@ -1,0 +1,630 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<scroll-view scroll-y="{{isScroll}}">
+  <view class="pay_success_container">
+    <!-- <view class="order_fault_report" bindtap="faultReportAction">故障</view> -->
+    <!--评论  -->
+    <view class='appraise_wrap' wx:if="{{appraise_show}}">
+      <view class="appraise {{appraise_animation_show ? 'appraise_animation' : ''}}">
+        <view class='appraise_title'>
+          <view class='appraise_close' bindtap="appraiseCloseAction">
+            <image src='../../images/appraise_close.png' class='appraise_close_icon'></image>
+          </view>
+          <view class='appraise_title_text'>评价</view>
+        </view>
+        <view class='appraise_stars'>
+          <image src="{{item.active ? '../../images/appraise_star_active.png' : '../../images/appraise_star.png'}}" class='appraise_star_item' wx:for="{{appraise_stars}}" bindtap="selectStarAction" wx:key="{{index}}" data-index="{{index}}"></image>
+        </view>
+        <view class='appraise_init' wx:if="{{starsNum==0}}">
+          <text class='appraise_init_title appraise_main_title'>{{appraise_title}}</text>
+          <view class='appraise_first_init' wx:if="{{appraise_flag && appraise_bonus!=0}}">首次完成评价即可获得{{appraise_bonus}}元红包</view>
+        </view>
+        <view class='appraise_init' wx:if="{{starsNum==1}}">
+          <text class='appraise_init_title'>非常不满意，各方面都差</text>
+        </view>
+        <view class='appraise_init' wx:if="{{starsNum==2}}">
+          <text class='appraise_init_title'>不满意，比较差</text>
+        </view>
+        <view class='appraise_init' wx:if="{{starsNum==3}}">
+          <text class='appraise_init_title'>一般，还需改善</text>
+        </view>
+        <view class='appraise_init' wx:if="{{starsNum==4}}">
+          <text class='appraise_init_title'>比较满意，仍可改善</text>
+        </view>
+        <view class='appraise_init' wx:if="{{starsNum==5}}">
+          <text class='appraise_init_title'>非常满意，无可挑剔</text>
+        </view>
+        <view class='appraise_init' wx:if="{{starsNum>=1 && starsNum<=4}}">
+          <view class='appraise_tags'>
+            <view class="appraise_tag_item {{item.toggle ? 'appraise_tag_item_active' : ''}}" wx:for="{{appraise_satisfied}}" wx:key="{{index}}" data-index="{{index}}" bindtap="appraiseSatisfiedAction">
+              {{item.tag}}
+            </view>
+          </view>
+        </view>
+        <view class='appraise_init' wx:if="{{starsNum==5}}">
+          <view class='appraise_tags'>
+            <view class="appraise_tag_item {{item.toggle ? 'appraise_tag_item_active' : ''}}" wx:for="{{appraise_very_satisfied}}" wx:key="{{index}}" data-index="{{index}}" bindtap="appraiseVerySatisfiedAction">
+              {{item.tag}}
+            </view>
+          </view>
+        </view>
+        <view class='appraise_textarea_wrap' wx:if="{{starsNum>=1}}">
+          <textarea class="appraise_textarea" placeholder="{{textarea_placeholder}}" placeholder-style="color:#c5c5c5" bindinput="textareaAction" maxlength="{{canInputNum}}" />
+          <text class='textarea_num'>{{canInputText}}</text>
+        </view>
+        <view class='appraise_button_submit_wrap' wx:if="{{starsNum>=1}}">
+          <button class="appraise_button_submit {{!submit_disabled ? 'appraise_button_login_active' : ''}}" size="default" bindtap="submitAction" disabled="{{submit_disabled}}">提交</button>
+        </view>
+      </view>
+    </view>
+    <!--红包  -->
+    <!-- wx-if="{{red_envelope}}"  -->
+    <view class="red_packet_wrap {{showRed ? 'red_packet_wrap_active' : ''}}">
+      <view class='red_packet_content_wrap'>
+        <image src='../../images/red_packet_bg.png' class='red_packet_bg'></image>
+        <view class='red_packet_content'>
+          <view class='red_packet_one'>
+            <text>恭喜获得红包</text>
+          </view>
+          <view class='red_packet_two'>
+            <text>红包将在五分钟内自动放入「我的-钱包」</text>
+          </view>
+          <view class='red_packet_three'>
+            <text>{{red_envelope_title}}</text>
+          </view>
+          <view class='red_packet_four'>
+            <text class='red_packet_four1'>{{red_envelope}}</text>
+            <text class='red_packet_four2'>元</text>
+          </view>
+          <view class='red_packet_five'>
+            <text>每单评价成功可得红包</text>
+          </view>
+        </view>
+      </view>
+      <view class='red_packet_close' bindtap='closeRed'>
+        <image src='../../images/red_packet_close.png' class='red_packet_close_icon'></image>
+      </view>
+    </view>
+
+    <view class='pay_result_contianer_wrap'>
+      <view class='pay_result_space'></view>
+      <view class='pay_result_contianer'>
+        <view class='pay_success_icon_wrap'>
+          <image src='../../images/pay_success_icon.png' class='pay_success_icon'></image>
+        </view>
+        <view class='pay_success_title_space'></view>
+        <view class='pay_success_title'>
+          成功支付{{price?price:0}}元
+        </view>
+        <view class='pay_success_info'>
+          <view class='pay_success_info_item'>
+            <text>使用时长：</text>
+            <text>{{time}}</text>
+          </view>
+          <view class='pay_success_info_item' wx:if="{{coupon_cash > 0}}">
+            <text>优惠券：</text>
+            <text class='red_text'>-￥{{coupon_cash}}</text>
+          </view>
+          <view class='pay_success_info_item'>
+            <text>钱包余额：</text>
+            <text>{{balance?balance:0}}元</text>
+          </view>
+       
+       
+        </view>
+        <view class='card_container'>
+        <button class='buyCard' bindtap='buyCardAction'>{{month_card_flag != 1 ? "购买月卡 低至29.8元/月": "续买月卡 低至29.8元/月"}}</button>
+        </view>
+                 
+
+        </view>
+      
+      <view class='pay_result_report_title'>
+        健康报告
+      </view>
+      <!--健康参数  -->
+      <view class='pay_result_report_data'>
+        <view class='pay_result_report_data_row'>
+          <view class='pay_result_report_data_item'>
+            <view class='pay_result_report_data_item_value'>
+              <text>+{{vitalityValue}}</text>
+              <text class='special'>%</text>
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              活力值
+            </view>
+          </view>
+          <view class='pay_result_report_data_item'>
+            <view class='pay_result_report_data_item_value'>
+              <text>{{negative_oxygen}}</text>
+              <text class='special'>倍</text>
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              <view class='special'>（与森林密度相比）</view>
+              <view>负氧离子浓度</view>
+            </view>
+          </view>
+          <view class='pay_result_report_data_item' wx:if="{{!hasHeartRateData}}">
+            <view class='pay_result_report_data_item_button' bindtap='getBloodHearAction'>
+              立即获取
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              <view class='special'>暂无数据</view>
+              <view>心率</view>
+            </view>
+          </view>
+          <view class='pay_result_report_data_item' wx:if="{{hasHeartRateData}}">
+            <view class='pay_result_report_data_item_value'>
+              <text>{{heart_rate}}</text>
+              <text class='special'>次/分</text>
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              <view>心率</view>
+            </view>
+          </view>
+        </view>
+        <view class='pay_result_report_data_row'>
+          <view class='pay_result_report_data_item' wx:if="{{!hasBloodPressureData}}">
+            <view class='pay_result_report_data_item_button' bindtap='getBloodHearAction'>
+              立即获取
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              <view class='special'>暂无数据</view>
+              <view>血压</view>
+            </view>
+          </view>
+          <view class='pay_result_report_data_item' wx:if="{{hasBloodPressureData}}">
+            <view class='pay_result_report_data_item_value'>
+              <text>{{high_pressure}}/{{low_pressure}}</text>
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              <view class='special'>mmHg</view>
+              <view>血压</view>
+            </view>
+          </view>
+          <view class='pay_result_report_data_item' wx:if="{{!hasHealthData}}">
+            <view class='pay_result_report_data_item_button' bindtap='getSkinAction'>
+              立即获取
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              <view class='special'>暂无数据</view>
+              <view>肤质健康</view>
+            </view>
+          </view>
+          <view class='pay_result_report_data_item' wx:if="{{hasHealthData}}">
+            <view class='pay_result_report_data_item_value'>
+              <text>{{health}}</text>
+              <text class='special'>分</text>
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              <view class='special'>超过了{{health}}%的人</view>
+              <view>肤质健康</view>
+            </view>
+          </view>
+          <view class='pay_result_report_data_item'  wx:if="{{hasHealthData}}">
+            <view class='pay_result_report_data_item_value'>
+              <text>{{stain_level=='normal'? '正常' : stain_level=='one'? '轻度' : stain_level=='two' ? '中度' : '重度'}}</text>
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              色斑(程度)
+            </view>
+          </view>
+        </view>
+        <view class='pay_result_report_data_row'  wx:if="{{hasHealthData}}">
+          <view class='pay_result_report_data_item'>
+            <view class='pay_result_report_data_item_value'>
+              <text>{{acne_level=='normal' ? '正常' : acne_level=='one'? '轻度' : acne_level=='two' ? '中度' : '重度'}}</text>
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              青春痘(程度)
+            </view>
+          </view>
+          <view class='pay_result_report_data_item'>
+            <view class='pay_result_report_data_item_value'>
+              <text>{{dark_level=='normal'? '正常' : dark_level=='one'? '轻度' : dark_level=='two' ? '中度' : '重度'}}</text>
+            </view>
+            <view class='pay_result_report_data_item_info'>
+              黑眼圈(程度)
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--活力值  -->
+      <view class='pay_result_report_vitality'>
+        <view class='report_vitality_space'></view>
+        <view class='report_vitality_wrap'>
+          <view class='report_vitality_title'>活力值</view>
+          <view class='report_vitality_circle'>
+            <view class='vitality_circle'>
+              <image src='../../images/vitality_circle.png' class='vitality_circle_icon'></image>
+            </view>
+            <view class='report_vitality_circle_little_wrap' style='{{vitalityRunStyle}}'>
+              <view class='report_vitality_circle_little'></view>
+            </view>
+            <view class='report_vitality_value_wrap'>
+              <view class='report_vitality_value'>
+                <text class='special1' style="font-size: {{compatibleStyle.spcial1Font}}">+</text>
+                <text class='special2' style="font-size: {{compatibleStyle.spcial2Font}}">{{vitalityValue}}</text>
+                <text class='special3' style="font-size: {{compatibleStyle.spcial3Font}}">%</text>
+                <view class='report_vitality_value_info' style="margin-top: {{compatibleStyle.vitalityInfoMarginTop}}">活力值提升</view>
+              </view>
+            </view>
+          </view>
+          <view class='report_vitality_detail'>
+            <view class='report_vitality_detail_info'>
+              <view class='report_vitality_info_item'>
+                <view class='report_vitality_info_name'>休息时段</view>
+                <view class='report_vitality_info_bar'>
+                  <view class='report_vitality_info_bar_wrap'>
+                    <view class='report_vitality_info_bar_active' style='width:{{fee_score_width}}rpx'></view>
+                  </view>
+                </view>
+                <view class='report_vitality_info_value'>+{{fee_score}}%</view>
+              </view>
+            </view>
+            <view class='report_vitality_detail_info'>
+              <view class='report_vitality_info_item'>
+                <view class='report_vitality_info_name'>休息时长</view>
+                <view class='report_vitality_info_bar'>
+                  <view class='report_vitality_info_bar_wrap'>
+                    <view class='report_vitality_info_bar_active' style='width:{{sleep_score_width}}rpx'></view>
+                  </view>
+                </view>
+                <view class='report_vitality_info_value'>+{{sleep_score}}%</view>
+              </view>
+            </view>
+            <view class='report_vitality_detail_info'>
+              <view class='report_vitality_info_item'>
+                <view class='report_vitality_info_name'>健康服务</view>
+                <view class='report_vitality_info_bar'>
+                  <view class='report_vitality_info_bar_wrap'>
+                    <view class='report_vitality_info_bar_active' style='width:{{other_score_width}}rpx'></view>
+                  </view>
+                </view>
+                <view class='report_vitality_info_value'>+{{other_score}}%</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class='report_vitality_space'></view>
+        <view class='report_vitality_intro' bindtap="showDialog" data-statu="open">
+          <image src='../../images/vitality_help.png' class='vitality_help'></image>
+        </view>
+      </view>
+      <!--心率  -->
+      <view class='pay_result_report_heartRate'>
+        <view class='report_heart_rate_space'></view>
+        <view class='report_heart_rate_wrap'>
+          <view class='report_heart_rate_title'>心率</view>
+          <view class='report_heart_rate_circle'>
+            <view class='circle circle2'></view>
+            <view class='circle circle3'></view>
+            <view class='circle circle4'></view>
+            <view class='report_heart_rate_data_wrap'>
+              <view class='report_heart_rate_value' style="font-size: {{compatibleStyle.heartRateFont}}">{{heart_rate}}</view> 
+              <view class='report_heart_rate_info'>次/分</view>
+            </view> 
+          </view>
+          <view class='report_get_health_detail' wx:if="{{hasHeartRateData}}">
+            <view class='report_get_health_detail_title'>
+              <text>心率分析：</text>
+              <text class='level_text'>{{heart_rate_level === 1 ? '稍慢' : heart_rate_level === 2 ? '正常' : '稍快'}}</text>
+            </view>
+            <view class='report_get_health_detail_bar_number'>
+              <text>50</text>
+              <text>100</text>
+            </view>
+            <view class='report_get_health_detail_bar'></view>
+            <view class='skin-spot-progress-arrow-wrap'>
+              <image class='skin-spot-progress-arrow' src='../../images/health_result_arrow.png' style='left:{{heartArrowLeft}}%'></image>
+            </view>
+            <view class='report_get_health_detail_type'>
+              <view class='heart_rate_result_low'>稍慢</view>
+              <view class='heart_rate_result_normal'>正常</view>
+              <view class='heart_rate_result_hight'>稍快</view>
+            </view>
+            <view class='skin-spot-progress-suggest'>
+              <view wx:if="{{heart_rate_level === 1}}">
+                <text>您的心率，以下几点建议供您参考：</text>
+                <view>
+                  <text>1、注意劳逸结合，避免过度劳累\n2、经常锻炼身体\n3、保持身心愉悦</text>
+                </view>
+              </view>
+              <view wx:if="{{heart_rate_level === 2}}">
+                <text>肌肤净白无暇说的就是您啦，继续保持哦！</text>
+              </view>
+              <view wx:if="{{heart_rate_level === 3}}">
+                <text>您的心率，以下几点建议供您参考：</text>
+                <view>
+                  <text>1、注意劳逸结合，避免过度劳累\n2、经常锻炼身体\n3、保持身心愉悦</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class='report_get_health_btn' wx:if="{{!hasHeartRateData}}" bindtap='getBloodHearAction'>
+            立即获取
+          </view>
+          <view class='report_heart_rate_space2'></view>
+        </view>
+      </view>
+      <!--血压  -->
+      <view class='pay_result_report_bloodPressure'>
+        <view class='report_blood_pressure_space'></view>
+        <view class='report_blood_pressure_wrap'>
+          <view class='report_blood_pressure_title'>血压</view>
+          <view class='report_blood_pressure_circle'>
+            <view class='report_blood_pressure_data'>
+              <view class='report_blood_pressure_value' style="font-size: {{compatibleStyle.bloodPressureFont}}">{{high_pressure}}/{{low_pressure}}</view>
+              <view class='report_blood_pressure_info'>mmHg</view>
+            </view>
+          </view>
+          <view class='report_blood_pressure_bar_container' wx:if="{{hasBloodPressureData}}">
+            <view class='report_blood_pressure_bar_item'>
+              <view class='report_blood_pressure_bar_item_title'>
+                高压：
+                <text class='level_text'>{{blood_pressure_high_level === 1 ? '偏低' : blood_pressure_high_level === 2 ? '正常' : '偏高'}}</text>
+              </view>
+              <view class='report_blood_pressure_bar_item_num'>
+                <text>90</text>
+                <text>140</text>
+              </view>
+              <view class='report_blood_pressure_bar'></view>
+              <view class='report_blood_pressure_bar_arrow_wrap'>
+                <image src='../../images/blood_pressure_result_arrow.png' class='report_blood_pressure_bar_arrow' style='left: {{highArrowLeft}}%'></image>
+              </view>
+              <view class='report_blood_pressure_text'>
+                <view>偏低</view>
+                <view>正常</view>
+                <view>偏高</view>
+              </view>  
+            </view>
+            <view class='report_blood_pressure_bar_item'>
+              <view class='report_blood_pressure_bar_item_title'>
+                低压：
+                <text class='level_text'>{{blood_pressure_low_level === 1 ? '偏低' : blood_pressure_low_level === 2 ? '正常' : '偏高'}}</text>
+              </view>
+              <view class='report_blood_pressure_bar_item_num'>
+                <text>60</text>
+                <text class="special">90</text>
+              </view>
+              <view class='report_blood_pressure_bar'></view>
+              <view class='report_blood_pressure_bar_arrow_wrap'>
+                <image src='../../images/blood_pressure_result_arrow.png' class='report_blood_pressure_bar_arrow' style='left: {{lowArrowLeft}}%'></image>
+              </view>
+              <view class='report_blood_pressure_text'>
+                <view>偏低</view>
+                <view>正常</view>
+                <view>偏高</view>
+              </view>  
+            </view>
+            <view class='skin-spot-progress-suggest'>
+              <view wx:if="{{blood_pressure_low_level === 1}}">
+                <text>您的心率，以下几点建议供您参考：</text>
+                <view>
+                  <text>1、注意劳逸结合，避免过度劳累\n2、经常锻炼身体\n3、保持身心愉悦</text>
+                </view>
+              </view>
+              <view wx:if="{{blood_pressure_low_level === 2}}">
+                <text>肌肤净白无暇说的就是您啦，继续保持哦！</text>
+              </view>
+              <view wx:if="{{blood_pressure_low_level === 3}}">
+                <text>您的心率，以下几点建议供您参考：</text>
+                <view>
+                  <text>1、注意劳逸结合，避免过度劳累\n2、经常锻炼身体\n3、保持身心愉悦</text>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class='report_get_health_btn' wx:if="{{!hasBloodPressureData}}" bindtap='getBloodHearAction'>
+            立即获取
+          </view>
+          <view class='report_blood_pressure_space2'></view>
+        </view>
+      </view>
+      <!--皮肤报告  -->
+      <view class='pay_result_report_skin'>
+        <view class='pay_result_report_skin_wrap'>
+          <!--色斑  -->
+          <view class='skin-item'>
+            <view class='skin-item-wrap'>
+              <view class='skin-space'></view>
+              <view class='skin-item-title'>
+                色斑
+              </view>
+              <view class='skin-spot'>
+                <view class='skin_spot_img_wrap'>
+                  <image wx:if="{{stain_level == 'normal' || !hasHealthData}}" src="../../images/skin_spot.png" class='skin_spot_img'></image>
+                  <image wx:if="{{stain_level == 'one'}}" src="../../images/skin_spot1.png" class='skin_spot_img'></image>
+                  <image wx:if="{{stain_level == 'two'}}" src="../../images/skin_spot2.png" class='skin_spot_img'></image>
+                  <image wx:if="{{stain_level == 'three'}}" src="../../images/skin_spot3.png" class='skin_spot_img'></image>
+                </view>
+                <view class='skin-spot-wrap' wx:if="{{hasHealthData}}">
+                  <view class='skin-spot-title'>色斑严重程度：
+                    <text class="level_text">{{stain_level=='normal'? '正常' : stain_level=='one'? '轻度' : stain_level=='two' ? '中度' : '重度'}}</text>
+                  </view>
+                  <view class='skin-spot-progress'></view>
+                  <view class='skin-spot-progress-arrow-wrap'>
+                    <image class='skin-spot-progress-arrow' src='../../images/health_result_arrow.png' style='left:{{stain_width}}'></image>
+                  </view>
+                  <view class='skin-spot-progress-info'>
+                    <view class="skin-spot-progress-info-item">正常</view>
+                    <view class="skin-spot-progress-info-item">轻度</view>
+                    <view class="skin-spot-progress-info-item">中度</view>
+                    <view class="skin-spot-progress-info-item">重度</view>
+                  </view>
+                  <view class='skin-spot-progress-suggest'>
+                    <view wx:if="{{stain_level=='normal'}}">
+                      <text>肌肤净白无暇说的就是您啦，继续保持哦！</text>
+                    </view>
+                    <view wx:if="{{stain_level=='one'}}">
+                      <text>您有轻微色斑，以下几点建议供您参考：</text>
+                      <view>
+                        <text>1、多吃水果蔬菜，少食刺激性食物\n2、注意补充水份\n3、保持心情愉悦</text>
+                      </view>
+                    </view>
+                    <view wx:if="{{stain_level=='two'}}">
+                      <text>您有中度色斑，以下几点建议供您参考：</text>
+                      <view>
+                        <text>1、可依据情况适当服用维生素C\n2、规律作息，尽量不要熬夜\n3、做好防晒工作</text>
+                      </view>
+                    </view>
+                    <view wx:if="{{stain_level=='three'}}">
+                      <text>需要引起重视咯，以下几点可供参考：</text>
+                      <view>
+                        <text>1、避免熬夜，保证充足睡眠\n2、减少化妆，根据个人情况使用淡斑霜\n3、注意补水，可尝试多喝柠檬黄瓜汁</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class='report_get_health_btn' wx:if="{{!hasHealthData}}"  bindtap='getSkinAction'>
+                立即获取
+              </view>
+              <view class='skin-space'></view>
+            </view>
+          </view>
+          <!--黑眼圈  -->
+          <view class='skin-item'>
+            <view class='skin-item-wrap'>
+              <view class='skin-space'></view>
+              <view class='skin-item-title'>
+                黑眼圈
+              </view>
+              <view class='skin-spot'>
+                <view class='skin_spot_img_wrap skin_dark_img_wrap' style="justify-content: {{hasHealthData ? 'space-between' : 'center'}}">
+                  <view class='skin_dark1_wrap'>
+                    <image src="../../images/skin_dark.png" class='skin_dark1' wx:if="{{dark_level=='normal' || !hasHealthData}}"></image>
+                    <image src="../../images/skin_dark1.png" class='skin_dark1' wx:if="{{dark_level=='one'}}"></image>
+                    <image src="../../images/skin_dark2.png" class='skin_dark1' wx:if="{{dark_level=='two'}}"></image>
+                    <image src="../../images/skin_dark3.png" class='skin_dark1' wx:if="{{dark_level=='three'}}"></image>
+                  </view>
+                  <image src="../../images/skin_dark4.png" class='skin_dark2' wx:if="{{hasHealthData}}"></image>
+                  <view class='skin_dark_title' wx:if="{{hasHealthData}}">
+                    <text>轻度</text>
+                    <text>中度</text>
+                    <text>严重</text>
+                  </view>
+                </view>
+                <view class='skin-spot-wrap'  wx:if="{{hasHealthData}}">
+                  <view class='skin-spot-title'>黑眼圈严重程度：
+                    <text class="level_text">{{dark_level=='normal'? '正常' : dark_level=='one'? '轻度' : dark_level=='two' ? '中度' : '重度'}}</text>
+                  </view>
+                  <view class='skin-spot-progress'></view>
+                  <view class='skin-spot-progress-arrow-wrap'>
+                    <image class='skin-spot-progress-arrow' src='../../images/health_result_arrow.png' style='left:{{dark_width}}'></image>
+                  </view>
+                  <view class='skin-spot-progress-info'>
+                    <view class="skin-spot-progress-info-item">正常</view>
+                    <view class="skin-spot-progress-info-item">轻度</view>
+                    <view class="skin-spot-progress-info-item">中度</view>
+                    <view class="skin-spot-progress-info-item">重度</view>
+                  </view>
+                  <view class='skin-spot-progress-suggest'>
+                    <text wx:if="{{dark_level=='normal'}}">黑眼圈都去找大熊猫了，您继续保持规律的作息习惯就好！</text>
+                    <text wx:if="{{dark_level!='normal'}}">您有{{dark_level=='one'? '轻微' : dark_level=='two' ? '中度' : '重度'}}黑眼圈，以下几点建议供您参考：</text>
+                    <view>
+                      <text wx:if="{{dark_level=='one'}}">1、注意休息，减少熬夜\n2、多喝清水，有助于排除体内毒素\n3、早上喝一杯胡萝卜汁或番茄汁，有助于消除眼睛疲劳</text>
+                      <text wx:if="{{dark_level=='two'}}">1、多休息，尽量不要熬夜\n2、每天喝8杯水有助于淡化黑眼圈\n3、每天喝一杯红枣水，补气养血，减缓疲劳</text>
+                      <text wx:if="{{dark_level=='three'}}">1、避免熬夜，保证充足睡眠\n2、多喝清水，可多尝试胡萝卜汁番茄汁红枣水等\n3、根据个人情况配合使用眼霜或眼膜等</text>
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class='report_get_health_btn' wx:if="{{!hasHealthData}}"  bindtap='getSkinAction'>
+                立即获取
+              </view>
+              <view class='skin-space'></view>
+            </view>
+          </view>
+          <!--青春痘  -->
+          <view class='skin-item'>
+            <view class='skin-item-wrap'>
+              <view class='skin-space'></view>
+              <view class='skin-item-title'>
+                青春痘
+              </view>
+              <view class='skin-spot'>
+                <view class='skin_spot_img_wrap'>
+                  <image wx:if="{{acne_level=='normal' || hasHealthData}}" src="../../images/skin_acne.png" class='skin_acne_img'></image>
+                  <image wx:if="{{acne_level=='one'}}" src="../../images/skin_acne1.png" class='skin_acne_img'></image>
+                  <image wx:if="{{acne_level=='two'}}" src="../../images/skin_acne2.png" class='skin_acne_img'></image>
+                  <image wx:if="{{acne_level=='three'}}" src="../../images/skin_acne3.png" class='skin_acne_img'></image>
+                </view>
+                <view class='skin-spot-wrap' wx:if="{{hasHealthData}}">
+                  <view class='skin-spot-title'>青春痘严重程度：
+                    <text class="level_text">{{acne_level=='normal' ? '正常' : acne_level=='one'? '轻度' : acne_level=='two' ? '中度' : '重度'}}</text>
+                  </view>
+                  <view class='skin-spot-progress'></view>
+                  <view class='skin-spot-progress-arrow-wrap'>
+                    <image class='skin-spot-progress-arrow' src='../../images/health_result_arrow.png' style='left:{{acne_width}}'></image>
+                  </view>
+                  <view class='skin-spot-progress-info'>
+                    <view class="skin-spot-progress-info-item">正常</view>
+                    <view class="skin-spot-progress-info-item">轻度</view>
+                    <view class="skin-spot-progress-info-item">中度</view>
+                    <view class="skin-spot-progress-info-item">重度</view>
+                  </view>
+                  <view class='skin-spot-progress-suggest'>
+                    <view wx:if="{{acne_level=='normal'}}">
+                      <text>太羡慕您了，竟然没有青春痘的烦恼！</text>
+                    </view>
+                    <view wx:if="{{acne_level=='one'}}">
+                      <text>皮肤健康和饮食习惯有密切联系，建议您注意以下几点：</text>
+                      <view>
+                        <text>1、饮食清淡些，少吃辛辣油炸\n2、增强运动，调整作息时间，少熬夜\n3、多喝柠檬水，随时注意补充水份</text>
+                      </view>
+                    </view>
+                    <view wx:if="{{acne_level=='two'}}">
+                      <text>痘痘有点多咯，亲需要注意下饮食及生活习惯了，可参考以下几点建议：</text>
+                      <view>
+                        <text>1、补水不容忽视，多吃水果蔬菜\n2、保证充足的睡眠和良好的生活习惯\n3、注意面部清洁，建议不要随意使用祛痘药物</text>
+                      </view>
+                    </view>
+                    <view wx:if="{{acne_level=='three'}}">
+                      <text>需要引起重视咯，以下几点可供参考：</text>
+                      <view>
+                        <text>1、注意面部清洁，保持枕巾、枕套勤换洗的习惯\n2、少用发胶、定型液，如果非用不可，请注意与脸部隔离\n3、多摄取维生素含量多的蔬菜、水果，保证充足睡眠和良好的饮食生活习惯。</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
+              <view class='report_get_health_btn' wx:if="{{!hasHealthData}}"  bindtap='getSkinAction'>
+                立即获取
+              </view>
+              <view class='skin-space'></view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--数据仅供参考，不作为医用依据  -->
+      <view class='pay_result_warn'>
+        <text>数据仅供参考，不作为医用依据</text>
+      </view>
+    </view>
+    <view class='pay_result_invite'>
+      <view class='pay_result_btns_wrap'>
+        <view class='pay_result_home_btn' bindtap="completeAction">返回首页</view>
+        <view class='pay_result_invite_btn' bindtap="inviteFriendAction">邀请好友得{{invite_bonus}}元</view>
+      </view>
+    </view>
+    <!-- 什么是活力值 -->
+    <view class='vitality_intro {{isDialogShow ? "vitality_intro_active" : ""}}' wx:if="{{isDialogShow}}">
+      <view class='vitality_intro_wrap'>
+        <view class='vitality_intro_title'>
+          什么是活力值？
+        </view>
+        <view class='vitality_intro_content'>
+          <view class='vitality_intro_content_item'>
+            人体生命活力的体现。
+          </view>
+          <view class='vitality_intro_content_item'>
+            享+根据国际权威健康机构的研究成果，利用高科技手段，综合人体休息时段、休息时长、健康活动等多项生命活动指标计算所得。
+          </view>
+        </view>
+        <view class='vitality_intro_btn' data-statu="close" bindtap="showDialog">我知道了</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

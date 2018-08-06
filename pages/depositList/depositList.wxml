@@ -1,0 +1,32 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<!--pages/depositList/depositList.wxml-->
+<view class="contain" wx:if="{{charge_data.length > 0}}">
+  <view class="charge_contain" wx:for="{{charge_data}}" wx:key="charge_data">
+    <view class="charge_item">
+      <view class="item_sub_title">
+        <text class="sub_top">{{item.subject}}</text>
+        <text class="sub_bottom">{{item.date}}</text>
+      </view>
+      <view class="title_contain">
+        <text class="title_date">{{item.price/100}}元</text>
+      </view>
+    </view>
+    <!--<view class="line"></view>-->
+  </view>
+  <view class="no-data" wx:if="{{no_data}}">没有更多了</view> 
+</view>
+<view class="no_charge_contain" wx:if="{{charge_data.length == 0}}">
+  <image src="/images/no_charge.png" mode="scaleToFill" class="no_charge_img"></image>
+  <view class="holder" wx:if="{{isBalance}}">
+    <text class="text_left">您还没有充值记录</text>
+    <text class="text_right" bindtap="goUseAction">快去充值</text>
+  </view>
+  <view class="holder" wx:if="{{!isBalance}}">
+    <text class="text_left">您还没有押金充值记录，</text>
+    <text class="text_right" bindtap="payDepositAction">缴纳押金</text>
+    <text class="text_left">开始使用</text>
+  </view>
+</view>

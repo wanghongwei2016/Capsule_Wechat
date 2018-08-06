@@ -1,0 +1,159 @@
+/* orderList.wxss */
+page {
+  background-color: #ffffff;
+}
+
+.title_contain {
+  height: 134rpx;
+  width: 100%;
+}
+
+.title_contain_label {
+  font-size: 40rpx;
+  color: #999999;
+  margin-left: 57rpx;
+  margin-right: 19rpx;
+  height: 134rpx;
+  line-height: 134rpx;
+}
+
+.title_contain_label_hover {
+  font-size: 50rpx;
+  color: #333333;
+  font-weight: bolder;
+  margin-left: 57rpx;
+  margin-right: 19rpx;
+}
+
+.contain {
+  height: 130%;
+}
+.order_contain {
+  width: 100%;
+  height: 120rpx;
+  background-color: white;
+}
+.content_contain {
+  width: 95%;
+  height: 120rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  float: left;
+  left: 5%;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+.order_item {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /*padding-left: 50rpx;*/
+}
+.title_date {
+  font-size: 28rpx;
+  color: #333333;
+}
+.item_sub_title {
+  height: 24rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.sub_left_contain, .sub_right_contain {
+  height: 24rpx;
+}
+.sub_left_contain {
+  width: 40%;
+}
+.sub_left,.sub_right {
+  font-size: 24rpx;
+  color: #999999;
+}
+
+.sub_left {
+  width: 250rpx;
+}
+.sub_right {
+  margin-left: 40rpx;
+}
+.line {
+  width: 95%;
+  height: 2rpx;
+  color: #f0f0f0;
+}
+.icon_contain {
+  width: 20rpx;
+  height: 120rpx;
+  position: absolute;
+  float: right;
+  right: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.icon {
+  width:16rpx;
+  height:20rpx;
+}
+.status_contain {
+  width: 110rpx;
+  height: 120rpx;
+  position: absolute;
+  float: right;
+  right: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.status {
+  font-size: 28rpx;
+  color: #fe393d;
+  width: 120rpx;
+  text-align: right;
+}
+.status_pass {
+  /* font-size: 28rpx; */
+  color: #cdcdcd;
+  /* width: 110rpx; */
+  /* text-align: right; */
+}
+
+
+/**
+** 无订单
+*/
+.no_order_contain {
+  width: 100%;
+  height: 680rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.no_order_img {
+  width: 86rpx;
+  height: 92rpx;
+}
+.holder {
+  margin-top: 93rpx;
+}
+.text_left {
+  font-size: 28rpx;
+  color: #999999;
+}
+
+.text_right {
+  font-size: 28rpx;
+  color: #189df9;
+}
+
+.no-data{
+  text-align: center;
+  font-size: 24rpx;
+  color: #999999;
+  margin: 40rpx auto;
+}

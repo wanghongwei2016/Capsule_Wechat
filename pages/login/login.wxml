@@ -1,0 +1,54 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+<view class='login_container'>
+  <view>
+    <text class='welcome_login'>欢迎登录</text>
+  </view>
+  <view class='login_info_wrap'>
+    <text class='login_info'>请输入您的手机号码</text>
+  </view>
+  <view class="input_container">
+    <view class="section_wrap">
+      <view class='section'>
+        <view class='phone_wrap'>
+          <text>手机号</text>
+        </view>
+        <input class="input_phone" focus="true" bindinput="inputPhone" type="number" maxlength="13" placeholder="请输入手机号码" placeholder-style="color:#999999" value='{{phone}}' />
+        <view class='login_close_wrap' bindtap="deleteAction" data-type='phone'>
+          <image src='../../images/login_close.png' class='login_close login_close_phone' wx:if="{{phone_delete}}" bindtap="deleteAction" data-type='phone'></image>
+        </view>
+      </view>
+    </view>
+    <view class='section_code_wrap_container'>
+      <view class="section_wrap">
+        <view class='section'>
+          <view class='phone_wrap'>
+            <text>验证码</text>
+          </view>
+          <input class="input_password" bindinput="inputCode" maxlength="4" type="number" placeholder="请输入验证码" placeholder-style="color:#999999" value='{{code}}' />
+          <view class='login_close_wrap' bindtap="deleteAction" data-type='code'>
+            <image src='../../images/login_close.png' class='login_close' wx:if="{{code_delete}}" bindtap="deleteAction" data-type='code'></image>
+          </view>
+        </view>
+      </view>
+
+      <button class="checkNumber" bindtap="getCodeAction" disabled="{{code_disabled}}">{{motto}}</button>
+    </view>
+  </view>
+  <label class="voice_show" hidden="{{protocol_label_hiden}}">
+    <p class='agree_left'>收不到验证码？</p>
+    <p class='agree_protocol' bindtap='sendVoiceCodeAction'>使用语音验证码</p>
+  </label>
+  <view class="login_btn_container">
+    <button class="button_login" size="default" bindtap="loginAction" disabled="{{login_disabled}}">登录</button>
+  </view>
+  <label class="active_show" hidden="{{protocol_label_hiden}}">
+    <p class="active_show_default">首次登录即送
+      <span class='agree_protocol'>{{register_bonus}}元</span>大礼包</p>
+  </label>
+  <label class="protocol_show" hidden="{{protocol_label_hiden}}">
+    <p class='agree_left' bindtap="loginAction">点击登录，即表示已阅读同意</p>
+    <p class='agree_protocol' bindtap='protocolShowAction'>《享+用户协议》</p>
+  </label>
+</view>

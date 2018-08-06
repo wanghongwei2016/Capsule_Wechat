@@ -1,0 +1,22 @@
+<template name="hSwiperItem">
+	<view class="itemSelf">
+    	<navigator url="/pages/areaInfo/areaInfo?area_id={{item.area_id}}&title={{item.title}}">
+          <view class="img_contain">
+            <image wx:if="{{item.imgs[0]}}" src="{{item.imgs[0]}}_750" background-size="cover" class="item_image" mode="aspectFill"></image>
+            <view class="title_wrap">
+              <view class="title_wrap_wrap">
+                <text class="title">{{item.title}}</text>
+                <view class="distance_status">
+                  <text class="distance">距你{{item.distance < 1000 ? item.distance+'米' : item.distance/1000+'千米'}}</text>
+                  <text class="status">空闲:{{item.usable_capsule ? item.usable_capsule : 0}}/{{item.sum_capsule ? item.sum_capsule : 0}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </navigator>
+	</view>	
+</template>
+
+<template name="templateb">
+	{{item}}
+</template>

@@ -1,0 +1,49 @@
+.alarm_clock_container{
+  width: 100%;
+  height: 100%;
+  background-color: #f8f9f9;
+}
+.alarm_clock_choose{
+  width: 100%;
+  height: 144rpx;
+  border-bottom: 1rpx solid #cdcdcd;
+  border-top: 1rpx solid #cdcdcd;
+  box-sizing: border-box;
+}
+.alarm_clock_choose_wrap{
+  position: relative;
+  width: 680rpx;
+  margin: 0 auto;
+}
+.picker{
+  width: 100%;
+  height: 144rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: #000000;
+}
+.time{
+  font-size: 50rpx;
+  color: #333333;
+}
+.time_info{
+  font-size: 26rpx;
+  margin-left: 18rpx;
+}
+.clock_text{
+  font-size: 26rpx;
+}
+.switch_wrap{
+  position: absolute;
+  top: 0rpx;
+  right: 0;
+  height: 144rpx;
+}
+.switch_wrap_container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}

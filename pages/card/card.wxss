@@ -1,0 +1,467 @@
+/* pages/card/card.wxss */
+page {
+  background-color: #ffffff;
+}
+.contain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; 
+  width: 100%;
+  /* padding-bottom: 150rpx; */
+}
+/*卡片*/
+.card_contain{
+  width: 680rpx;
+  height: 401rpx;
+  /* margin-top: 50rpx; */
+}
+/*月卡  */
+.card_item {
+  width: 100%;
+}
+.card_content {
+  z-index: 1; 
+  position: relative;
+  width: 680rpx;
+  top: -410rpx;
+}
+
+.card_content view {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.card_content view:first-child {
+  margin-top: 29rpx;
+}
+.card_content text {
+  color: white;
+  /* width: 100%; */
+  position: relative;
+  display: block;
+}
+
+ .middle_title {
+  text-align: center;
+ }
+
+.card_left_title {
+  font-size: 38rpx;
+  float: left;
+  top: 1rpx;
+  left: 22px;
+}
+
+.card_right_title {
+  text-align: right;
+}
+
+#limit {
+  margin-right: 1px;
+  top: 0rpx;
+  float: right;
+  width: 51%;
+  height: 40rpx;
+  font-size: 24rpx;
+  line-height: 40rpx;
+}
+
+
+.card_middle_content {
+  margin-top: 60rpx;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-end; 
+}
+
+.card_middle_left_title {
+  height: 65rpx;
+  line-height: 65rpx;
+  font-size: 70rpx;
+  padding-right: 16rpx;
+}
+.card_middle_right_title {
+  height: 34rpx;
+  line-height: 34rpx;
+  font-size: 34rpx;
+  text-decoration: line-through;
+    /* text-decoration-line: line-through;
+  -moz-text-decoration-line:line-through;   */
+  padding-left: 16rpx;
+  /* border-bottom: 1px #fff solid; */
+}
+.card_right_buy {
+  color: white;
+  border: 2rpx solid white;
+}
+
+.card_content view:last-child {
+  margin-top: 76rpx;
+}
+
+/* .card_contain view:last-child {
+  align-content: center;
+  justify-content: center;
+  align-items: flex-end;
+} */
+.count_title {
+  font-size: 24rpx;
+  margin-right: 10rpx;
+}
+
+
+#buy_rightnow{
+  height: 40rpx;
+  font-size: 24rpx;
+  border-radius: 20rpx;
+  line-height: 40rpx;
+  background-color:#267ffe;
+  position: relative;
+}
+.month_card_class {
+  margin: 0px;
+  width: 100%;
+}
+.time {
+  width: 17rpx;
+  height: 40rpx;
+  font-size: 26rpx;
+  line-height: 40rpx;
+  text-align: center;
+}
+.middle {
+  margin-left: 5rpx;
+  color: white;
+}
+.count {
+  background-color: white;
+  width: 27rpx;
+  height: 40rpx;
+  border-radius: 4rpx;
+  color: #267ffe;
+  font-size: 26rpx;
+  margin-left: 5rpx;
+  margin-right: 5rpx;
+}
+
+/*月卡权益  */
+.card_equities {
+  /* display: flex;
+  flex-direction: column;
+  margin-top: -285rpx; */
+  /* position:absolute; */
+  width: 680rpx;
+  margin-top: 105rpx;
+
+}
+
+.card_equities_special {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items:  center;
+  margin-top: 83rpx;
+  left: 0px;
+
+}
+
+.card_equities text {
+  color: #333333;
+  text-align: center;
+}
+
+.card_equities image {
+  width: 50rpx;
+  height: 50rpx;
+}
+/* .equities_time_image { */
+  /* margin-top: 84rpx; */
+  /* margin-bottom: 56rpx; */
+/* } */
+
+.equities_title {
+  font-weight: bold;
+  font-size: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+    left: 16px;
+    position: absolute;
+
+}
+
+.equities_time_title{
+  font-size: 27rpx;
+  height: 27rpx;
+  line-height: 27rpx;
+  margin-left: 24rpx;
+}
+
+.equity_explain {
+  background-color: white;
+  color: #333333;
+  font-size: 24rpx;
+  height: 24rpx;
+  line-height: 24rpx;
+  margin-right: 0rpx;
+}
+
+.bottom_button {
+  width: 680rpx;
+  height: 80rpx;
+  font-weight: 500;
+  line-height: 80rpx;
+  font-size: 38rxp;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.bottom_button_buy {
+  width: 310rpx;
+  height: 60rpx;
+  color: #1a97ee;
+  border-radius: 30rpx;
+  background-color: white;
+  line-height: 60rpx;
+  margin-top: 20rpx;
+}
+.buy {
+    margin-top: 80rpx;
+
+}
+.activity_rules_title{
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  color: #1a97ee;
+  font-size: 26rpx;
+  /* bottom: 25rpx; */
+}
+.activity_rules_hide{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top:0; 
+  background: rgba(0,0,0,.5);
+  z-index: 1000;
+}
+.activity_rules{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 600rpx;
+  background: #ffffff;
+  padding: 57rpx 40rpx;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+}
+.text_title_contain {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 40rpx;
+  font-weight: 600;
+}
+.left_line,.right_line {
+  background-color: #4d4d4d;
+  width: 34%;
+  height: 2rpx;
+}
+.text_title {
+  font-size: 30rpx;
+  color: #4d4d4d;
+  width: 24%;
+  text-align: center;
+}
+.text_content {
+  width: 90%;
+  font-size: 26rpx;
+  color: #6c6c6c;
+  line-height: 1.3em;
+}
+.text_content_item{
+  margin-top: 35rpx;
+  display: inline-block;
+  text-align: justify;
+}
+.text_content_item:first-child{
+  margin-top: 0;
+}
+.close_view {
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  top: 10rpx;
+  right: 10rpx;
+}
+.close_icon{
+  /* position: absolute; */
+  width: 20rpx;
+  height: 20rpx;
+  top: 15rpx;
+  right: 15rpx;
+}
+
+/*续买月卡  */
+#limit2 {
+  margin-right: 38rpx;
+   /* top: 29rpx; */
+   float: right;
+  width: 50%;
+  height: 40rpx;
+  font-size: 24rpx;
+  border-radius: 20rpx;
+  line-height: 40rpx;
+  text-align: right;
+}
+.use_date {
+  text-align: center;
+  height: 40rpx;
+  font-size: 24rpx;
+  line-height: 40rpx;
+  margin-top: 40rpx;
+  width: 100%;
+}
+
+/* //拼团UI */
+.group_explain {
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  right: 60rpx;
+  margin-top: 20rpx;
+}
+.bold_text {
+  font-size: 38rpx;
+  font-weight: bold;
+  color: #333333;
+}
+.border_text {
+  background-color: white;
+  border: #1a97ee 1px solid;
+  color: #1a97ee;
+  font-size: 22rpx;
+  font-weight: 200;
+}
+.act_ing {
+  
+  padding: 0rpx 20rpx;
+  height: 30rpx;
+  line-height: 30rpx;
+  border-radius: 20rpx;
+  margin-top: 25rpx;
+  background-color: #f0f0f0;
+  margin-left: 20rpx;
+  font-weight: 400;
+}
+.group_item {
+  width: 630rpx;
+  height: 80rpx;
+  background-color: white;
+  border-radius: 8rpx;
+  margin-left: 25rpx;
+  margin-top: 20rpx;
+  display: flex;
+   flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+.normal_button {
+  width: 140rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  font-size: 26rpx;
+  color: #1a97ee;
+  background-color: white;
+  border: #1a97ee 2rpx solid;
+  padding-left: 5rpx;
+  padding-right: 5rpx;
+  margin-top: 18rpx;
+  margin-right:4px;
+
+  /* position: absolute; */
+}
+
+.selected_button {
+  width: 140rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  font-size: 26rpx;
+  color: white;
+  background-color: #1a97ee;
+  padding-left: 5rpx;
+  padding-right: 5rpx;
+  margin-top: 18rpx;
+  margin-right:4px;
+}
+
+.card_group {
+  width: 680rpx;
+  height: 440rpx;
+  background-color: #f0f0f0;
+  display: block;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 100rpx;
+  border-radius: 8rpx;
+  margin-top: 64rpx;
+}
+
+.group_title_view {
+   width: 630rpx;
+  height: 80rpx;
+  
+  margin-left: 25rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+   display: flex; 
+   /* flex-direction: row; */
+  /* align-content: center; */
+  /* justify-content: center; */
+  /* text-align: center; */
+}
+#group_top_title {
+   margin-left: 20rpx;
+   line-height: 80rpx;
+}
+
+.group_item_number {
+  color: #333333;
+  font-size: 30rpx;
+  /* left: 88rpx; */
+  line-height: 80rpx;
+  margin-left: 20rpx;
+  /* position:  absolute; */
+}
+.group_item_price {
+  color: #333333;
+  font-size: 40rpx;
+  font-weight: bold;
+  line-height: 80rpx;
+}
+
+.button_contain {
+  background-color: white;
+  /* margin-top: 145rpx; */
+  bottom:0rpx;
+  position:fixed;
+  left:35rpx;
+}
+
+.share {
+  margin-top: 15rpx;
+  margin-bottom:20rpx; 
+  background-color: white;
+  border: #1a97ee 1px solid;
+  border-radius: 4px;
+  color: #1a97ee;
+}

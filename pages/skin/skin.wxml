@@ -1,0 +1,212 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class='skin-wrap'>
+  <view class="skin-container">
+    <view class="skin-head">
+      <view class='skin-head-wrap'>
+        <view class='skin-user-icon-wrap'>
+          <view class='skin-user-icon'>
+            <image src="{{face_url+'_1080'}}" class='face_url' mode="aspectFill"></image>
+          </view>
+        </view>
+        <view class='skin-user-info'>
+          <view class='skin-user-name'>
+            <text>{{nick_name}}</text>
+          </view>
+          <view class='skin-time'>
+            <text>{{date}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--颜值  -->
+    <view class='skin-item'>
+      <view class='skin-item-title'>
+        颜值
+      </view>
+      <view class='skin-beauty'>
+        <view class="circle-box">
+          <canvas class="circle" style="width:180rpx; height:180rpx;" canvas-id="canvasCircle">
+          </canvas>
+          <canvas class="circle" style="z-index:100;width:180rpx; height:180rpx;" canvas-id="canvasArcCir">
+          </canvas>
+          <view class="skin-beauty-text">
+            <text class='skin-beauty-text1'>{{beauty}}</text>
+            <text class='skin-beauty-text2'>分</text>
+          </view>
+        </view>
+        <view class='skin-beauty-info'>
+          <text>您的颜值超过了{{beauty}}%的人</text>
+        </view>
+      </view>
+    </view>
+    <!--健康  -->
+    <view class='skin-item'>
+      <view class='skin-item-title'>
+        健康
+      </view>
+      <view class='skin-health'>
+        <view class='dial'>
+          <image src='../../images/skin_health.png' class='skin_health_img'></image>
+          <view class='indicator' style="{{indicator_rotate}}">
+            <image src='../../images/skin_health_arrow.png' class='skin_health_arrow'></image>
+          </view>
+          <view class='skin-health-text'>
+            <text>{{health}}</text>
+          </view>
+        </view>
+        <view class='skin-health-info'>
+          <text>{{health_text}}</text>
+        </view>
+      </view>
+    </view>
+    <!--色斑  -->
+    <view class='skin-item'>
+      <view class='skin-item-title'>
+        色斑
+      </view>
+      <view class='skin-spot'>
+        <view class='skin_spot_img_wrap'>
+          <image wx:if="{{stain_level == 'normal'}}" src="../../images/skin_spot.png" class='skin_spot_img'></image>
+          <image wx:if="{{stain_level == 'one'}}" src="../../images/skin_spot1.png" class='skin_spot_img'></image>
+          <image wx:if="{{stain_level == 'two'}}" src="../../images/skin_spot2.png" class='skin_spot_img'></image>
+          <image wx:if="{{stain_level == 'three'}}" src="../../images/skin_spot3.png" class='skin_spot_img'></image>
+        </view>
+        <view class='skin-spot-wrap'>
+          <view class='skin-spot-title'>色斑严重程度：<text class="health-bold">{{stain_level=='normal'? '正常' : stain_level=='one'? '轻度' : stain_level=='two' ? '中度' : '重度'}}</text></view>
+          <view class='skin-spot-progress'></view>
+          <view class='skin-spot-progress-arrow-wrap'>
+            <image class='skin-spot-progress-arrow' src='../../images/health_result_arrow.png' style='left:{{stain_width}}'></image>
+          </view>
+          <view class='skin-spot-progress-info'>
+            <view class="skin-spot-progress-info-item">正常</view>
+            <view class="skin-spot-progress-info-item">轻度</view>
+            <view class="skin-spot-progress-info-item">中度</view>
+            <view class="skin-spot-progress-info-item">重度</view>
+          </view>
+          <view class='skin-spot-progress-suggest'>
+            <view wx:if="{{stain_level=='normal'}}">
+              <text>肌肤净白无暇说的就是您啦，继续保持哦！</text>
+            </view>
+            <view wx:if="{{stain_level=='one'}}">
+              <text>您有轻微色斑，以下几点建议供您参考：</text>
+              <view>
+                <text>1、多吃水果蔬菜，少食刺激性食物\n2、注意补充水份\n3、保持心情愉悦</text>
+              </view>
+            </view>
+            <view wx:if="{{stain_level=='two'}}">
+              <text>您有中度色斑，以下几点建议供您参考：</text>
+              <view>
+                <text>1、可依据情况适当服用维生素C\n2、规律作息，尽量不要熬夜\n3、做好防晒工作</text>
+              </view>
+            </view>
+            <view wx:if="{{stain_level=='three'}}">
+              <text>需要引起重视咯，以下几点可供参考：</text>
+              <view>
+                <text>1、避免熬夜，保证充足睡眠\n2、减少化妆，根据个人情况使用淡斑霜\n3、注意补水，可尝试多喝柠檬黄瓜汁</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--黑眼圈  -->
+    <view class='skin-item'>
+      <view class='skin-item-title'>
+        黑眼圈
+      </view>
+      <view class='skin-spot'>
+        <view class='skin_spot_img_wrap skin_dark_img_wrap'>
+          <view class='skin_dark1_wrap'>
+            <image src="../../images/skin_dark.png" class='skin_dark1' wx:if="{{dark_level=='normal'}}"></image>
+            <image src="../../images/skin_dark1.png" class='skin_dark1' wx:if="{{dark_level=='one'}}"></image>
+            <image src="../../images/skin_dark2.png" class='skin_dark1' wx:if="{{dark_level=='two'}}"></image>
+            <image src="../../images/skin_dark3.png" class='skin_dark1' wx:if="{{dark_level=='three'}}"></image>
+          </view>
+          <image src="../../images/skin_dark4.png" class='skin_dark2'></image>
+          <view class='skin_dark_title'>
+            <text>轻度</text>
+            <text>中度</text>
+            <text>严重</text>
+          </view>
+        </view>
+        <view class='skin-spot-wrap'>
+          <view class='skin-spot-title'>黑眼圈严重程度：<text class="health-bold">{{dark_level=='normal'? '正常' : dark_level=='one'? '轻度' : dark_level=='two' ? '中度' : '重度'}}</text></view>
+          <view class='skin-spot-progress'></view>
+          <view class='skin-spot-progress-arrow-wrap'>
+            <image class='skin-spot-progress-arrow' src='../../images/health_result_arrow.png' style='left:{{dark_width}}'></image>
+          </view>
+          <view class='skin-spot-progress-info'>
+            <view class="skin-spot-progress-info-item">正常</view>
+            <view class="skin-spot-progress-info-item">轻度</view>
+            <view class="skin-spot-progress-info-item">中度</view>
+            <view class="skin-spot-progress-info-item">重度</view>
+          </view>
+          <view class='skin-spot-progress-suggest'>
+            <text wx:if="{{dark_level=='normal'}}">黑眼圈都去找大熊猫了，您继续保持规律的作息习惯就好！</text>
+            <text wx:if="{{dark_level!='normal'}}">您有{{dark_level=='one'? '轻微' : dark_level=='two' ? '中度' : '重度'}}黑眼圈，以下几点建议供您参考：</text>
+            <view>
+              <text wx:if="{{dark_level=='one'}}">1、注意休息，减少熬夜\n2、多喝清水，有助于排除体内毒素\n3、早上喝一杯胡萝卜汁或番茄汁，有助于消除眼睛疲劳</text>
+              <text wx:if="{{dark_level=='two'}}">1、多休息，尽量不要熬夜\n2、每天喝8杯水有助于淡化黑眼圈\n3、每天喝一杯红枣水，补气养血，减缓疲劳</text>
+              <text wx:if="{{dark_level=='three'}}">1、避免熬夜，保证充足睡眠\n2、多喝清水，可多尝试胡萝卜汁番茄汁红枣水等\n3、根据个人情况配合使用眼霜或眼膜等
+</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!--青春痘  -->
+    <view class='skin-item'>
+      <view class='skin-item-title'>
+        青春痘
+      </view>
+      <view class='skin-spot'>
+        <view class='skin_spot_img_wrap'>
+          <image wx:if="{{acne_level=='normal'}}" src="../../images/skin_acne.png" class='skin_acne_img'></image>
+          <image wx:if="{{acne_level=='one'}}" src="../../images/skin_acne1.png" class='skin_acne_img'></image>
+          <image wx:if="{{acne_level=='two'}}" src="../../images/skin_acne2.png" class='skin_acne_img'></image>
+          <image wx:if="{{acne_level=='three'}}" src="../../images/skin_acne3.png" class='skin_acne_img'></image>
+        </view>
+        <view class='skin-spot-wrap'>
+          <view class='skin-spot-title'>青春痘严重程度：<text class="health-bold">{{acne_level=='normal' ? '正常' : acne_level=='one'? '轻度' : acne_level=='two' ? '中度' : '重度'}}</text></view>
+          <view class='skin-spot-progress'></view>
+          <view class='skin-spot-progress-arrow-wrap'>
+            <image class='skin-spot-progress-arrow' src='../../images/health_result_arrow.png' style='left:{{acne_width}}'></image>
+          </view>
+          <view class='skin-spot-progress-info'>
+            <view class="skin-spot-progress-info-item">正常</view>
+            <view class="skin-spot-progress-info-item">轻度</view>
+            <view class="skin-spot-progress-info-item">中度</view>
+            <view class="skin-spot-progress-info-item">重度</view>
+          </view>
+          <view class='skin-spot-progress-suggest'>
+            <view wx:if="{{acne_level=='normal'}}">
+              <text>太羡慕您了，竟然没有青春痘的烦恼！</text>
+            </view>
+            <view wx:if="{{acne_level=='one'}}">
+              <text>皮肤健康和饮食习惯有密切联系，建议您注意以下几点：</text>
+              <view>
+                <text>1、饮食清淡些，少吃辛辣油炸\n2、增强运动，调整作息时间，少熬夜\n3、多喝柠檬水，随时注意补充水份</text>
+              </view>
+            </view>
+            <view wx:if="{{acne_level=='two'}}">
+              <text>痘痘有点多咯，亲需要注意下饮食及生活习惯了，可参考以下几点建议：</text>
+              <view>
+                <text>1、补水不容忽视，多吃水果蔬菜\n2、保证充足的睡眠和良好的生活习惯\n3、注意面部清洁，建议不要随意使用祛痘药物</text>
+              </view>
+            </view>
+            <view wx:if="{{acne_level=='three'}}">
+              <text>需要引起重视咯，以下几点可供参考：</text>
+              <view>
+                <text>1、注意面部清洁，保持枕巾、枕套勤换洗的习惯\n2、少用发胶、定型液，如果非用不可，请注意与脸部隔离\n3、多摄取维生素含量多的蔬菜、水果，保证充足睡眠和良好的饮食生活习惯。</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='skin-space'></view>
+  </view>
+</view>

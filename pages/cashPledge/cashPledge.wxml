@@ -1,0 +1,14 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<view class="contain">
+  <view class="deposit_container">
+    <image src="../../images/balance_bg.png" class="logo_icon"></image>
+    <text class="deposit {{depositDisabled ? 'depositDisabled' : ''}}">{{deposit}}元</text>
+    <text class="deposit_info">{{deposit_text_placeholder}}</text>
+  </view>
+  <button class="pay_button" bindtap="depositAction">{{btn_text}}</button>
+  <button class="pay_back_button pay_button" bindtap="backdepositAction" wx:if="{{back_deposit}}">补交押金</button>
+  <view class="recharge_details" bindtap="chargeDetailAction">押金明细</view>  
+</view>

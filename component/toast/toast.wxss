@@ -1,0 +1,17 @@
+.toast_content {
+  position: fixed;  
+  padding: 20rpx 25rpx;  
+  background: rgba(0, 0, 0, 0.65);  
+  border-radius: 20rpx;  
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 999; 
+}  
+.toast_content_text {  
+  height: 100%;  
+  width: 100%;  
+  color: #fff;  
+  font-size: 28rpx;  
+  text-align: center;  
+} 

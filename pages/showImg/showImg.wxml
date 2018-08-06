@@ -1,0 +1,12 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+<view class="big_img_contain" bindtap="goBack">
+  <swiper class="banner" interval="2500" circular="true" bindchange="swiperAction" current="{{current}}" bindchange="swiperAction">
+    <block wx:for="{{bigImgs}}" wx:key="imgs">
+      <swiper-item>
+        <image class="banner_img" src="{{item}}_750" mode="aspectFill"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+</view>

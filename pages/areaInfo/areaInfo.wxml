@@ -1,0 +1,89 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<!--areaInfo.wxml-->
+<!--<text>areaInfo.wxml</text>-->
+<view class="contain">
+  <view class="banner_contain">
+    <navigator url="/pages/showImg/showImg?current={{current}}&bigImgs={{area_info.imgs}}">
+      <swiper class="banner" autoplay="true" interval="2500" circular="true" bindchange="swiperAction">
+        <block wx:for="{{area_info.imgs}}" wx:key="imgs">
+          <swiper-item>
+            <image class="banner_img" src="{{item}}_750" mode="aspectFill"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </navigator>
+    <view class="banner_info">
+      <!-- <text class="banner_title">{{area_info.types[0].price ? area_info.types[0].price / 100 : 0}}元/分钟</text> -->
+      <text class="banner_subtitle">{{current+1}}/{{area_info.imgs.length}}</text>
+    </view>
+  </view>
+
+  <view class="capsule_status_contain">
+    <text class="section_title">使用状态</text>
+    <view class="capsule_list capsule_list_special" wx:if="{{area_info.capsules.length == 4 || area_info.capsules.length == 2}}">
+      <block wx:for="{{area_info.capsules}}" wx:key="imgs">
+        <view class="capsule_item {{item.status==1 ? '' : 'capsule_disabled'}}">{{item.capsule_id}}</view>
+      </block>
+    </view>
+    <view class="capsule_list" wx:else>
+      <block wx:for="{{area_info.capsules}}" wx:key="imgs">
+        <view class="capsule_item {{item.status == 1 ? '' : 'capsule_disabled'}}">{{item.capsule_id}}</view>
+      </block>
+    </view>
+    <view class="capsule_status_info">
+      <view class="capsule_item capsule_status"></view>
+      <view class="capsule_item capsule_disabled capsule_status"></view>
+    </view>
+    <view class="capsule_status_info capsule_text">
+      <view class="capsule_item capsule_status capsule_text">空闲</view>
+      <view class="capsule_item capsule_disabled capsule_status capsule_text">使用中</view>
+    </view>
+    <view class="capsule_price_rule">
+      <text>使用规则：{{area_info.types[0].price_rule_text}}</text>
+    </view>
+  </view>
+  <view class="line_section"></view>
+
+  <view class="location_info_contain">
+    <text class="section_title">位置信息</text>
+    <text class="location_distance">距你：{{distance}}</text>
+    <image class="myMap" src="{{area_info.area_img}}_750" bindtap="openMapAction" mode="aspectFill"></image>
+    <view class="location_name" bindtap="openMapAction">{{area_info.address}}</view>
+  </view>
+  <view class="line_section"></view>
+
+  <view class="notification">
+    <text class="section_title">注意事项</text>
+    <text class="notif_detail">{{area_info.notification}}</text>
+  </view>
+
+  <view class="line_section"></view>
+
+  <view class="contact">
+    <text class="section_title">联系客服</text>
+    <text class="contact_tel">电话：{{area_info.contact}}</text>
+    <!-- <view class="month_live">
+      <text class="month_live_left">如您需要享+共享头等舱包月服务请点击</text>
+      <text class="month_live_bind" bindtap="monthLiveAction">包月预约</text>
+      <text class="month_live_right">进行预约</text>
+    </view> -->
+  </view>
+</view>
+
+<view class="footer_contain">
+  <view class="scan_contain" bindtap="scanCodeAction">
+    <image class="scan_back" src="../../images/scan_back.png" mode="aspectFill"></image>
+    <view class="scan_content_contain">
+      <image class="scan_qrcode" src="../../images/qrcode.png"></image>
+      <text class="scan_placeholder">{{scanCodeText}}</text>
+      <!-- <image class="scan_arrow" src="../../images/scan_arrow.png"  mode="aspectFill"></image> -->
+    </view>
+  </view>
+
+  <view class="call_contain" bindtap="callServiceAction">
+    <image class="call" src="../../images/call_blue.png" mode="aspectFill"></image>
+  </view>
+</view>

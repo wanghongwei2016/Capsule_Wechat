@@ -1,0 +1,98 @@
+/* verifi.wxss */
+
+page {
+  background-color: #fff;
+}
+
+.contain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.title_conain {
+  font-size: 34rpx;
+  color: #404040;
+  margin-top: 98rpx;
+  margin-bottom: 58rpx;
+  text-align: left;
+  width: 90%;
+}
+
+.verifi_contain {
+  width: 90%;
+  height: 200rpx;
+}
+
+.section_contain {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 88rpx;
+  width: 100%;
+  border-radius: 6rpx;
+  background-color: #f7f7f7;
+  margin-top: 20rpx;
+}
+
+.section_item_contain {
+  height: 44rpx;
+  width: 100%;
+}
+
+.name_icon {
+  width: 56rpx;
+  height: 39rpx;
+  position: absolute;
+  float: left;
+  left: 8%;
+}
+
+.name_input, .card_input {
+  /*position: absolute;
+  float: left;*/
+  font-size: 28rpx;
+  width: 80%;
+}
+
+.name_input {
+  height: 39rpx;
+  position: absolute;
+  float: left;
+  left: 20%;
+}
+
+.card_input {
+  height: 46rpx;
+  position: absolute;
+  float: left;
+  left: 20%;
+}
+
+.card_icon {
+  width: 56rpx;
+  height: 46rpx;
+  position: absolute;
+  float: left;
+  left: 8%;
+}
+
+.verif_button {
+  width: 90%;
+  height: 88rpx;
+  margin-top: 60rpx;
+  font-size: 34rpx;
+}
+
+.info_contain {
+  width: 90%;
+  margin-top: 28rpx;
+}
+
+.info {
+  font-size: 22rpx;
+  color: #a9a9a9;
+}

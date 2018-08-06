@@ -1,0 +1,21 @@
+/* couponExchange.wxss */
+page{
+  background-color: #f0f0f0;
+}
+
+.input {
+  background-color: white;
+  height: 88rpx;
+  width: 100%;
+  margin-top: 38rpx;
+  margin-bottom: 38rpx;
+  font-size: 28rpx;
+  padding-left: 38rpx;
+}
+
+.exchange_button {
+  width: 90%;
+  height: 88rpx;
+  line-height: 2.5em;
+  font-size: 34rpx;
+}

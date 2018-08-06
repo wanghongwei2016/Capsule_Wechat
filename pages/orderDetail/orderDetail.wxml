@@ -1,0 +1,189 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class="container">
+  <view class="count_container">
+    <swiper class="swiper_container" vertical="true" autoplay="true" circular="true" interval="2000" wx:if="{{activity_list.length > 0}}">
+      <block wx:for="{{activity_list}}" wx:key="{{index}}">
+        <swiper-item>
+          <view class="swiper_item" bindtap="webViewAction" data-url="{{item.activity_url}}">
+            {{item.activity_title}}
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+    <image src='../../images/notice.png' class='notice' wx:if="{{activity_list.length>0}}"></image>
+    <view class="imageBack">
+      <image src="../../images/booking_time.png" class="count_time_circle"></image>
+      <!-- <label class="count_time_placeholder">您累计使用</label> -->
+      <label class="count_time">{{count_show}}</label>
+    </view>
+    <view class='count_search_wrap'>
+      <view class='count_search'>
+        <button class="search_charge" bindtap="searchChargeAction">查询当前费用</button>
+        <image src="../../images/count_question.png" class='count_question' bindtap='handleSearchRule'></image>
+      </view>
+    </view>
+  </view>
+  <!-- <view class="feeBack">
+    <text>使用规则:{{calculate_rule}}</text>
+  </view> -->
+  <!-- <view class="btn_container">
+    <button class="sleep_sit_btn" bindtap="closeTemporaryAction">关帘</button>
+    <button class="sleep_sit_btn" bindtap="openTemporaryAction">开帘</button>
+  </view> -->
+  <!--老版本  -->
+  <view class='btn_container_wrap' wx:if="{{capsule_version == 1}}">
+      <!-- <button class='openDoor' hover-class="openDoor_active" bindtap="openMusicAction">
+        <text class='btn_item'>减压</text>
+      </button> -->
+      <button class="end_booking" bindtap="handEndBooking" hover-class="end_booking_active">
+        <text>结束\n使用</text>
+      </button>
+  </view>
+  <view class='btn_open_container'  wx:if="{{capsule_version == 1}}">
+    <button class='openDoor' hover-class="openDoor_active" bindtap="openTemporaryAction">
+      <text class='btn_item'>开舱</text>
+    </button> 
+  </view>
+  <!--新版本  -->
+  <view class='telecontrol_wrap' wx:if="{{capsule_version == 2}}">
+   <view class='count_open_wrap'>
+      <image src='{{openSrc}}' class='count_open'></image>
+      <view class='count_open_text'>
+        <text>开舱</text>
+      </view>
+      <view class='count_open_tap' bindlongtap='changeStatus' data-function='open' bindtouchend='backStatus' bindtap='handleFunction'></view>
+    </view>
+    <view class='count_down_wrap'>
+      <image src='{{downSrc}}' class='count_down'></image>
+      <view class='count_down_text'>
+        <text>平躺</text>
+      </view>
+      <view class='count_down_tap' bindlongtap='changeStatus' data-function='down' bindtouchend='backStatus' bindtap='handleFunction'></view>
+    </view>
+    <view class='count_up_wrap'>
+      <image src='{{upSrc}}' class='count_up'></image>
+      <view class='count_up_text'>
+        <text>坐立</text>
+      </view>
+      <view class='count_up_tap'  bindlongtap='changeStatus' data-function='up' bindtouchend='backStatus' bindtap='handleFunction'></view>
+    </view>
+     <view class='count_end_wrap'>
+      <image src='{{endSrc}}' class='count_end'></image>   
+      <view class='count_end_text'>
+        <text>结束使用</text>
+      </view>
+      <view class='count_end_tap' bindlongtap='changeStatus' data-function='end' bindtouchend='backStatus' bindtap='handleFunction'></view>
+    </view>
+    <view class='count_light_wrap'>
+      <image src='{{lightSrc}}' class='count_light'></image>
+      <view class='count_light_text'>
+        <text>开灯</text>
+      </view>
+      <view class='count_light_tap' bindlongtap='changeStatus' data-function='light' bindtouchend='backStatus' bindtap='handleFunction'></view>
+    </view>
+    <view class='count_fan_wrap'>
+      <image src='{{fanSrc}}' class='count_fan'></image>
+      <view class='count_fan_text'>
+        <text>关灯</text>
+      </view>
+      <view class='count_fan_tap' bindlongtap='changeStatus' data-function='fan' bindtouchend='backStatus' bindtap='handleFunction'></view>
+    </view>
+  </view>
+
+  <view class='bottom_wrap'>
+    <view class="bottom">
+      <!-- <button class="leave_question" bindtap="handEndBooking">离开后未结束订单？</button>
+      <text class="leave_info">出舱后1分钟内自动关闭舱门并结束订单</text> -->
+      <label class="orderDetail_kefu">
+        <p class='orderDetail_kefu_left'>客服电话：</p>
+        <p class='orderDetail_kefu_right' bindtap='callServiceAction'>{{phoneService}}</p>
+      </label>
+    </view>
+  </view>
+  <view class='count_line'></view>
+  <view class='count_functions'>
+    <view class='function_item' data-type='music' bindtap='jumpTo'>
+      <image src='../../images/count_function1.png' class='count_function1'></image>
+      <text class='function_item_text'>减压冥想</text>
+    </view>
+    <view class='function_item' data-type='skin' bindtap='jumpTo'>
+      <image src='../../images/count_function2.png' class='count_function2'></image>
+      <text class='function_item_text'>肤质测试</text>
+    </view>
+    <view class='function_item' data-type='alarmClock' bindtap='jumpTo'>
+      <image src='../../images/count_function3.png' class='count_function3'></image>
+      <text class='function_item_text'>闹钟</text>
+    </view>
+    <view class='function_item' data-type='more' bindtap='toggleMoreAction'>
+      <image src='../../images/count_function4.png' class='count_function4'></image>
+      <text class='function_item_text'>心率/血压</text>
+    </view>
+  </view>
+  <view class='more_content_mask {{moreShow ? "more_content_mask_active" : ""}}'>
+    <view class='more_content_black' bindtap='toggleMoreAction'></view>
+    <view class='more_content_wrap {{moreShow ? "more_content_wrap_active" : ""}}'>
+      <view class='more_content'>
+        <view class='more_content_container'>
+          <view class='more_content_item'>
+            <view class='more_content_item_icon {{bloodPressureActive ? "bloodPressureActive" : ""}}' bindlongtap='changeStatus' data-function='bloodPressure' bindtouchend='backStatus' bindtap='handleFunction'>
+              <view class='more_content_item_icon_wrap'>
+                <image src='{{bloodPressureSrc}}' class='bloodPressure'></image>
+              </view>
+            </view>
+            <text>血压</text>
+          </view>
+          <view class='more_content_item'>
+            <view class='more_content_item_icon {{heartRateActive ? "heartRateActive" : ""}}' bindlongtap='changeStatus' data-function='heartRate' bindtouchend='backStatus' bindtap='handleFunction'>
+              <view class='more_content_item_icon_wrap'>
+                <image src='{{heartRateSrc}}' class='heartRate'></image>
+              </view>
+            </view>
+            <text>心率</text>
+          </view>
+          <view class='more_content_item'>
+            <view class='more_content_item_icon {{healthActive ? "healthActive" : ""}}' bindlongtap='changeStatus' data-function='health' bindtouchend='backStatus' bindtap='handleFunction'>
+              <view class='more_content_item_icon_wrap'>
+                <image src='{{healthSrc}}' class='health'></image>
+              </view>
+            </view>
+            <text>健康顾问</text>
+          </view>
+        </view>
+      </view>
+      <view class='more_button' bindtap='toggleMoreAction'>关闭</view>
+    </view>
+  </view>
+    <view class="order_fault order_fault_flow" bindtap="normalQuestionsAction">使用流程</view>
+  <view class="order_fault order_fault_report" bindtap="faultReportAction">故障</view>
+  <!--月卡买单特惠  -->
+    <view class="activity_rules_hide" wx:if="{{month_card_flag != 1 && showed_buy_card == 2}}">
+    <view class="activity_rules">
+    <view class='top'>
+    <image class="text_title_contain" src='/images/es_top.png' mode='widthFix'>
+      
+      </image>
+        <text class="text_title">月卡买单特惠</text>
+        <text class="text_subtitle">低至29.8元/月，每天免费休息1小时</text>
+    </view>
+         <view class="text_content"> 
+        <text class="text_content_item">
+        本次订单金额<text style="font-weight:700">{{card_price}}</text>元
+        </text>
+        <text class="text_content_item2">
+        月卡支付仅需<text style="color:#ff0000">{{card_month_price == null?0:card_month_price}}</text>元
+        </text>
+         <view class='button_container' style='width:100%'> 
+                <!-- <button class='end' bindtap='endOrderAction'>结束使用</button> -->
+                <button class='buycard' bindtap='buyRightNowAction'>购买月卡</button>
+         </view> 
+       </view> 
+      <view class="close_icon" bindlongtap='changeStatus' data-function='end' bindtouchend='backStatus' bindtap='toggleRulesAction'>
+        <image class="close_icon_image" src="../../images/card_buy_close.png" mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+
+</view>

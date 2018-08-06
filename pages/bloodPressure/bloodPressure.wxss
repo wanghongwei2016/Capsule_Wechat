@@ -1,0 +1,164 @@
+@import "../../component/bloodHeartIntro/bloodHeartIntro.wxss";
+.blood_pressure_container{
+  width: 100%;
+  height: 100%;
+}
+.blood_pressure_content{
+  width: 100%;
+  height: 572rpx;
+  background-color: #189df9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.blood_pressure_timing{
+  width: 430rpx;
+  height: 430rpx;
+  border-radius: 50%;
+  border: 4rpx solid #46b1fa;
+}
+.blood_pressure_timing_wrap{
+  width: 100%;
+  height: 350rpx;
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: #ffffff;
+}
+.blood_pressure_timing_wrap text:first-child{
+  font-size: 30rpx;
+}
+.blood_pressure_timing_wrap text:nth-child(2){
+  font-size: 110rpx;
+}
+.blood_pressure_timing_wrap text:last-child{
+  font-size: 50rpx;
+}
+.blood_pressure_btn_wrap{
+  position: absolute;
+  width: 232rpx;
+  height: 232rpx;
+  bottom: 18rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.blood_pressure_btn{
+  width: 232rpx;
+  height: 232rpx;
+}
+.blood_pressure_btn_text{
+  position: absolute;
+  font-size: 34rpx;
+  color: #ffffff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: inline-block;
+  width: 140rpx;
+  text-align: center;
+}
+.blood_pressure_result{
+  width: 654rpx;
+  margin: 50rpx auto auto;
+  text-align: center;
+  opacity: 0;
+  transition: all .3s;
+}
+.blood_pressure_result_show{
+  opacity: 1;
+}
+.blood_pressure_result_intro{
+  font-size: 24rpx;
+  color: #666666;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.blood_pressure_result_intro image{
+  width: 27rpx;
+  height: 27rpx;
+  margin-right: 10rpx;
+}
+.blood_pressure_result_bar_container{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 44rpx;
+}
+.blood_pressure_result_bar_title{
+  width: 72rpx;
+  font-size: 26rpx;
+  color: #333333;
+  text-align: left;
+}
+.blood_pressure_result_bar_title view:nth-child(1){
+  margin-top: -4rpx;
+}
+.blood_pressure_result_bar_title view:nth-child(2){
+  margin-top: 66rpx;
+}
+.blood_pressure_result_bar_wrap{
+  width: 582rpx;
+}
+.blood_pressure_result_bar_num{
+  position: relative;
+  width: 100%;
+  height: 25rpx;
+  font-size: 22rpx;
+  color: #333333;
+  line-height: 25rpx;
+}
+.blood_pressure_result_bar_num text:nth-child(1){
+  position: absolute;
+  left: 182rpx;
+}
+.blood_pressure_result_bar_num text:nth-child(2){
+  position: absolute;
+  left: 371rpx;
+}
+.blood_pressure_result_bar_num text.special{
+  left: 376rpx;
+}
+.blood_pressure_result_bar{
+  width: 100%;
+  height: 15rpx;
+  background: linear-gradient(to right, #ff2831,#fbeb57,#00c77f,#fbeb57,#ff2831);
+  border-radius: 7rpx;
+}
+.blood_pressure_result_bar_arrow_wrap{
+  position: relative;
+  width: 100%;
+  height: 20rpx;
+  margin-top: 10rpx;
+  margin-bottom: 4rpx;
+}
+.blood_pressure_result_bar_arrow_wrap.special{
+  margin-top: 4rpx;
+  margin-bottom: 10rpx;
+}
+.blood_pressure_result_arrow{
+  position: absolute;
+  width: 23rpx;
+  height: 20rpx;
+  top: 0;
+  transform: rotate(180deg) translateX(50%);
+  transition: all .3s;
+}
+.blood_pressure_result_arrow.special{
+  transform: translateX(-50%);
+}
+.blood_pressure_result_bar_text{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  font-size: 22rpx;
+  color: #333333;
+  margin-top: 26rpx;
+}
+.blood_pressure_result_bar_text view{
+  flex:1;
+}

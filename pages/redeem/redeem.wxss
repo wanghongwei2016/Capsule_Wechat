@@ -1,0 +1,165 @@
+.redeem_container {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  position: relative;
+}
+
+.redeem_icon {
+  width: 98rpx;
+  height: 71rpx;
+  margin: 64rpx auto 62rpx auto;
+}
+
+.redeem_title {
+  font-size: 50rpx;
+  color: #333;
+}
+
+.redeem_input_wrap {
+  position: relative;
+  width: 430rpx;
+  margin: 0 auto;
+}
+
+.redeem_input {
+  width: 360rpx;
+  height: 65rpx;
+  border-bottom: 3rpx solid #b9b9b9;
+  display: inline-block;
+  font-size: 38rpx;
+  color: #333;
+  padding: 0 35rpx;
+  margin-top: 130rpx;
+  transition: all .3s;
+}
+
+.redreem_btn_wrap {
+  margin-top: 76rpx;
+}
+
+.redreem_btn {
+  width: 690rpx;
+  height: 80rpx;
+  background: #189df9;
+  color: #fff;
+  line-height: 80rpx;
+}
+
+.redreem_btn_tap {
+  background: #168de0;
+}
+
+.redreem_rule {
+  color: #189df9;
+  font-size: 28rpx;
+  margin-top: 40rpx;
+}
+
+.redeem_success_wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.redeem_success_position {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  width: 524rpx;
+  height: 638rpx;
+}
+
+.redeem_success {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#ea6c4c, #ea4368);
+  border-radius: 15rpx;
+  color: #fff;
+  animation: redeemSuccess 0.5s;
+  transform-origin: 50% 50%;
+}
+
+@keyframes redeemSuccess {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.redeem_success_active {
+  opacity: 1;
+  z-index: 9;
+}
+
+.redeem_success_text_wrap {
+  margin-top: 60rpx;
+  font-size: 63rpx;
+  letter-spacing: 5rpx;
+}
+
+.redeem_success_info_wrap {
+  margin-top: 92rpx;
+  font-size: 28rpx;
+  letter-spacing: 3rpx;
+}
+
+.redeem_success_price_wrap {
+  margin-top: 10rpx;
+  font-size: 120rpx;
+}
+
+.redeem_success_price_text {
+  font-size: 44rpx;
+}
+
+.redeem_success_btn {
+  width: 340rpx;
+  height: 80rpx;
+  background: #fdfefe;
+  display: inline-block;
+  border-radius: 8rpx;
+  margin-top: 40rpx;
+  color: #ea4864;
+  line-height: 80rpx;
+}
+
+.redreem_success_btn_tap {
+  background: #e3e4e4;
+}
+
+.redeem_success_intro {
+  font-size: 24rpx;
+  margin-top: 15rpx;
+}
+.code_delete_wrap{
+  position: absolute;
+  width: 40rpx;
+  height: 80rpx;
+  bottom: 16rpx;
+  right: 0;
+  z-index: 3;
+}
+.code_delete {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  z-index: 3;
+  right: 0;
+  bottom: 0rpx;
+}

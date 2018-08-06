@@ -1,0 +1,72 @@
+<!--homePage.wxml-->
+<!--<text>homePage.wxml</text>-->
+<!--<view class="back_view" wx:if="{{page_contents.length > 0}}">
+</view>-->
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<import src="../../component/hSwiper/hSwiper.wxml" />
+<view class="contain">
+  <!-- 活动推广轮播图  -->
+  <swiper class="active_swiper" wx:if="{{activityList.length>1}}" indicator-dots="true" autoplay="true" interval="2500" indicator-color="rgba(255,255,255,0.5)" indicator-active-color="rgba(255,255,255,1)" circular="true">
+    <block wx:for="{{activityList}}" wx:key="{{index}}">
+      <swiper-item>
+          <image class="active_img" src="{{item.img_url}}_750" background-size="cover" mode="aspectFill" data-index="{{index}}" bindtap="webViewAction"/>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <swiper class="active_swiper" wx:if="{{activityList.length==1}}">
+    <block wx:for="{{activityList}}" wx:key="{{index}}">
+      <swiper-item>
+        <image class="active_img" src="{{item.img_url}}_750" background-size="cover" mode="aspectFill" data-index="{{index}}" bindtap="webViewAction"/>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <view wx:for="{{page_contents}}" wx:key="{{index}}">
+    <view class="section_title_contain">
+      <text class="section_title">{{item.title}}</text>
+    </view>
+    <view wx:if="{{item.areas}}" class="area">
+      <view id="mainContainer" wx:if="{{has_area && isLocation}}">
+        <template is="hSwiper" data="{{...hSwiperVar}}"></template>
+      </view>
+    </view>
+    <view class="no_area" wx:if="{{!has_area && isLocation}}">
+      <image class="no_data_icon" src="../../images/no_data.png" mode="aspectFill"></image>
+      <text class="no_data_text">您的附近暂时还没有共享头等舱，\n可在“我的”页面查看健康小贴士或进行肤质测试哦！</text>
+    </view>
+  </view>
+
+  <view class="no_area" wx:if="{{!isLocation}}" bindtap="openLocation">
+    <image class="no_location_icon" src="../../images/no_location.png" mode="aspectFill"></image>
+    <label class='no_data_text_wrap'>
+      <p class='no_data_text'>定位服务不可用，无法检测到附近的共享头等舱，请打开定位功能，去</p>
+      <p class='open_location' bindtap='protocolShowAction'>设置</p>
+    </label>
+  </view>
+
+
+  <!-- <view class="question_answer_contain" bindtap="normalQuestionsAction"> -->
+  <!--<text class="question_answer">常见问题</text>-->
+  <!-- </view> -->
+
+  <view class="footer_contain">
+    <view class="scan_contain" bindtap="scanCodeAction">
+      <image class="scan_back" src="../../images/scan_back.png" mode="aspectFill"></image>
+      <view class="scan_content_contain_wrap">
+        <view class="scan_content_contain">
+          <image class="scan_qrcode" src="../../images/qrcode.png" mode="aspectFill"></image>
+          <text class="scan_placeholder">{{scanCodeText}}</text>
+          <!-- <image class="scan_arrow" src="../../images/scan_arrow.png" mode="aspectFill"></image> -->
+        </view>
+      </view>
+    </view>
+    <view class="call_contain" bindtap="callServiceAction">
+      <image class="call" src="../../images/mine.png" mode="aspectFill"></image>
+      <text class="mine_text">我的</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,21 @@
+.big_img_contain{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111111;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+.banner {
+  height: 408rpx;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.banner_img {
+  width: 100%;
+  height: 100%;
+}

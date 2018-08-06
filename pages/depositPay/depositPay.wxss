@@ -1,0 +1,53 @@
+/* depositPay.wxss */
+/* deposit.wxss */
+page {
+  background-color: #ffffff;
+}
+.contain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  width: 100%;
+}
+.deposit_contain {
+  background-color:white;
+  width:90%;
+  margin-top:100rpx;
+}
+.deposit_text{
+  color: #353535;
+  font-size: 32rpx;
+  font-family: Helvetica;
+  font-weight: lighter;
+  /*height: 80rpx;*/
+}
+.deposit_value {
+  font: 52rpx bold;
+  color: #353535;
+  font-family: Helvetica;
+  font-weight: lighter;
+  min-height: 1.5em;
+  /*height: 80rpx;*/
+}
+.deposit_des {
+  display: block;
+  font-size: 26rpx;
+  color: #adadad;
+  margin-bottom: 17rpx;
+  margin-top:24rpx;
+  /*margin-top: 61rpx;*/
+}
+.pay_button {
+  width: 90%;
+  font-size: 34rpx;
+  margin-top: 117rpx;
+}
+.contact_content{
+  font-size: 26rpx;
+  color: #999999;
+  margin-top:24rpx;
+}
+.contact{
+  color: #189df9;
+}

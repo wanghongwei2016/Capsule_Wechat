@@ -1,0 +1,7 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<!--couponExchange.wxml-->
+<input placeholder="请输入兑换码" class="input" bindinput="couponIdInput"/>
+<button class="exchange_button" bindtap="exchangeAction">兑换</button>

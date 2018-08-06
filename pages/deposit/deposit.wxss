@@ -1,0 +1,311 @@
+/* deposit.wxss */
+page {
+  background-color: #ffffff;
+}
+.contain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  width: 100%;
+}
+.deposit_value_contain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  height: 326rpx;
+  background-color: #189df9;
+  width: 100%;
+}
+.deposit_text{
+  color: white;
+  font-size: 26rpx;
+  margin-top: 50rpx;
+  margin-bottom: 41rpx;
+}
+.deposit_value {
+  font: 96rpx bold;
+  color: white;
+  margin-bottom: 31rpx;
+}
+.deposit_value_2 {
+  font: 96rpx bold;
+  color: white;
+  margin-bottom: 31rpx;
+}
+.deposit_des {
+  font-size: 20rpx;
+  color: #353535;
+  margin-bottom: 17rpx;
+  /*margin-top: 61rpx;*/
+}
+/* .pay_button {
+  width: 90%;
+  font-size: 34rpx;
+  margin-top: 117rpx;
+} */
+.deposit_contain {
+  position: absolute;
+  bottom: 133rpx;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center; 
+  color: #189df9;
+}
+.deposit_default {
+  font-size: 26rpx;
+  color: #353535;
+}
+.deposit_action {
+  font-size: 26rpx;
+  color: #189df9;
+}
+/**
+** 充值明细
+*/
+.charge_detail_contain {
+  width: 134rpx;
+  height: 40rpx;
+  background-color: #0b85d9;
+  border-top-left-radius: 20rpx;
+  border-bottom-left-radius: 20rpx;
+  position: absolute;
+  top: 10rpx;
+  right: 0rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.charge_detail {
+  font-size: 22rpx;
+  color: white;
+}
+
+.charge_contain {
+  width: 100%;
+  height: 120rpx;
+  background-color: white;
+}
+.charge_item {
+  height: 100%;
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /*align-items: center;*/
+  margin-left: 5%;
+  border-bottom: 1rpx solid #f0f0f0;
+  margin-top: 2rpx;
+}
+
+/*新版钱包*/
+.deposit_list{
+  width: 680rpx;
+  margin-top: 50rpx;  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*月卡  */
+.card_item {
+  width: 100%;
+}
+
+.deposit_list label {
+  display: block;
+}
+.card_content {
+   z-index: 10001; 
+  position: relative;
+  width: 680rpx;
+  margin-top: -408rpx;
+}
+
+.card_content view {
+  position: relative;
+  display: flex;
+  width: 100%;
+  top:29rpx;
+}
+.card_content text {
+  /* width: 100%; */
+  color: white;
+  position: relative;
+  display: block;
+}
+
+ .middle_title {
+  text-align: center;
+ }
+
+.card_left_title {
+  font-size: 38rpx;
+  float: left;
+  margin-top: 1rpx;
+  left: 22px;
+  width: 50%;
+}
+
+.card_middle_top_title {
+  height: 65rpx;
+  line-height: 65rpx;
+  font-size: 70rpx;
+  margin-top: 66rpx;
+}
+.card_middle_bottom_title {
+  height: 34rpx;
+  line-height: 34rpx;
+  font-size: 34rpx;
+  margin-top: 31rpx;
+}
+.card_right_activity {
+  background-color: white;
+  color: #189df9;
+  display: none;
+}
+.card_right_buy {
+  background-color: white;
+  color: #189df9;
+  display: block;
+}
+
+/*有月卡布局  */
+
+.card_middle_content {
+  margin-top: 72rpx;
+  align-content: center;
+  justify-content: center;
+  align-items: flex-end; 
+}
+.card_middle_left_title {
+  height: 45rpx;
+  line-height: 45rpx;
+  font-size: 60rpx;
+  padding-right: 16rpx;
+}
+.card_middle_right_title {
+  height: 34rpx;
+  line-height: 34rpx;
+  font-size: 34rpx;
+  /* margin-top: 31rpx; */
+  text-decoration-line: line-through;
+  padding-left: 16rpx;
+}
+.use_date {
+  text-align: center;
+  height: 29rpx;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  margin-top: 40rpx;
+  width: 100%;
+  /* margin-bottom: 207rpx; */
+}
+.limit_contain {
+  position:absolute;
+right:38rpx;
+
+}
+#limit {
+    height: 40rpx;
+  font-size: 24rpx;
+  border-radius: 20rpx;
+  line-height: 40rpx;
+  text-align: right;
+  color: #189df9;
+}
+
+#limit2 {
+ right:18px;
+top:5rpx;
+float:right;
+width:140rpx;
+height:40rpx;
+font-size:24rpx;
+border-radius:20rpx;
+line-height:40rpx;
+text-align:center;
+position:absolute;
+background-color: white;
+color: #189df9;
+padding: 0rpx 5rpx;
+}
+
+#buy_rightnow{
+  width: 200rpx;
+  height: 50rpx;
+  font-size: 30rpx;
+  border-radius: 25rpx;
+  line-height: 50rpx;
+  margin-top: 61rpx;
+  margin-bottom: 98rpx;
+}
+
+#card_right_flow_buy {
+  width: 200rpx;
+  height: 50rpx;
+  font-size: 30rpx;
+  border-radius: 25rpx;
+  line-height: 50rpx;
+   margin-top: 41rpx; 
+   margin-bottom: 98rpx; 
+}
+.month_card_class {
+  margin: 0px;
+  width: 100%;
+}
+
+.deposit_item{
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 118rpx;  
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.deposit_item_top {
+  position: relative;
+  /* margin-top: 64rpx; */
+  width: 100%;
+}
+.deposit_info{
+  font-size: 30rpx;
+  color: #404040;
+}
+.deposit_item_wrap{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:center;
+}
+.deposit_banlace{
+  font-size: 36rpx;
+  color: #189df9;
+  border-bottom: 2rpx solid #189df9;
+  font-weight: bold;
+  line-height: 40rpx;
+}
+.pay_button{
+  width: 208rpx;
+  height: 60rpx;
+  font-size: 30rpx;
+  color: #ffffff;
+  line-height: 60rpx;
+  z-index: 1000;
+}
+.deposit_status{
+  font-size: 24rpx;
+  color: #999999;
+}
+.pay_button_wrap{
+  position: absolute;
+  bottom: 15rpx;
+  right: 0;
+}

@@ -1,0 +1,16 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<view class="contain">
+  <view class="balance_container">
+    <image src="../../images/balance_bg.png" class="logo_icon"></image>
+    <view class='balance_wrap'>
+      <view class='balance_wrap_wrap'>
+        <text class="balance">{{balance}}元</text>
+      </view>
+    </view>
+  </view>
+  <button class="pay_button" bindtap="payAction">充值</button>
+  <view class="recharge_details" bindtap="chargeDetailAction">充值明细</view>  
+</view>

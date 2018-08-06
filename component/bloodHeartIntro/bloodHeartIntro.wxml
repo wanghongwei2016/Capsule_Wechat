@@ -1,0 +1,14 @@
+<template name="bloodHeartIntro">
+  <view class='blood_pressure_prompt' wx:if="{{prompt_show}}">
+    <view class='blood_pressure_prompt_title'>
+      <text>测量时请勿走动\n</text>
+      <text class='blood_pressure_prompt_info'>请正确佩戴手环以确保测量的准确性</text>
+    </view>
+    <view class='blood_pressure_prompt_icon'>
+      <image src="../../images/bloodPressurePrompt.png" class='bloodPressurePrompt'></image>
+    </view>
+    <view class='blood_pressure_prompt_know' bindtap='hidePromptAction'>
+      <text>知道了</text>
+    </view>
+  </view>
+</template>

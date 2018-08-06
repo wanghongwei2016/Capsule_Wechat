@@ -1,0 +1,47 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<view class='fault_contain_wrap'>
+  <view class="fault_contain">
+    <view class="section">
+      <input class="fault_input" value="{{fault_number}}" disabled='true'/>
+    </view>
+    <view class='fault_reason' wx:if="{{fault_reasons}}">
+      <view class="fault_reason_item {{item.toggle ? 'fault_reason_item_select' : ''}}" wx:for="{{fault_reasons}}" bindtap='selectAction' wx:key="{{index}}" data-index="{{index}}">{{item.reason}}</view>
+    </view>
+    <view class="section">
+      <textarea class="fault_textarea" placeholder="{{textarea_placeholder}}" placeholder-style="color:#c5c5c5" bindinput="textareaAction" maxlength="{{canInputNum}}"/>
+      <text class='fault_right'>{{canInputNumText}}</text>
+      <view class='fault_clear'></view>
+    </view>
+    <view>
+      <text class='fault_upload_pic_title'>{{upload_pic_text}}</text>
+      <view class='fault_upload_pic_wrap'>
+        <view class='fault_upload_pic_item' wx:if="{{fault_pics}}" wx:for="{{fault_pics}}" wx:key="{{index}}">
+          <view class='fault_upload_pic_item_wrap'>
+            <image src="{{item+'_750'}}" mode="aspectFill" class='fault_pic'></image>
+            <image src='../../images/delete_pic.png' class='fault_delete_pic' bindtap='deleteAction' data-index="{{index}}"></image>
+          </view>
+        </view>
+        <view class='fault_upload_pic_btn' wx:if="{{can_upload}}" bindtap='uploadAction'>
+          <image src='../../images/upload_pic.png' class='fault_upload_pic'></image>
+        </view>
+      </view>
+    </view>
+    <view class='user_guide_wrap' bindtap='normalQuestionsAction'>
+      <view class='user_guide'>
+        <view class='user_guide_tag'>
+          <view class='user_guide_tag_circle'></view>
+          <image src='../../images/user_guide_tag.png' class='user_guide_img'></image>
+        </view>
+        <view class='user_guide_text_wrap'>
+          <view class='user_guide_text'>用户指南</view>
+        </view>
+      </view>
+    </view>  
+    <view class='fault_button_submit_wrap'>
+      <button class="fault_button_submit {{!submit_disabled ? 'fault_button_login_active' : ''}}" size="default" bindtap="submitAction" disabled="{{submit_disabled}}">提交</button>
+    </view>
+  </view>
+</view>

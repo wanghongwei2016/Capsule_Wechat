@@ -1,0 +1,41 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<!--orderItem.wxml-->
+<view class="contain">
+  <view class="title_contain" bindtap="areaDetailAction" data-id="{{booking.area_id}}">
+    <text class="title" data-id="{{booking.area_id}}">{{booking.area_title?booking.area_title:"太空舱体验店"}}</text>
+            <image src="/images/nextRow.png" class="section_next_icon" mode="aspectFill" data-id="{{booking.area_id}}"></image>
+  </view>
+    <view class="title_line"></view>
+  
+  <view class="price_contain">
+    <text class="price">{{booking.final_price?booking.final_price/100:0}}元</text>
+  </view>
+  <text class="placeholder">详情</text>
+  
+  <view class="content_contain">
+    <view class="content_left">使用时长:</view>
+    <view class="content_right">{{booking.time?booking.time:0}}</view>
+  </view>
+      <view class="line"></view>
+
+   <view class="content_contain" wx:if="{{coupon_cash > 0}}">
+    <view class="content_left">优惠券:</view>
+    <view class="content_right content_right_red">-￥{{coupon_cash}}</view>
+  </view>
+    <view class="line"></view> 
+  
+  <view class="content_contain">
+    <view class="content_left">订单编号:</view>
+    <view class="content_right">{{booking_id?booking_id:0}}</view>
+  </view>
+    <view class="line"></view>
+  
+  <view class="content_contain">
+    <view class="content_left">订单日期:</view>
+    <view class="content_right">{{booking.date?booking.date:0}}</view>
+  </view>
+  
+</view>

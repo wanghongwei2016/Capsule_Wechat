@@ -1,0 +1,29 @@
+<!--verifi.wxml-->
+<!--<text>verifi.wxml</text>-->
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+<view class="contain">
+  <view class="title_conain">
+    <text class="title">完成验证免押金</text>
+  </view>
+  
+  <view class="verifi_contain">
+    <view class="section_contain">
+      <view class="section_item_contain">
+        <image src="/images/verif_name.png" mode="scaleToFill" class="name_icon"></image>
+        <input placeholder="姓名" class="name_input" bindinput="inputName" />
+      </view>
+    </view>
+    <view class="section_contain">
+      <view class="section_item_contain">
+        <image src="/images/verif_card.png" class="card_icon"></image>
+        <input placeholder="身份证号" class="card_input" bindinput="inputCard" maxlength="18" />
+      </view>
+    </view>
+  </view>
+  <button class="verif_button" bindtap="verifAction" disabled="{{verifDisable}}">验证</button>
+  <!-- <view class="info_contain">
+    <text class="info">完成实名认证可提高信用积分</text>
+  </view> -->
+</view>

@@ -1,0 +1,15 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<!--cityList.wxml-->
+<!--<text>cityList.wxml</text>-->
+<view class="city_contain">
+<text class="choose_city">选择城市</text>
+<view class="line"></view>
+<view class="contain">
+<view class="city_box" wx:for="{{city_list}}" wx:key="city_list">
+<button class="city_button" type="reset" bindtap="chooseCityAction" data-city="{{item}}">{{item}}</button>
+</view>
+</view>
+</view>

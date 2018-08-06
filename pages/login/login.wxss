@@ -1,0 +1,161 @@
+/**login.wxss**/
+.lalala{
+  width: 100%;
+}
+input {
+  height: 100%;
+}
+.login_container {
+  width: 92%;
+  margin: 0 auto;
+}
+
+.welcome_login {
+  font-size: 64rpx;
+  color: #333;
+  font-weight: bold;
+  margin-top: 64rpx;
+  display: inline-block;
+}
+
+.login_info_wrap {
+  margin-top: 10rpx;
+  margin-bottom: 50rpx;
+}
+
+.login_info {
+  font-size: 32rpx;
+  color: #999;
+  letter-spacing: 2rpx;
+}
+
+.section_wrap {
+  background: #f2f2f2;
+  height: 80rpx;
+  margin-bottom: 15rpx;
+}
+
+.section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  font-size: 28rpx;
+  justify-content: flex-start;
+  align-items: center;
+}
+.login_close_wrap{
+  width: 60rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.login_close{
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+.login_close_phone{
+  margin-right: 12rpx;
+}
+.phone_wrap {
+  width: 100rpx;
+  height: 100%;
+  line-height: 80rpx;
+  margin-left: 22rpx;
+  color: #333;
+  margin-right: 20rpx;
+}
+
+.input_phone, .input_password {
+  width: 295rpx;
+  color: #333333;
+  font-size: 28rpx;
+}
+
+.section_code {
+  width: 470rpx;
+  background: #f2f2f2;
+}
+
+.checkNumber {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 206rpx;
+  text-align: center;
+  color: #ffffff;
+  height: 100%;
+  background-color: #189df9;
+  align-content: center;
+  font-size: 26rpx;
+  border-radius: 0;
+  line-height: 80rpx;
+  transition: all .3s;
+}
+.checkNumber::before{
+  content: '';
+  width: 14rpx;
+  height: 100%;
+  background-color: #ffffff;
+  position: absolute;
+  left: -1rpx;
+}
+.section_code_wrap {
+  background: #fff;
+}
+
+button[disabled][type="default"], wx-button[disabled]:not([type]) {
+  color: #fff;
+  background-color: #d9d9d9;
+}
+.voice_show {
+  left: 90rpx;
+  font-size: 20rpx;
+  margin-top: 25rpx;
+}
+.agree_left {
+  color: #666666;
+}
+
+.agree_protocol {
+  color: #189df9;
+}
+.button_login {
+  background-color: #189df9;
+  color: white;
+  margin-top: 54rpx;
+  width: 100%;
+  font-size: 34rpx;
+  height: 80rpx;
+  border-radius: 0;
+  transition: all .3s;  
+}
+.active_show {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  margin-top: 40rpx;
+}
+.active_show_default {
+  font-size: 24rpx;
+  color: #333;
+  text-align: center;
+}
+.agree_protocol {
+  color: #189df9;
+}
+.protocol_show {
+  width: 100%;  
+  position: absolute;
+  font-size: 22rpx;
+  bottom: 3%;
+  left: 0;
+  text-align: center;
+}
+.input_phone{
+  width:498rpx;
+}
+.section_code_wrap_container{
+  position: relative;
+}

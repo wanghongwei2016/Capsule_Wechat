@@ -1,0 +1,44 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<import src="../../component/bloodHeartIntro/bloodHeartIntro.wxml" />
+
+<view class='heart_rate_container'>
+  <template is="bloodHeartIntro" data="{{prompt_show}}"></template>
+
+  <view  wx:if="{{!prompt_show}}">
+    <view class='heart_rate_content'>
+      <view class='heart_rate_timing'>
+        <view class='heart_rate_timing_wrap'>
+          <text>次/分</text>
+          <text>{{heart_rate}}</text>
+          <text>{{timeTotalFormat}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='heart_rate_result {{showResult ? "heart_rate_result_show" : ""}}'>
+      <view class='heart_rate_result_intro'>
+        <image src='../../images/blood_pressure_result_intro.png'></image>
+        <text>人安静状态下每分钟心跳的次数一般为50-100次/分</text>
+      </view>
+      <view class='heart_rate_result_bar_number'>
+        <text>50</text>
+        <text>100</text>
+      </view>
+      <view class='heart_rate_result_bar_range'></view>
+      <view class='heart_rate_result_arrow_wrap'>
+        <image src='../../images/blood_pressure_result_arrow.png' class='heart_rate_result_arrow' style="left: {{arrowLeft}}%"></image>
+      </view>
+      <view class='heart_rate_result_bar' style='margin-top:55rpx'>
+        <view class='heart_rate_result_low'>稍慢</view>
+        <view class='heart_rate_result_normal'>正常</view>
+        <view class='heart_rate_result_hight'>稍快</view>
+      </view>
+    </view>
+    <view class='heart_rate_btn_wrap' bindtap='startTestAction' data-status="{{statusTag}}">
+      <image src='../../images/blood_pressure_btn.png' class='heart_rate_btn'></image>
+      <view class='heart_rate_btn_text'>{{heart_rate_btn_text}}</view>
+    </view>
+  </view>
+</view>

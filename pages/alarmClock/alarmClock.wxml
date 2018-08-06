@@ -1,0 +1,24 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class="alarm_clock_container">
+  <view class='alarm_clock_choose'>
+    <view class='alarm_clock_choose_wrap'>
+      <picker mode="time" value="{{timeOrigin}}" bindchange="bindTimeChange">
+        <view class="picker">
+          <view>
+            <text class='time'>{{time}}</text>
+            <text class='time_info'>{{time_info}}</text>
+          </view>
+          <view class='clock_text'>闹钟</view>
+        </view>
+      </picker>
+      <view class='switch_wrap'>
+        <view class='switch_wrap_container'>
+          <switch bindchange="switchChange" checked='{{clockChecked}}'/>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

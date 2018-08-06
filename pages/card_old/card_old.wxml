@@ -1,0 +1,74 @@
+<!--pages/card/card.wxml-->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<view class="contain">
+
+  <view class="card_contain">
+    <view class='card_item'>
+      <image src='/images/month_card.png' background-size="cover" mode="widthFix" class='month_card_class'>      </image>
+
+        <view class='card_content' wx:if="{{!bougth_card}}">
+          <view>
+            <text class='card_left_title'>享+头等舱・月卡</text>
+            <text class='card_right_title' id='limit'>{{card_info.activity_body}}</text>
+          </view>
+          <view class='card_middle_content'>
+            <text class='card_middle_left_title middle_title'>{{card_info.discount_price/100.0}}元/月</text>
+            <!-- <view class='card_middle_right_title'> -->
+             <text class='card_middle_right_title middle_title'>原价{{card_info.original_price/100.0}}元/月</text>
+            <!-- </view> -->
+           
+          </view>
+          <view>
+            <!-- <button class='card_right_buy' id='buy_rightnow'>{{card_info.activity_title}}</button> -->
+          </view>
+        </view>
+        <view class='card_content' wx:if="{{bougth_card}}">
+          <view>
+            <text class='card_left_title'>享+头等舱・月卡</text>
+            <!-- 1元1天 -->
+            <text class='card_right_title' id='limit2'>{{card_info.activity_body}}</text>
+          </view>
+          <view class='card_middle_content'>
+            <text class='card_middle_left_title middle_title'>{{month_card_info.card_no}}</text>
+            <!-- <text class='card_middle_right_title middle_title'>原价300元/月</text> -->
+          </view>
+          <view>
+            <text class='use_date'>有效期至{{month_card_info.end_date}}</text>
+          </view>
+        </view>
+    </view>
+  </view>
+  <view class='card_equities'>
+    <label class='equities_title'>月卡专属权益</label>
+    <image src='/images/card_time.png' mode="aspectFit" class='equities_time_image'></image>
+    <label class='equities_time_title'>每天免费1小时</label>
+    <button class='equity_explain' bindtap="toggleRulesAction">权益说明></button>
+  </view>
+  <button class='bottom_button buy' bindtap="buyAction">{{bougth_card?"立即续买":"立即购买"}}</button>
+<button class='bottom_button share' open-type="share">分享新用户得{{invite_bonus}}元红包</button>
+  <view class="activity_rules_hide" wx:if="{{!rules_hide}}" bindtap="toggleRulesAction">
+    <view class="activity_rules">
+      <view class="text_title_contain">
+        <text class="text_title">权益说明</text>
+      </view>
+      <text class="text_content">
+        <text class="text_content_item">
+        1.月卡生效期间，每天一小时免费休息（一小时后按照场地规则按分钟计费)；\n
+2.当前若无月卡，购买后月卡立即生效；当前若已有月卡，续费后有效期顺延（一个月按照30天计算）；\n
+3.购买或续费月卡成功后，相应费用不予退还；\n
+4.本月卡全国通用 （注：部分头等舱使用需遵循场地方要求，如门禁，安检，身份登记等)；\n
+5.本月卡仅限本人持本人手机开舱使用；\n
+6.月卡用户可享受7X24小时服务，客服电话 400-688-9960；\n
+7.月卡权益最终解释权归享+共享头等舱所有。
+        </text>
+      </text>
+      <view class="close_icon">
+        <image class="close_icon" src="../../images/close.png" mode="aspectFill"></image>
+      </view>
+    </view>
+  </view>
+
+
+</view>

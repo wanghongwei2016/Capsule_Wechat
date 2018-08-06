@@ -1,0 +1,16 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<view class="container">
+
+  <!--<view class="body_contailer">-->
+  <image src="../../images/openDoor.png" class="openDoor"></image>
+
+  <!--</view>-->
+  <view class="loading_back">
+      <image src="../../images/loading.gif" class="loading"></image>
+      <text class="opening">{{openStatus+' '+progress+'%'}}</text>
+      <view class='prompt'>开锁后向上拉起门帘使用</view>
+  </view>
+</view>

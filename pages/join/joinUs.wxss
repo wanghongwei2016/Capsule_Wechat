@@ -1,0 +1,55 @@
+/* pages/join/joinUs.wxss */
+.logo {
+  margin-top: 20rpx;
+  width: 180rpx;
+  height: 180rpx;
+  margin-bottom: 30rpx;
+}
+.text_info{
+  font-size: 34rpx;
+  margin-top: 30rpx;
+  margin-top: -100rpx;
+}
+.join_icon_pic{
+  width: 750rpx;
+}
+.join_icon{
+  margin-top: -100rpx;
+}
+.join_form{
+  width: 600rpx;
+  margin: 0 auto;
+  font-size: 32rpx;
+  margin-bottom: 20rpx;
+  margin-top: -100rpx;
+}
+.chat{
+  width: 100%;
+  text-align: center;
+}
+input,textarea{
+  border: 1px solid #ccc;
+}
+.section{
+  display: flex;
+  margin-top: 30rpx;
+}
+.section label{
+  line-height: 50rpx;
+  width:100rpx;
+}
+.section input,textarea{
+  width: 500rpx;
+}
+.section textarea{
+  height: 100rpx;
+}
+.submit,.chat_btn{
+  background: #189df9;
+  margin-top: 30rpx;
+  border-radius: 1000px;
+  font-size: 30rpx;
+}
+.kefu{
+  margin-top: -50rpx;
+}

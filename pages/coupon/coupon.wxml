@@ -1,0 +1,81 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!--coupon.wxml-->
+<view class="contain  {{type==2 || coupon_list.length == 0?'':'contain_deep'}}"  style='{{(type == 4 && coupon_list.length < 6 && coupon_list.length > 0)?"height:100%":""}}'>
+  <!-- <button class="exchange_button" bindtap="exchangeCouponAction">兑换优惠券</button> -->
+  <view class='title_contail' wx:if="{{type==2}}">
+    <label class='title'>优惠券</label>
+  </view>
+  <view class='coupon_contain_no' wx:if="{{!coupon_list || coupon_list.length <= 0}}">
+    <image src='/images/no_coupon_icon.png' class='no_coupon_icon' mode='scaleToFit'></image>
+    <view class='no_coupon_text'>
+      <label class='no_coupon_text'>{{type==2? "暂无优惠券可用":"暂无过期优惠券"}}</label>
+      <label class='no_coupon_text' bindtap='checkPassCouponsAction' wx:if="{{type==2}}"> | 查看过期优惠券></label>
+    </view>
+
+  </view>
+  <view class="coupon_contain" wx:for="{{coupon_list}}" wx:key="coupon_list" wx:if="{{type==2}}">
+    <!-- <view class="coupon_item" wx:if="{{item.type==1}}"></view> -->
+    <view class="coupon_item" wx:if="{{!item.status || item.status == 0}}">
+      <image src="/images/invite_coupon.png" class="coupon_back_image" mode='scaleToFit'></image>
+      <view class="coupon_front_contain" data-id="{{item.coupon_id}}">
+        <view class='left_contain'>
+          <view class="title_view" data-id="{{item.coupon_id}}">
+            <text class="cash_text" data-id="{{item.coupon_id}}">{{item.cash/100.0}}</text>
+            <text class="cash_placeholder" data-id="{{item.coupon_id}}">元</text>
+          </view>
+          <text class="left_coupon" data-id="{{item.coupon_id}}">{{item.introduce}}</text>
+        </view>
+
+        <view class="right_content_contain" data-id="{{item.coupon_id}}">
+
+          <view class="sub_title_view" data-id="{{item.coupon_id}}">
+            <text class="sub_title_min_text" data-id="{{item.coupon_id}}">{{item.type == 1? "现金抵扣券":""}}</text>
+          </view>
+          <view class="sub_title_view" data-id="{{item.coupon_id}}">
+            <text class="sub_title_date" data-id="{{item.coupon_id}}">有效期至 {{item.end_date}}</text>
+          </view>
+        </view>
+        <image src="/images/coupon_selected.png" class="coupon_selected_img" wx:if="{{item.coupon_id==select_coupon_id}}"></image>
+      </view>
+
+    </view>
+  </view>
+
+
+
+  <view class="coupon_contain " wx:for="{{coupon_list}}" wx:key="coupon_list" wx:if="{{type==4}}">
+    <view class="coupon_item" wx:if="{{item.status==2}}">
+      <image src="/images/invite_coupon.png" class="coupon_back_image" mode='scaleToFit'></image>
+      <view class="coupon_front_contain" data-id="{{item.coupon_id}}">
+        <view class='left_contain'>
+          <view class="title_view" data-id="{{item.coupon_id}}">
+            <text class="cash_text" data-id="{{item.coupon_id}}">{{item.cash/100.0}}</text>
+            <text class="cash_placeholder" data-id="{{item.coupon_id}}">元</text>
+          </view>
+          <text class="left_coupon" data-id="{{item.coupon_id}}">{{item.introduce}}</text>
+        </view>
+
+        <view class="right_content_contain" data-id="{{item.coupon_id}}">
+
+          <view class="sub_title_view" data-id="{{item.coupon_id}}">
+            <text class="sub_title_min_text" data-id="{{item.coupon_id}}">{{item.type == 1? "现金抵扣券":""}}</text>
+          </view>
+          <view class="sub_title_view" data-id="{{item.coupon_id}}">
+            <text class="sub_title_date" data-id="{{item.coupon_id}}">有效期至 {{item.end_date}}</text>
+          </view>
+        </view>
+        <image src="/images/coupon_selected.png" class="coupon_selected_img" wx:if="{{item.coupon_id==select_coupon_id}}"></image>
+      </view>
+
+    </view>
+  </view>
+  <view wx:if="{{coupon_list.length > 0}}" class='no_coupon_text'>
+    <label class='no_coupon_text'>{{type==2? "没有更多有效券了":"没有更多过期优惠券了"}}</label>
+    <label class='no_coupon_text' bindtap='checkPassCouponsAction' wx:if="{{type==2}}"> | 查看过期优惠券></label>
+  </view>
+    <view class='pass_coupon_cover_view' style="height:{{(200*coupon_list.length < view.height)?view.height:200*coupon_list.length}}rpx" wx:if="{{type==4 && coupon_list.length > 0}}"></view>
+
+</view>

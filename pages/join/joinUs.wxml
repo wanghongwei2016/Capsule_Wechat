@@ -1,0 +1,49 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<!--pages/join/joinUs.wxml-->
+<view class="container">
+  <view  class="logo">
+    <image class="logo" src="https://www.xiangshuispace.com/static/logo.png" mode="aspectFill"></image>
+  </view>
+
+  <view class="text_info">
+    <text class="updateInfo">系统升级，暂停使用。\n 享+ 2017/07/15</text>
+  </view>
+
+  <view class="join_icon">
+    <image class="join_icon_pic" src="https://www.xiangshuispace.com/www/img/join_us.png" mode="widthFix"></image>
+  </view>
+
+  <view class="join_form">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <view class="chat kefu">
+        <button size="mini" class="chat_btn" open-type="contact" session-from="weapp">在线客服</button>
+      </view>
+      <view class="section">
+        <label>姓名：</label>
+        <input type="text" bindinput="inputName" value="{{name}}"/>
+      </view>
+      <view class="section">
+        <label>电话：</label>
+        <input type="text" bindinput="inputPhone" value="{{phone}}"/>
+      </view>
+      <view class="section">
+        <label>城市：</label>
+        <input type="text" bindinput="inputCity" value="{{city}}"/>
+      </view>
+      <view class="section">
+        <label>邮箱：</label>
+        <input type="text" bindinput="inputEmail" value="{{email}}"/>
+      </view>
+      <view class="section">
+        <label>留言：</label>
+        <textarea name="textarea" bindinput="inputMsg" value="{{msg}}"/>
+      </view>
+      <view class="chat">
+        <button size="mini" class="submit" bindtap="concactUs">提交信息，回拨电话</button>
+      </view>
+    </form>
+  </view>
+</view>

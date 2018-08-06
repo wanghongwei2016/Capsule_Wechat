@@ -1,0 +1,310 @@
+.skin-wrap {
+  background: #f7f7fe;
+}
+
+.skin-head {
+  width: 100%;
+  height: 330rpx;
+  display: flex;
+  align-items: center;
+  color: #4e4c4c;
+}
+
+.skin-head-wrap {
+  width: 100%;
+  height: 258rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.skin-user-icon-wrap {
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.skin-user-icon {
+  position: relative;
+  width: 150rpx;
+  height: 150rpx;
+  border: 4rpx solid #fff;
+  border-radius: 50%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.face_url {
+  width: 100%;
+  height: 150rpx;
+}
+
+.skin-user-info {
+  text-align: center;
+}
+
+.skin-user-name {
+  font-size: 30rpx;
+}
+
+.skin-time {
+  font-size: 24rpx;
+  margin-top: 5rpx;
+}
+
+.skin-item {
+  width: 690rpx;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 15rpx;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+}
+
+.skin-item-title {
+  display: inline-block;
+  width: 108rpx;
+  height: 44rpx;
+  background-color: #189df9;
+  color: #fff;
+  font-size: 26rpx;
+  text-align: center;
+  line-height: 44rpx;
+  border-top-right-radius: 25rpx;
+  border-bottom-right-radius: 25rpx;
+  margin-top: 14rpx;
+}
+
+.skin-beauty {
+  position: relative;
+  width: 100%;
+  height: 246rpx;
+}
+
+.circle-box {
+  position: absolute;
+  top: -12rpx;
+  left: 50%;
+  width: 180rpx;
+  height: 180rpx;
+  background: #fff;
+  transform: translateX(-50%);
+}
+
+.circle {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.skin-beauty-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 180rpx;
+  color: #4e4c4c;
+}
+
+.skin-beauty-text1 {
+  font-size: 66rpx;
+}
+
+.skin-beauty-text2 {
+  font-size: 24rpx;
+}
+
+.skin-beauty-info {
+  position: absolute;
+  bottom: 15rpx;
+  width: 100%;
+  text-align: center;
+  font-size: 24rpx;
+  color: #333;
+}
+
+.skin-health {
+  width: 100%;
+  text-align: center;
+}
+
+.dial {
+  position: relative;
+  height: 159rpx;
+}
+
+.skin_health_img {
+  width: 306rpx;
+  height: 159rpx;
+}
+
+.indicator {
+  position: absolute;
+  width: 5rpx;
+  height: 140rpx;
+  left: 50%;
+  bottom: 0;
+  transform: rotate(-90deg) translateX(-50%);
+  transform-origin: 2.5rpx 135rpx;
+  transition: all 0.5s;
+}
+
+.skin_health_arrow {
+  width: 5rpx;
+  height: 58rpx;
+}
+
+.skin-health-text {
+  position: absolute;
+  bottom: -10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 66rpx;
+  color: #4e4c4c;
+}
+
+.skin-health-info {
+  width: 580rpx;
+  margin: 0 auto;
+  font-size: 24rpx;
+  color: #333;
+  margin-top: 50rpx;
+}
+
+.skin_spot_img {
+  width: 201rpx;
+  height: 159rpx;
+  margin-top: 40rpx;
+}
+
+.skin_spot_img_wrap {
+  width: 100%;
+  text-align: center;
+}
+
+.skin-spot-wrap {
+  width: 580rpx;
+  margin: 0 auto;
+}
+
+.skin-spot-title {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.skin-spot-progress {
+  position: relative;
+  width: 100%;
+  height: 14rpx;
+  background: linear-gradient(to right,#00c77f,#fbeb57,#ff2831);
+  border-radius: 20rpx;
+  margin-top: 25rpx;
+}
+
+.skin-spot-progress-active {
+  width: 0rpx;
+  height: 100%;
+  background: #189df9;
+  border-radius: 20rpx;
+  transition: all 0.5s;
+}
+
+.skin-spot-progress-arrow-wrap{
+  position: relative;
+  width: 100%;
+  height: 20rpx;
+  margin-top: 4rpx;
+}
+.skin-spot-progress-arrow{
+  position: absolute;
+  width: 23rpx;
+  height: 20rpx;
+  top: 0;
+  transition: all .3s;
+}
+
+.skin-spot-progress-info {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20rpx;
+}
+
+.skin-spot-progress-info-item {
+  width: 78rpx;
+  height: 34rpx;
+  line-height: 34rpx;
+  font-size: 22rpx;
+  color: #333;
+  text-align: center;
+}
+
+.skin-spot-progress-info-item.active {
+  color: #189df9;
+  border: 2rpx solid #189df9;
+  border-radius: 30rpx;
+}
+
+.skin-spot-progress-suggest {
+  font-size: 24rpx;
+  color: #333;
+  margin-top: 50rpx;
+}
+
+.skin_dark_img_wrap {
+  display: flex;
+  width: 632rpx;
+  height: 136rpx;
+  justify-content: space-between;
+  align-items: center;
+  margin: 24rpx auto 60rpx auto;
+}
+.skin_dark1_wrap{
+  width: 357rpx;
+  height: 136rpx;
+  background: #fff5f5;
+  border-radius: 68rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.skin_dark1 {
+  width: 248rpx;
+  height: 71rpx;
+}
+
+.skin_dark2 {
+  width: 169rpx;
+  height: 113rpx;
+}
+
+.skin_dark_title {
+  display: flex;
+  height: 100%;
+  justify-content: space-around;
+  flex-direction: column;
+  font-size: 24rpx;
+  color: #333;
+}
+
+.skin_acne_img {
+  width: 201rpx;
+  height: 172rpx;
+}
+
+.skin-space {
+  width: 100%;
+  height: 30rpx;
+  background: transparent;
+}
+
+.skin_share {
+  width: 363rpx;
+  height: 477rpx;
+}
+.health-bold{
+  font-weight: bold;
+}

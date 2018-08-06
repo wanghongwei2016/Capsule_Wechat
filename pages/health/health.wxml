@@ -1,0 +1,32 @@
+<!--pages/health/health.wxml-->
+<view class='health-view'>
+  <!--没有健康列表时显示  -->
+  <view class='health-no-data' wx:if="{{!hasHealthData}}">
+    <image src='../../images/health_none.png' class='health_none_img'></image>
+    <view>
+      <text>您还没收到消息哦</text>
+    </view>
+  </view>
+  <!--健康小贴士列表  -->
+  <view class='health-list' wx:if="{{hasHealthData}}">
+    <view class='health-list-item' wx:for="{{pushList}}" wx:key="{{index}}" data-index="{{index}}" bindtap="webViewAction">
+      <!--显示时间  -->
+      <view class='health-time-wrap'>
+        <view class='health-time'>{{item.push_time}}</view>
+      </view>
+      <!--显示健康小贴士内容  -->
+      <view class='health-content'>
+        <view class='health-content-wrap'>
+          <image src="{{item.img_url+'_750'}}" class='health-img' mode='aspectFill' wx:if="{{item.img_url}}"></image>
+          <view class='health-title'>{{item.title}}</view>
+          <view class='health-text'>{{item.text}}</view>
+          <view class='health-detail'>
+            <text>查看详情</text>
+            <image src='../../images/health_arrow.png' class='health_arrow_img'></image>
+          </view>
+        </view>
+      </view>
+      <view class='health-space'></view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,74 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!--orderList.wxml-->
+<view class='title_contain'>
+  <label data-index='0' bindtap='choosedAction' class='{{list_type==0?"title_contain_label_hover":"title_contain_label"}}'>订单</label>
+  <label data-index='1' bindtap='choosedAction' class='{{list_type==1?"title_contain_label_hover":"title_contain_label"}}'>拼团</label>
+</view>
+<view class="contain" wx:if="{{list_type == 0}}">
+  <view class="order_contain " wx:if="{{order_data.length> 0}}" wx:for="{{order_data}}" wx:key="order_data">
+  <view class="order_item" bindtap="orderAction" data-id="{{index}}">
+    <view class="content_contain" data-id="{{index}}">
+      <text class="title_date" data-id="{{index}}">{{item.date}}</text>
+      <view class="item_sub_title" data-id="{{index}}">
+        <view class="sub_left_contain" data-id="{{index}}">
+          <text class="sub_left" data-id="{{index}}">订单编号：{{item.booking_id}}</text>
+        </view>
+        <view class="sub_right_contain" data-id="{{index}}">
+          <text class="sub_right" data-id="{{index}}">消费：{{item.final_price ? item.final_price/100 : 0}}元</text>
+        </view>
+      </view>
+    </view>
+    <view class="icon_contain">
+      <image src="/images/nextRow.png" class="icon" mode="aspectFill" data-id="{{index}}"></image>
+    </view>
+    <view class="status_contain" wx:if="{{item.status != 4}}" data-id="{{index}}">
+      <text class="status">{{item.status == 1?"进行中":"待支付"}}</text>
+    </view>
+  </view>
+  <view class="line"></view>
+</view>
+<view class="no-data" wx:if="{{no_data_order && order_data.length > 0}}">没有更多了</view>
+<view class="no_order_contain" wx:if="{{order_data.length == 0}}">
+  <image src="/images/no_order.png" mode="scaleToFill" class="no_order_img"></image>
+  <view class="holder">
+    <text class="text_left">您还没有订单记录</text>
+    <text class="text_right" bindtap="goUseAction">快去使用</text>
+  </view>
+</view>
+
+</view>
+<view class='contain' wx:if="{{list_type == 1}}">
+  <!--拼单历史  -->
+  <view class="order_contain" wx:if="{{group_data.length > 0}}" wx:for="{{group_data}}" wx:key="group_data">
+    <view class="order_item" bindtap="groupOrderDetail" data-id="{{index}}">
+      <view class="content_contain" data-id="{{index}}">
+        <text class="title_date" data-id="{{index}}">{{item.group_type == 1000?"月卡拼团":""}}</text>
+        <view class="item_sub_title" data-id="{{index}}">
+          <view class="sub_left_contain" data-id="{{index}}">
+            <text class="sub_left" data-id="{{index}}">{{item.date}}</text>
+          </view>
+          <!-- <view class="sub_right_contain" data-id="{{index}}">
+            <text class="sub_right" data-id="{{index}}">消费：{{item.final_price ? item.final_price/100 : 0}}元</text>
+          </view> -->
+        </view>
+      </view>
+      <view class="icon_contain">
+        <image src="/images/nextRow.png" class="icon" mode="aspectFill" data-id="{{index}}"></image>
+      </view>
+      <view class="status_contain" wx:if="{{item.status != 4}}" data-id="{{index}}">
+        <text class='status {{item.group_status == 1?"":"status_pass"}}' data-id="{{index}}">{{item.group_status == 1?"拼团中":(item.group_status == 2?"拼团成功":"拼团失败")}}</text>
+      </view>
+    </view>
+    <view class="line"></view>
+  </view>
+  <view class="no-data" wx:if="{{no_data_group && group_data.length > 0}}">没有更多了</view>
+  <view class="no_order_contain" wx:if="{{group_data.length == 0}}">
+    <image src="/images/no_order.png" mode="scaleToFill" class="no_order_img"></image>
+    <view class="holder">
+      <text class="text_left">您还没有拼单记录</text>
+    </view>
+  </view>
+</view>

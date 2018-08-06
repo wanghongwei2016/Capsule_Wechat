@@ -1,0 +1,21 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<!--depositPay.wxml-->
+<view class="contain">
+  <view class="deposit_contain">
+  <view class="deposit_value_contain"> 
+   <text class="deposit_text">{{pay_reason}}您需{{info_text}}押金</text>
+    <text class="deposit_value">{{deposit}}</text>
+    <text class="deposit_text">元</text>
+  </view>
+    <view class="contact_content" wx:if="{{is_pay}}">
+      <text>如有疑问，请</text>
+      <text class="contact" bindtap="contactAction">联系客服</text>
+    </view>
+    <text class="deposit_des" wx:if="{{!is_pay}}">押金可秒退</text>
+  </view>
+    <button class="pay_button" bindtap="payAction">{{btn_text}}</button>
+
+</view>

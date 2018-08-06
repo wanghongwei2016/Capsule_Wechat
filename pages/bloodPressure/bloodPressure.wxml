@@ -1,0 +1,63 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<import src="../../component/bloodHeartIntro/bloodHeartIntro.wxml" />
+
+<view class='blood_pressure_container'>
+  <template is="bloodHeartIntro" data="{{prompt_show}}"></template>
+
+  <view  wx:if="{{!prompt_show}}">
+    <view class='blood_pressure_content'>
+      <view class='blood_pressure_timing'>
+        <view class='blood_pressure_timing_wrap'>
+          <text>mmHg</text>
+          <text>{{high_pressure}}/{{low_pressure}}</text>
+          <text>{{timeTotalFormat}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='blood_pressure_result {{showResult ? "blood_pressure_result_show" : ""}}'>
+      <view class='blood_pressure_result_intro'>
+        <image src='../../images/blood_pressure_result_intro.png'></image>
+        <text>人正常的血压值范围是：高压90-140mmHg</text>
+      </view>
+      <view class='blood_pressure_result_intro'>
+        <image src='../../images/blood_pressure_result_intro.png' style='opacity:0'></image>
+        <text>低压60-90mmHg</text>
+      </view>
+      <view class='blood_pressure_result_bar_container'>
+        <view class='blood_pressure_result_bar_title'>
+          <view>高压</view>
+          <view>低压</view>
+        </view>
+        <view class='blood_pressure_result_bar_wrap'>
+          <view class='blood_pressure_result_bar_num'>
+            <text>90</text>
+            <text>140</text>
+          </view>
+          <view class='blood_pressure_result_bar_arrow_wrap'>
+            <image src='../../images/blood_pressure_result_arrow.png' class='blood_pressure_result_arrow' style='left: {{highArrowLeft}}%'></image>
+          </view>
+          <view class='blood_pressure_result_bar'></view>
+          <view class='blood_pressure_result_bar_arrow_wrap special'>
+            <image src='../../images/blood_pressure_result_arrow.png' class='blood_pressure_result_arrow special' style='left: {{lowArrowLeft}}%'></image>
+          </view>
+          <view class='blood_pressure_result_bar_num'>
+            <text>60</text>
+            <text class='special'>90</text>
+          </view>
+          <view class="blood_pressure_result_bar_text">
+            <view>偏低</view>
+            <view>正常</view>
+            <view>偏高</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='blood_pressure_btn_wrap' bindtap='startTestAction' data-status="{{statusTag}}">
+      <image src='../../images/blood_pressure_btn.png' class='blood_pressure_btn'></image>
+      <view class='blood_pressure_btn_text'>{{blood_pressure_btn_text}}</view>
+    </view>
+  </view>
+</view>

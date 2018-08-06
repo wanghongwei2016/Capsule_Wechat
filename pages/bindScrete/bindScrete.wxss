@@ -1,0 +1,31 @@
+.container{
+    display: block;
+    background-color: #f1f1f1;
+}
+.inputback{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 340rpx;
+    width: 100%;
+}
+.inputscrete {
+    width: 440rpx;
+    height: 100rpx;
+    border: 4rpx solid #189df9;
+    color: #189df9;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 80rpx;
+}
+.inputhint {
+    font-size: 22rpx;
+    color: #b2b0b0;
+    margin-top:50rpx;
+}
+.bindbutton{
+    width: 90%;
+    margin-top: 99rpx;
+}

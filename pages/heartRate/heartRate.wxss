@@ -1,0 +1,138 @@
+@import "../../component/bloodHeartIntro/bloodHeartIntro.wxss";
+.heart_rate_container{
+  width: 100%;
+  height: 100%;
+}
+.heart_rate_content{
+  width: 100%;
+  height: 572rpx;
+  background-color: #189df9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.heart_rate_timing{
+  width: 430rpx;
+  height: 430rpx;
+  border-radius: 50%;
+  border: 4rpx solid #46b1fa;
+}
+.heart_rate_timing_wrap{
+  width: 100%;
+  height: 350rpx;
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: #ffffff;
+}
+.heart_rate_timing_wrap text:first-child{
+  font-size: 30rpx;
+}
+.heart_rate_timing_wrap text:nth-child(2){
+  font-size: 110rpx;
+}
+.heart_rate_timing_wrap text:last-child{
+  font-size: 50rpx;
+}
+.heart_rate_btn_wrap{
+  position: absolute;
+  width: 232rpx;
+  height: 232rpx;
+  bottom: 57rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.heart_rate_btn{
+  width: 232rpx;
+  height: 232rpx;
+}
+.heart_rate_btn_text{
+  position: absolute;
+  font-size: 34rpx;
+  color: #ffffff;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  display: inline-block;
+  width: 140rpx;
+  text-align: center;
+}
+.heart_rate_result{
+  width: 630rpx;
+  margin: 80rpx auto auto;
+  text-align: center;
+  opacity: 0;
+  transition: all .3s;
+}
+.heart_rate_result_show{
+  opacity: 1;
+}
+.heart_rate_result_intro{
+  font-size: 24rpx;
+  color: #666666;
+  height: 27rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.heart_rate_result_intro image{
+  width: 27rpx;
+  height: 27rpx;
+}
+.heart_rate_result_bar_number{
+  position: relative;
+  width: 100%;
+  height: 30rpx;
+  font-size: 22rpx;
+  color: #333333;
+  margin-top: 40rpx;
+}
+.heart_rate_result_bar_number text{
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.heart_rate_result_bar_number text:nth-child(1){
+  left: 196rpx;
+}
+.heart_rate_result_bar_number text:nth-child(2){
+  left: 400rpx;
+}
+
+.heart_rate_result_bar_range{
+  width: 630rpx;
+  height: 14rpx;
+  background-color: #ff0;
+  border-radius: 7rpx;
+  background: linear-gradient(to right, #ff2831,#fbeb57,#00c77f,#fbeb57,#ff2831);
+  margin-top: 15rpx;
+}
+.heart_rate_result_bar{
+  width: 630rpx;
+  height: 30rpx;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 40rpx;
+  color: #333333;
+  font-size: 20rpx;
+}
+.heart_rate_result_bar view{
+  flex: 1;
+  height: 30rpx;
+  line-height: 30rpx;
+}
+.heart_rate_result_arrow_wrap{
+  width: 630rpx;
+  margin-top: 2rpx;
+  position: relative;
+}
+.heart_rate_result_arrow{
+  position: absolute;
+  width: 28rpx;
+  height: 24rpx;
+  transition: all .3s;
+  transform: translateX(-50%);
+}

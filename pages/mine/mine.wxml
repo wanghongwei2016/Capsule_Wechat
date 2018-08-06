@@ -1,0 +1,111 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml"/>
+<template is="toast" data="{{ ..._toast_ }}"/>
+
+<!--mine.wxml-->
+<view class="back_placeholder">
+</view>
+<view class="contain">
+
+  <!--<view class="header_contain">-->
+  <view class="header_contain" wx:if="{{uin != 100000}}">
+    <view class="header_login_in_contain">
+      <!--<view class="header_outer_back">-->
+        <view class="header_inner_back">
+          <image src="../../images/mine_header.png" class="header_placeholder_icon" mode="aspectFill"></image>
+        </view>
+      <!--</view>-->
+      <view class="info_contain">
+        <view class="header_section">
+          <text class="nick_view">{{nick_name}}</text>
+        </view>
+        <view class="header_section">
+          <image src="../../images/phone.png" class="phone_icon" mode="aspectFill"></image>
+          <text class="phone_text">{{phone}}</text>
+        </view>
+        <view class="header_section2" wx:if="{{verified_disable}}">
+          <image src="../../images/verif.png" class="verif_icon" mode="aspectFill"></image>
+          <text class="is_verif">已认证</text>
+        </view>
+        <view class="header_section2" bindtap="verifAction" wx:if="{{!verified_disable}}">
+          <image src="../../images/verif.png" class="verif_icon" mode="aspectFill"></image>
+          <text class="no_verif" wx:if="{{!verified_disable}}">未实名认证</text>
+        </view>
+      </view>
+    </view>
+
+    <!--钱包优惠券-->
+    <!--<view class="login_in_bottom_contain">
+        <view class="sub_contain" bindtap="sectionSelectAction" data-title="钱包">
+          <view class="sub_contain_title_contain" data-title="钱包">
+            <text class="sub_contain_title" data-title="钱包">{{balance}}</text>
+            <text class="sub_contain_placeholder" data-title="钱包">元</text>
+          </view>
+          <text class="title_placeholder" data-title="钱包">钱包</text>
+        </view>
+        <view class="ver_line"></view>
+        <view class="sub_contain" bindtap="sectionSelectAction" data-title="优惠券">
+          <view class="sub_contain_title_contain" data-title="优惠券">
+            <text class="sub_contain_title" data-title="优惠券">3</text>
+            <text class="sub_contain_placeholder" data-title="优惠券">个</text>
+          </view>
+          <text class="title_placeholder" data-title="优惠券">优惠券</text>
+        </view>
+      </view>-->
+  </view>
+  <view class="header_contain_logout" wx:if="{{uin == 100000}}">
+    <view class="login_text_contain">
+      <text class="loginText" bindtap="loginAction">登录/注册</text>
+    </view>
+    <view class="login_des_contain">
+      <text class="loginDes" wx:if="{{register_bonus!=0}}">首次登录即送{{register_bonus}}元大礼包</text>
+    </view>
+  </view>
+  <!--</view>-->
+  <view class="section_header_view"></view>
+  <view class="section_contain">
+    <view wx:if="{{login_in_data.length > 0}}" wx:for="{{login_in_data}}" class="section_item" wx:key="{{index}}">
+      <view class="section_line_contain">
+        <view class="section" bindtap="sectionSelectAction" data-title="{{item.title}}">
+          <image src="/images/mine_{{item.icon}}" class="icon" mode="aspectFill" data-title="{{item.title}}"></image>
+          <view class="title_view" data-title="{{item.title}}">
+            <text class="title" data-title="{{item.title}}">{{item.title}}</text>
+          </view>
+          <view class="section_right" data-title="{{item.title}}">
+            <text class="right_des_2" wx:if="{{item.title == '钱包'}}" data-title="{{item.title}}">{{item.des}}元</text>
+          </view>
+          <view class="next_icon_contain" data-title="{{item.title}}">
+            <image src="/images/nextRow.png" class="section_next_icon" mode="aspectFill"></image>
+          </view>
+          <view class="section_right" data-title="{{item.title}}">
+            <text class="right_des_2" wx:if="{{item.title == '邀请好友'}}" data-title="{{item.title}}">领{{item.des}}元</text>
+          </view>
+        </view>
+      </view>
+      <view class="section_line"></view>
+    </view>
+  </view>
+   <view class="section_contain_normal">
+    <view wx:for="{{normal_pageData}}" class="section_item" wx:key="{{index}}">
+      <view class="section_line_contain">
+        <view class="section" bindtap="sectionSelectAction" data-title="{{item.title}}">
+          <image src="/images/mine_{{item.icon}}" class="icon" mode="aspectFill" data-title="{{item.title}}"></image>
+          <view class="title_view" data-title="{{item.title}}">
+            <text class="title" data-title="{{item.title}}">{{item.title}}</text>
+          </view>
+          <view class="section_right" data-title="{{item.title}}">
+            <text class="center_des" wx:if="{{item.title == '客服电话'}}" bindtap="sectionSelectAction" data-title="{{item.title}}">{{item.des}}</text>
+          </view>
+          <!-- <view class="section_right" data-title="{{item.title}}">
+            <text class="center_des" wx:if="{{item.title == '语言'}}" bindtap="sectionSelectAction" data-title="{{item.title}}">{{item.des}}</text>
+          </view> -->
+          <view class="next_icon_contain" data-title="{{item.title}}">
+            <image src="/images/nextRow.png" class="section_next_icon" mode="aspectFill"></image>
+          </view>
+        </view>
+      </view>
+      <view class="section_line"></view>
+    </view>
+  </view>
+  <button class="loginOut" bindtap="loginOutAction" wx:if="{{uin != 100000}}">退出登录</button>
+</view>

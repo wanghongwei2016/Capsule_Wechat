@@ -1,0 +1,34 @@
+/**app.wxss**/
+@import "./component/toast/toast.wxss"; 
+page{
+    height: 100%;
+}
+button {
+    background-color: #189df9;
+    color: white;
+}
+text {
+  font-family: PingFangSC-Regular,'Microsoft Yahei',sans-serif;
+}
+button::after {
+  content: "";
+  border: none;
+}
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  /*padding: 200rpx 0;*/
+  box-sizing: border-box;
+} 
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.clear{
+  clear: both;
+}

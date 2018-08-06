@@ -1,0 +1,320 @@
+.invite_contain{
+  width: 100%;
+  height: 100%;
+  background: -webkit-linear-gradient(#c1e6ff, #dff2ff); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(#c1e6ff, #dff2ff); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(#c1e6ff, #dff2ff); /* Firefox 3.6 - 15 */
+  background: linear-gradient(#c1e6ff, #dff2ff); /* 标准的语法 */
+}
+.invite_header_image{
+  width: 100%;
+  height: 648rpx;
+}
+.invite_header{
+  position: relative;
+}
+.invite_price{
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  color: #ffffff;
+  font-size: 37rpx;
+}
+.invite_price_special{
+  font-size: 75rpx;
+  font-weight: bold;
+}
+.invite_info{
+  position:absolute;
+width:100%;
+color:#1a97ee;
+font-size:40rpx;
+text-align:center;
+line-height:90rpx;
+top:502rpx;
+
+}
+.invite_info_special{
+  font-size: 66rpx;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+}
+.active_invite{
+   margin-top: 70rpx; 
+}
+.face_to_face_invite{
+  width: 230rpx;
+  font-size: 32rpx;
+}
+.invite_friend{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 520rpx;
+  height: 40rpx;
+  margin: 60rpx auto 30rpx auto;
+}
+.invite_friend .left_line,.invite_friend .right_line {
+  background-color: #1a97ee;
+  width: 35%;
+  height: 2rpx;
+}
+.invite_friend_header {
+  font-size: 26rpx;
+  color: #1a97ee;
+  width: 20%;
+  text-align: center;
+}
+.wechat_image{
+  display: block;  
+  width: 90rpx;
+  height: 90rpx;
+}
+.share_list{
+  display: flex;
+  width: 520rpx;
+  margin: 35rpx auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.share_item{
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.share_btn_hide{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 10;
+  left: 0;
+  top: 0;
+}
+.share_item_text{
+  font-size: 22rpx;
+  color: #007bd1;
+  margin-top: 14rpx;
+}
+.activity_rules_title{
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: #1a97ee;
+  font-size: 26rpx;
+  bottom: 25rpx;
+}
+.activity_rules_hide{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 1000;
+}
+.activity_rules{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  width: 600rpx;
+  background: #ffffff;
+  padding: 58rpx 42rpx;
+  border-radius: 8rpx;
+  box-sizing: border-box;
+}
+.text_title_contain {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 40rpx;
+  margin-bottom: 58rpx;
+}
+.left_line,.right_line {
+  background-color: #4d4d4d;
+  width: 34%;
+  height: 2rpx;
+}
+.text_title {
+  font-size: 30rpx;
+  color: #4d4d4d;
+  width: 24%;
+  text-align: center;
+}
+.text_content {
+  width: 90%;
+  font-size: 26rpx;
+  color: #6c6c6c;
+  line-height: 1.5em;
+}
+.text_content_item{
+  margin-top: 35rpx;
+  display: inline-block;
+  text-align: justify;
+}
+.text_content_item:first-child{
+  margin-top: 0;
+}
+.close_icon{
+  position: absolute;
+  width: 20rpx;
+  height: 20rpx;
+  top: 10rpx;
+  right: 10rpx;
+}
+/*表单样式  */
+.verifi_contain {
+  width: 100%;
+  margin-top: -10px;
+  margin-bottom: 21rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top:-10px;
+
+}
+
+.input_contain {
+  background-color: white;
+  border-radius: 8rpx;
+  width: 628rpx;
+  height: 80rpx;
+  margin-top: 38rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 30rpx;
+}
+
+.input_contain_bottom {
+
+  margin-top: 24rpx;
+}
+
+.input_placeholder {
+  color:#b2b2b2;
+}
+
+.code_input,.phone_input{
+  padding-left: 20rpx;
+}
+.code_get_button , .code_get_button[plain]{
+  font-size: 30rpx;
+  color: #189df9;
+  position: absolute;
+  right: 70rpx;
+  height: 80rpx;
+  line-height: 3em;
+}
+
+.code_get_button:disabled{
+  border: none;
+  background-color: white;
+}
+ 
+button[plain] {
+  border: none;
+}
+
+
+.code_get_button[disabled]:not([type]) {
+  background-color: white;
+}
+
+.invite_button_contain.low{
+  width: 100%;
+  height: 90rpx;
+}
+
+.invite_button_contain.high{
+  width: 100%;
+  height: 90rpx;
+  margin-top: 47rpx;
+  margin-bottom: 92rpx;
+}
+
+.invite_button {
+  width: 628rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-top: 38rpx;
+}
+
+.code_hide{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.code_content{
+  width: 400rpx;
+  background: #ffffff;
+  border-radius: 8rpx;
+}
+
+.code_canvas{
+  border-radius: 8rpx;
+}
+
+.coded_info{
+  text-align: center;
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 20rpx;
+}
+
+/*新月卡  */
+.card_corner_image {
+  text-align:center;
+  background-color: white;
+  border-radius: 8rpx;
+  /* margin-top: 38rpx; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 30rpx;
+  z-index: 99;
+}
+.card_corner_content {
+  width:639rpx;
+  margin-top:-118rpx;
+  text-align:center;
+  height:118rpx;
+  flex-direction:column;
+  display:flex;
+  z-index: 200;
+
+}
+
+/* .card_corner_image image {
+  z-index: -1;
+} */
+.card_corner_title{
+  position:relative;
+margin-top:-18rpx;
+color:#189df9;
+font-size:36rpx;
+
+}
+
+.card_corner_des{
+  /* position: absolute; */
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  color: #189df9;
+}

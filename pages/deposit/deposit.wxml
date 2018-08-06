@@ -1,0 +1,113 @@
+<!-- 自定义Toast -->
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
+
+<!--deposit.wxml-->
+<view class="contain">
+  <!-- <view class="deposit_value_contain">
+    <text class="deposit_text">我的余额(元)</text>
+    <text class="deposit_value_2">{{balance}}</text>
+    <view class="charge_detail_contain" bindtap="chargeDetailAction" data-id=" ">
+    <text class="charge_detail" data-id=" ">充值明细</text>
+    </view>
+  </view>
+  <button class="pay_button" bindtap="payAction">立即充值</button>
+  <view class="deposit_contain">
+    <text class="deposit_default" wx:if="{{deposit_text_placeholder}}">{{deposit_text_placeholder}}</text>
+    <text class="deposit_action" bindtap="depositAction">{{deposit_pay_text}}</text>
+  </view> -->
+
+  <view class="deposit_list">
+    <view class='card_item'>
+      <image src='/images/month_card.png' background-size="cover" mode="widthFix" class='month_card_class'> </image>
+
+      <view class='card_content' wx:if="{{!bougth_card}}" bindtap='cardBuyAction'>
+        <view>
+          <text class='card_left_title'>享+头等舱</text>
+          <text class='card_right_title' id='limit2'>拼团进行中</text> 
+          <!-- <p class='limit_contain'> -->
+            <!-- {{card_info.activity_title}} -->
+            <!-- <button class='card_right_buy' id='limit'>{{card_info.activity_title}}</button> -->
+          <!-- </p> -->
+        </view>
+        <text class='card_middle_top_title middle_title'>月卡・{{card_info.activity_body}}</text>
+        <text class='card_middle_bottom_title middle_title'>每天免费休息1小时</text>
+        <button class='card_right_buy' id='buy_rightnow'>立即抢购</button>
+      </view>
+      <view class='card_content' wx:if="{{bougth_card}}" bindtap='cardBuyAction'>
+        <view>
+          <text class='card_left_title'>享+头等舱・月卡</text>
+           <text class='card_right_title' id='limit2'>拼团进行中</text> 
+        </view>
+        <view class='card_middle_content'>
+          <text class='card_middle_left_title middle_title'>{{month_card_info.card_no}}</text>
+          <!-- <text class='card_middle_right_title middle_title'>原价300元/月</text> -->
+        </view>
+        <view>
+          <text class='use_date'>有效期至{{month_card_info.end_date}}</text>
+
+        </view>
+        <view>
+                  <button class='card_right_buy' id='card_right_flow_buy'>续买月卡</button>
+
+        </view>
+    
+
+
+      </view>
+    </view>
+    <view class='deposit_item_top'>
+      <view class="deposit_item">
+        <navigator url="/pages/balance/balance?balance={{balance}}" hover-class="none">
+          <view>
+            <text class="deposit_info">余额</text>
+            <view class="deposit_item_wrap">
+              <text class="deposit_banlace">{{balance}}元</text>
+            </view>
+          </view>
+        </navigator>
+        <view class="pay_button_wrap">
+          <button class="pay_button" bindtap="payAction">充值享优惠</button>
+        </view>
+      </view>
+      <view class="deposit_item">
+        <navigator url="/pages/redeem/redeem" hover-class="none">
+          <view class="deposit_item_wrap">
+            <text class="deposit_info">现金红包</text>
+            <text class="deposit_status">去兑换 ></text>
+          </view>
+        </navigator>
+                  </view>
+
+              <view class="deposit_item">
+
+         <navigator url="/pages/coupon/coupon" hover-class="none">
+          <view class="deposit_item_wrap">
+            <text class="deposit_info">优惠券</text>
+            <text class="deposit_status">去查看 ></text>
+          </view>
+        </navigator>
+      </view>
+    </view>
+
+    <!-- <view class="deposit_item">
+      <view class="deposit_item_wrap">
+        <text class="deposit_info">购买月卡</text>
+        <text class="deposit_status">使用中 ></text>
+      </view>
+    </view> -->
+    <!-- <navigator url="/pages/cashPledge/cashPledge?deposit={{deposit}}&deposit_text_placeholder={{deposit_text_placeholder}}" hover-class="none">
+      <view class="deposit_item">
+          <view class="deposit_item_wrap">
+            <text class="deposit_info">押金</text>
+            <text class="deposit_status">{{deposit_pay_text}} ></text>
+          </view>
+      </view>
+    </navigator>  -->
+  </view>
+
+  <!-- <view class="deposit_contain">
+    <text class="deposit_default" wx:if="{{deposit_text_placeholder}}">{{deposit_text_placeholder}}</text>
+    <text class="deposit_action" bindtap="depositAction">{{deposit_pay_text}}</text>
+  </view> -->
+</view>

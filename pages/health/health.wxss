@@ -1,0 +1,85 @@
+/* pages/health/health.wxss */
+.health-view{
+  width: 100%;
+  min-height: 100%;
+  background: #f7f7fe;
+}
+.health_none_img{
+  width: 104rpx;
+  height: 86rpx;
+  margin-bottom: 60rpx;
+}
+.health-no-data{
+  width: 100%;
+  height: 375rpx;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  font-size: 26rpx;
+  color: #999999;
+  align-items: center;
+}
+.health-list{
+
+}
+.health-time-wrap{
+  width: 100%;
+  text-align: center;
+}
+.health-time{
+  display: inline-block;
+  font-size: 18rpx;
+  background: #dddddd;
+  padding: 7rpx 20rpx;
+  color: #ffffff;
+  border-radius: 20rpx;
+  margin-top: 30rpx;
+}
+.health-content{
+  width: 690rpx;
+  background: #ffffff;
+  border-radius: 5rpx;
+  margin: 10rpx auto auto;
+}
+.health-content-wrap{
+  padding: 25rpx 25rpx 5rpx 25rpx;
+}
+.health-img{
+  width: 645rpx;
+  height: 246rpx;
+}
+.health-title{
+  font-size: 32rpx;
+  color: #333333;
+  margin-top: 25rpx;
+  overflow: hidden;  
+  text-overflow: ellipsis;  
+  white-space: nowrap;
+}
+.health-text{
+  font-size: 26rpx;
+  color: #999999;
+  margin-top: 30rpx;
+  overflow: hidden;  
+  text-overflow: ellipsis;  
+  white-space: nowrap;
+}
+.health-detail{
+  width: 100%;
+  height: 70rpx;
+  border-top: 1rpx solid #dddddd;
+  margin-top: 35rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 28rpx;
+  color: #333333;
+}
+.health_arrow_img{
+  width: 15rpx;
+  height: 26rpx;
+}
+.health-space{
+  width: 100%;
+  height: 40rpx;
+}
