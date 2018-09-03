@@ -2,6 +2,7 @@
 var app = getApp()
 var network = require("../../utils/network.js")
 var utils = require("../../utils/util.js")
+var storageService = require('../../utils/storageService.js').default
 var pageData = {
   data: {
     count_show: "00:00:00",
@@ -32,7 +33,7 @@ var pageData = {
     showed_buy_card: 1, //默认不显示买单特惠， 第一次点击结束订单才会显示 1初始状态，未请求过接口，不显示弹框 2 请求过预结算 可弹出窗口  3 请求过 被关闭 不再请求接口
     auto_end: false
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     // 生命周期函数--监听页面加载
     // toast组件实例
     new app.ToastPannel();
@@ -56,14 +57,41 @@ var pageData = {
         count_show: timeShow
       })
     }
-    setInterval(function() {
+    setInterval(function () {
       timeKeeper(that.data.count)
     }, 1000)
     this.checkHealthReportCache()
     this.requestActivityList()
+    if (!storageService.hadMusicActModal(this.data.booking_id)) {
+      setTimeout(() => {
+        this.showActModal();
+        storageService.setMusicActModal(this.data.booking_id);
+      }, 1000);
+    }
+
   },
-  onShow: function() {
-    console.log(this.data.showed_buy_card)
+  showActModal: function () {
+    this.setData({
+      showActModal: true,
+    });
+  },
+  hideActModal: function () {
+    this.setData({
+      showActModal: false,
+    });
+  },
+  gotoMusic: function () {
+    this.hideActModal();
+    wx.navigateTo({
+      url: '/pages/music/music',
+    })
+  },
+  gotoMusicActDetail: function () {
+    wx.navigateTo({
+      url: '/pages/act_music/act_music',
+    })
+  },
+  onShow: function () {
     var that = this;
     wx.setNavigationBarTitle({
       title: '正在使用'
@@ -75,7 +103,8 @@ var pageData = {
           appraise_flag: resp.data.appraise_flag,
           capsule_version: resp.data.capsule_version ? resp.data.capsule_version : 1,
           device_flag: resp.data.device_flag,
-          month_card_flag: resp.data.month_card_flag
+          month_card_flag: resp.data.month_card_flag,
+          month_card_end_time: resp.data.month_card_end_time,
         })
         var timeString = utils.timeShowString(resp.data.booking_info.end_time - resp.data.booking_info.create_time)
         if (resp.data.booking_info.status == 4) {
@@ -91,13 +120,13 @@ var pageData = {
     }
     //如果auto_end 为true  则自动显示结束弹框
     if (this.data.auto_end == true) {
-      this.handEndBooking(() => {})
+      this.handEndBooking(() => { })
     }
   },
   /**
    * 跳转到活动页面
    */
-  webViewAction: function(event) {
+  webViewAction: function (event) {
     var url = event.currentTarget.dataset.url;
     var canIUse = wx.canIUse('web-view');
     console.log(canIUse)
@@ -109,6 +138,10 @@ var pageData = {
       } else if (url == 'xiangshui://mine/month_card') {
         wx.navigateTo({
           url: '/pages/card/card?share=1',
+        })
+      } else if (url.search('xiangshui:') == 0) {
+        wx.navigateTo({
+          url: url.substring('xiangshui:'.length),
         })
       } else {
         wx.navigateTo({
@@ -127,7 +160,7 @@ var pageData = {
     }
   },
   //获取活动列表
-  requestActivityList: function() {
+  requestActivityList: function () {
     var that = this
     network.shareSleepNetwork("/booking/get_activity_list", {}, "GET", function complete(res) {
       if (parseInt(res.data.ret) == 0 && res.data.activity_list && res.data.activity_list.length > 0) {
@@ -139,7 +172,7 @@ var pageData = {
     }, that)
   },
   //检测有无健康数据缓存，没有的话初始化healthReportCache
-  checkHealthReportCache: function() {
+  checkHealthReportCache: function () {
     try {
       var value = wx.getStorageSync('healthReportCache')
       console.log(value)
@@ -152,7 +185,7 @@ var pageData = {
     }
   },
   //跳转到故障页面
-  faultReportAction: function() {
+  faultReportAction: function () {
     // utils.callService()
     wx.navigateTo({
       url: '../faultReport/faultReport?capsule_id=' + this.data.capsule_id_origin + '&booking_id=' + this.data.booking_id + '&area_id=' + this.data.area_id + '&phone=' + app.globalData.localUserInfo.phone
@@ -160,7 +193,7 @@ var pageData = {
   },
 
   //使用流程
-  normalQuestionsAction: function() {
+  normalQuestionsAction: function () {
     console.log(1)
     var canIUse = wx.canIUse('web-view');
     if (canIUse) {
@@ -177,7 +210,7 @@ var pageData = {
       })
     }
   },
-  repeatRequest: function() {
+  repeatRequest: function () {
     var that = this
     that.setData({
       failReqestNum: that.data.failReqestNum + 1
@@ -205,10 +238,23 @@ var pageData = {
     }, 0)
   },
   //结束入住，更新订单信息
-  terminateSleepAction: function(e) {
+  terminateSleepAction: function (e) {
     var that = this
 
+
     if (this.data.month_card_flag != 1 && this.data.showed_buy_card == 1) {
+      this.cardPayTryAction(function cardPayTryAction(ret) {
+        if (!ret) {
+          that.endOrderAction()
+        }
+      })
+    } else if (this.data.month_card_end_time
+      && this.data.month_card_end_time > 0
+      && this.data.showed_buy_card == 1
+      && this.data.month_card_end_time * 1000 - new Date().getTime() <= 1000 * 60 * 60 * 24 * 5) {
+      this.setData({
+        month_card_days: Math.ceil((this.data.month_card_end_time * 1000 - new Date().getTime()) / (1000 * 60 * 60 * 24))
+      });
       this.cardPayTryAction(function cardPayTryAction(ret) {
         if (!ret) {
           that.endOrderAction()
@@ -219,18 +265,25 @@ var pageData = {
     }
   },
 
-  endOrderAction: function() {
+  endOrderAction: function () {
 
     var that = this
-    if (wx.showLoading && that.data.failReqestNum === 0) {
+    if (wx.showLoading) {
       wx.showLoading({
         title: "正在结束订单"
       })
     }
+    var data = wx.getStorageSync('healthReportCache')
+    var muse_flag = data.muse_flag ? 1 : 0;
+    var face_flag = data.face_flag ? 1 : 0;
+    var health_flag = data.health_flag ? 1 : 0;
+    var heart_flag = data.heart_flag ? 1 : 0;
+    var blood_flag = data.blood_flag ? 1 : 0;
     network.shareSleepNetwork('booking/update', {
       to_status: 2,
       from_status: 1,
-      booking_id: parseInt(that.data.booking_id)
+      booking_id: parseInt(that.data.booking_id),
+      muse_flag, face_flag, health_flag, heart_flag, blood_flag
     }, "POST", function complete(res) {
       if (res.data.ret == 0 || res.data.ret == -3042) { //-3042订单已经结束
         console.log("结束订单=====")
@@ -259,9 +312,18 @@ var pageData = {
 
           if (!that.data.hideErrorTag) {
             //如果是结束订单时舱门未关，错误提示显示3s
-            that.show(res.data.err, 3000);
+            // that.show(res.data.err, 3000);
+            wx.showModal({
+              content: res.data.err,
+              confirmText: "结束使用",
+              success: function (resp) {
+                if (resp.confirm) {
+                  that.endOrderAction();
+                }
+              }
+            })
           }
-        }  else {
+        } else {
           //如果有后台背景音乐播放，则停止播放
           const backgroundAudioManager = wx.getBackgroundAudioManager();
           if (backgroundAudioManager.src) {
@@ -274,18 +336,37 @@ var pageData = {
             url: '../orderPay/orderPay?time=' + timeString + '&final_price=' + res.data.booking_info.final_price + "&capsule_id=" + res.data.booking_info.capsule_id + "&balance=" + (res.data.balance ? res.data.balance / 100 : 0) + "&need_charge=" + res.data.need_charge + "&booking_id=" + res.data.booking_id
           })
         }
-      }  else if (res.data.ret == -3111) {
+      } else if (res.data.ret == -3011 && that.data.failReqestNum == 2) {
+        if (wx.hideLoading) {
+          wx.hideLoading()
+        }
+        //如果是结束订单时舱门未关，错误提示显示3s
+        // that.show(res.data.err, 3000);
+        wx.showModal({
+          content: res.data.err,
+          confirmText: "结束使用",
+          success: function (resp) {
+            if (resp.confirm) {
+              // that.setData({ failReqestNum: 0 });
+              // that.repeatRequest()
+              that.endOrderAction();
+            }
+          }
+        })
+      } else if (res.data.ret == -3111) {
         //三次未结束订单，第四次给用户手动结束选项
         if (wx.hideLoading) {
           wx.hideLoading()
         }
         wx.showModal({
           title: '',
-          content: '如您已出舱,请点击确认结束订单',
+          content: '如您已出舱并关闭舱门,请点击“确认”结束订单',
           showCancel: true,
           confirmText: "确认",
           success: function (resp) {
             if (resp.confirm) {
+              // that.setData({ failReqestNum: 0 });
+              // that.repeatRequest()
               that.endOrderAction()
             }
           }
@@ -296,8 +377,8 @@ var pageData = {
           wx.hideLoading()
         }
         // if (!that.data.hideErrorTag) {
-          //如果是结束订单时舱门未关，错误提示显示3s
-          that.show(res.data.err, 3000);
+        //如果是结束订单时舱门未关，错误提示显示3s
+        that.show(res.data.err, 3000);
         // }
       } else {
         that.repeatRequest()
@@ -307,7 +388,7 @@ var pageData = {
     }, that.data.hideErrorTag)
   },
 
-  openGateAction: function() {
+  openGateAction: function () {
     var that = this
     network.shareSleepNetwork("capsule/" + that.data.gate_capsule_id + "/info", {}, "GET", function complete(res) {
       if (parseInt(res.data.ret) == 0) {
@@ -318,7 +399,7 @@ var pageData = {
     }, that)
   },
   // 开窗
-  openTemporaryAction: function(callback) {
+  openTemporaryAction: function (callback) {
     var that = this
     if (wx.showLoading) {
       wx.showLoading({
@@ -342,7 +423,7 @@ var pageData = {
     }
   },
   // 关窗
-  closeTemporaryAction: function() {
+  closeTemporaryAction: function () {
     var that = this
     if (wx.showLoading) {
       wx.showLoading({
@@ -355,41 +436,52 @@ var pageData = {
       if (wx.hideLoading) {
         wx.hideLoading()
       }
-      if (res.data && res.data.ret == 0) {}
+      if (res.data && res.data.ret == 0) { }
     }, that)
   },
   //跳转到音乐界面
-  openMusicAction: function() {
+  openMusicAction: function () {
     wx.navigateTo({
       url: '/pages/music/music',
     })
   },
-  handEndBooking: function(callback) {
+  handEndBooking: function (callback) {
     var that = this;
-    if (this.data.month_card_flag != 1 && this.data.showed_buy_card == 1) {
-      this.cardPayTryAction(function cardPayTryAction(ret) {
-        if (!ret) {
-          that.endOrderAction()
-        }
-      })
-    } else {
-      wx.showModal({
-        title: "是否已出舱？",
-        content: '结束使用后，紫外灯消毒即将启动',
-        confirmText: "已出舱",
-        success: function(res) {
-          if (res.confirm) {
-            that.endOrderAction()
+
+    if (!storageService.hadMonthCardModal(this.data.booking_id)) {
+      if (this.data.month_card_flag != 1
+        || (
+          this.data.month_card_end_time && this.data.month_card_end_time > 0
+          && this.data.month_card_end_time * 1000 - new Date().getTime() <= 1000 * 60 * 60 * 24 * 5
+        )
+      ) {
+        this.setData({
+          month_card_days: Math.ceil((this.data.month_card_end_time * 1000 - new Date().getTime()) / (1000 * 60 * 60 * 24))
+        });
+        this.cardPayTryAction((ret) => {
+          if (!ret) {
+            this.endOrderAction()
           }
-        }
-      })
+        })
+        return;
+      }
     }
 
+    wx.showModal({
+      title: "是否已出舱？",
+      content: '结束使用后，紫外灯消毒即将启动',
+      confirmText: "已出舱",
+      success: function (res) {
+        if (res.confirm) {
+          that.endOrderAction()
+        }
+      }
+    })
     if (this.data.capsule_version == 2) {
       callback()
     }
   },
-  searchChargeAction: function() {
+  searchChargeAction: function () {
     var that = this;
     if (wx.showLoading) {
       wx.showLoading({
@@ -416,13 +508,13 @@ var pageData = {
   /**
    * 拨打客服电话
    */
-  callServiceAction: function() {
+  callServiceAction: function () {
     utils.callService(this.data.phoneService)
   },
   /**
    * 底部跳转页面
    */
-  jumpTo: function(e) {
+  jumpTo: function (e) {
     var jumpType = e.currentTarget.dataset.type
     if (jumpType == 'music') {
       wx.navigateTo({
@@ -454,7 +546,7 @@ var pageData = {
   /**
    * 切换按键状态
    */
-  changeStatus: function(e) {
+  changeStatus: function (e) {
     var functionType = e.currentTarget.dataset.function
     console.log(functionType)
     if (functionType == 'end') {
@@ -498,7 +590,7 @@ var pageData = {
       })
     }
   },
-  backStatus: function(e) {
+  backStatus: function (e) {
     var functionType = e.currentTarget.dataset.function
     if (functionType == 'end') {
       this.setData({
@@ -541,7 +633,7 @@ var pageData = {
       })
     }
   },
-  handleSearchRule: function() {
+  handleSearchRule: function () {
     var that = this
     wx.showModal({
       title: "使用规则",
@@ -549,7 +641,7 @@ var pageData = {
       showCancel: false,
     })
   },
-  handleFunction: function(e) {
+  handleFunction: function (e) {
     var functionType = e.currentTarget.dataset.function
     var that = this
     if (functionType == 'end') {
@@ -725,7 +817,7 @@ var pageData = {
       })
     }
   },
-  toggleMoreAction: function() {
+  toggleMoreAction: function () {
     this.setData({
       moreShow: !this.data.moreShow
     })
@@ -734,30 +826,45 @@ var pageData = {
    * 月卡试结算
    */
 
-  cardPayTryAction: function(tryComplete) {
-    var that = this
-    var result = false //默认不弹出月卡优惠，如果为true  则月卡价格和原价不一致 弹出月卡优惠
-    network.shareSleepNetwork("wallet/month_card_price", {
-      "booking_id": parseInt(that.data.booking_id)
-    }, "POST", function complete(res) {
-      if (res.data.ret == 0 && (!res.data.month_price || (res.data.price > res.data.month_price))) { //
-        that.setData({
+  cardPayTryAction: function (tryComplete) {
+
+    if (this.data.month_card_flag == 1 && this.data.month_card_end_time && this.data.month_card_end_time > 0) {//月卡过期提醒
+      if (!storageService.hadMonthCardModal(this.data.booking_id)) {
+        this.setData({
           showed_buy_card: 2,
-          card_price: (res.data.price / 100.0),
-          card_month_price: (res.data.month_price / 100.0)
         })
-        tryComplete(true)
-      } else {
-        tryComplete(false)
       }
-    }, that)
+
+      storageService.setMonthCardModal(this.data.booking_id);
+    } else {
+      var that = this
+      var result = false //默认不弹出月卡优惠，如果为true  则月卡价格和原价不一致 弹出月卡优惠
+      network.shareSleepNetwork("wallet/month_card_price", {
+        "booking_id": parseInt(that.data.booking_id)
+      }, "POST", function complete(res) {
+        if (res.data.ret == 0 && (!res.data.month_price || (res.data.price > res.data.month_price))) { //
+          if (!storageService.hadMonthCardModal(that.data.booking_id)) {
+            that.setData({
+              showed_buy_card: 2,
+              card_price: (res.data.price / 100.0),
+              card_month_price: (res.data.month_price / 100.0)
+            })
+          }
+
+          storageService.setMonthCardModal(that.data.booking_id);
+          tryComplete(true)
+        } else {
+          tryComplete(false)
+        }
+      }, that)
+    }
   },
 
   /**
    * 购买月卡
    */
 
-  buyRightNowAction: function() {
+  buyRightNowAction: function () {
     wx.navigateTo({
       url: '/pages/card/card?bougth_card=' + (this.data.month_card_flag == 1 ? true : false) + "&page_from=1",
     })
@@ -766,8 +873,7 @@ var pageData = {
   /**
    * 月卡优惠关闭
    */
-  toggleRulesAction: function(e) {
-    console.log("点击了----")
+  toggleRulesAction: function (e) {
     this.setData({
       showed_buy_card: 3
     })
@@ -777,6 +883,158 @@ var pageData = {
     // },2000)
   },
 
+
+
+
+
+
+  onFinishBtnClick: function () {
+    if (!storageService.hadMonthCardModal(this.data.booking_id)) {
+      if (this.data.month_card_flag != 1) {//没有月卡 月卡价格弹窗
+        network.shareSleepNetwork("wallet/month_card_price", { booking_id: parseInt(this.data.booking_id) }, "POST", (res) => {
+          if (res.data.ret == 0 && (!res.data.month_price || (res.data.price > res.data.month_price))) {
+            this.setData({
+              showed_buy_card: 2,
+              card_price: (res.data.price / 100.0),
+              card_month_price: (res.data.month_price / 100.0)
+            })
+            storageService.setMonthCardModal(this.data.booking_id);
+          } else {
+            this.confirmModalToUpdateBooking();
+          }
+        }, this)
+        return;
+      } else if (this.data.month_card_end_time && this.data.month_card_end_time > 0 && this.data.month_card_end_time * 1000 - new Date().getTime() <= 1000 * 60 * 60 * 24 * 5) {//月卡过期提醒弹窗
+        this.setData({
+          month_card_days: Math.ceil((this.data.month_card_end_time * 1000 - new Date().getTime()) / (1000 * 60 * 60 * 24)),
+          showed_buy_card: 2,
+        });
+        storageService.setMonthCardModal(that.data.booking_id);
+        return;
+      }
+    }
+    this.confirmModalToUpdateBooking();
+  },
+
+
+  onMonthCardModalClose: function () {
+    this.setData({
+      showed_buy_card: 1,
+    });
+    this.confirmModalToUpdateBooking();
+  },
+
+
+  confirmModalToUpdateBooking: function () {
+    wx.showModal({
+      title: "是否已出舱？",
+      content: '结束使用后，紫外灯消毒即将启动',
+      confirmText: "已出舱",
+      success: (res) => {
+        if (res.confirm) {
+          this.updateBookingFn(repeatFn);
+        }
+      }
+    })
+  },
+
+
+
+  updateBookingFn: function (repeatFn) {
+    if (wx.showLoading) {
+      wx.showLoading({
+        title: "正在结束订单"
+      })
+    }
+    var data = wx.getStorageSync('healthReportCache')
+    var muse_flag = data.muse_flag ? 1 : 0;
+    var face_flag = data.face_flag ? 1 : 0;
+    var health_flag = data.health_flag ? 1 : 0;
+    var heart_flag = data.heart_flag ? 1 : 0;
+    var blood_flag = data.blood_flag ? 1 : 0;
+    network.shareSleepNetwork('booking/update', {
+      to_status: 2,
+      from_status: 1,
+      booking_id: parseInt(this.data.booking_id),
+      muse_flag, face_flag, health_flag, heart_flag, blood_flag
+    }, "POST", (res) => {
+      if (wx.hideLoading) {
+        wx.hideLoading()
+      }
+      if (repeatFn && repeatN < 2 && repeatFn(res)) {
+        if (wx.showLoading) {
+          wx.showLoading({
+            title: "正在结束订单"
+          })
+        }
+        setTimeout(() => {
+          repeatN++;
+          this.updateBookingFn(repeatFn);
+        }, 1500);
+        return;
+      }
+      repeatN = 0;
+      if (res.data.ret == 0 || res.data.ret == -3042) { //-3042订单已经结束
+        //如果有后台背景音乐播放，则停止播放
+        const backgroundAudioManager = wx.getBackgroundAudioManager();
+        if (backgroundAudioManager.src) {
+          backgroundAudioManager.stop();
+        }
+        var balance = res.data.balance ? res.data.balance : 0;
+        var final_price = res.data.booking_info.final_price ? res.data.booking_info.final_price : 0;
+        if (res.data.booking_info.status == 4) {
+          //paySucc
+          var timeString = utils.timeShowString(res.data.booking_info.end_time - res.data.booking_info.create_time)
+          wx.redirectTo({
+            url: '../paySucc/paySucc?time=' + timeString + '&final_price=' + res.data.booking_info.final_price + "&capsule_id=" + res.data.booking_info.capsule_id + "&balance=" + (res.data.balance ? res.data.balance / 100 : 0) + '&capsule_id_origin=' + this.data.capsule_id_origin + '&booking_id=' + this.data.booking_id + '&area_id=' + this.data.area_id + '&phone=' + app.globalData.localUserInfo.phone + '&appraise_flag=' + this.data.appraise_flag
+          })
+        } else {
+          //orderPay
+          var timeString = utils.timeShowString(res.data.booking_info.end_time - res.data.booking_info.create_time)
+          wx.reLaunch({
+            url: '../orderPay/orderPay?time=' + timeString + '&final_price=' + res.data.booking_info.final_price + "&capsule_id=" + res.data.booking_info.capsule_id + "&balance=" + (res.data.balance ? res.data.balance / 100 : 0) + "&need_charge=" + res.data.need_charge + "&booking_id=" + res.data.booking_id
+          })
+        }
+      } else if (res.data.ret == -3011) {//舱门未关
+        wx.showModal({
+          content: res.data.err,
+          confirmText: "结束使用",
+          success: (resp) => {
+            if (resp.confirm) {
+              this.updateBookingFn(repeatFn);
+            }
+          }
+        })
+      } else if (res.data.ret == -3111) {//三次未结束订单，第四次给用户手动结束选项
+        wx.showModal({
+          content: '如您已出舱并关闭舱门,请点击“确认”结束订单',
+          showCancel: true,
+          confirmText: "确认",
+          success: (resp) => {
+            if (resp.confirm) {
+              this.updateBookingFn(repeatFn);
+            }
+          }
+        })
+      } else if (res.data.ret == -3112 || res.data.ret == -3104) {// 舱内感应有人  无法手动结束
+        this.show(res.data.err, 3000);
+      } else {
+        this.show(res.data.err, 3000);
+      }
+    }, this, () => {
+      this.repeatRequest()
+    }, this.data.hideErrorTag)
+  },
+
+
+
+
+
+}
+let repeatN = 0;
+function repeatFn(res) {
+  return res.data.ret != 0
+    && res.data.ret != -3042;
 }
 
 function intervalToDateString(interval) {

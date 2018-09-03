@@ -110,16 +110,16 @@
             <text>钱包余额：</text>
             <text>{{balance?balance:0}}元</text>
           </view>
-       
-       
-        </view>
-        <view class='card_container'>
-        <button class='buyCard' bindtap='buyCardAction'>{{month_card_flag != 1 ? "购买月卡 低至29.8元/月": "续买月卡 低至29.8元/月"}}</button>
-        </view>
-                 
+
 
         </view>
-      
+        <view class='card_container'>
+          <button class='buyCard' bindtap='buyCardAction'>{{month_card_flag != 1 ? "购买月卡 低至29.8元/月": "续买月卡 低至29.8元/月"}}</button>
+        </view>
+
+
+      </view>
+
       <view class='pay_result_report_title'>
         健康报告
       </view>
@@ -202,7 +202,7 @@
               <view>肤质健康</view>
             </view>
           </view>
-          <view class='pay_result_report_data_item'  wx:if="{{hasHealthData}}">
+          <view class='pay_result_report_data_item' wx:if="{{hasHealthData}}">
             <view class='pay_result_report_data_item_value'>
               <text>{{stain_level=='normal'? '正常' : stain_level=='one'? '轻度' : stain_level=='two' ? '中度' : '重度'}}</text>
             </view>
@@ -211,7 +211,7 @@
             </view>
           </view>
         </view>
-        <view class='pay_result_report_data_row'  wx:if="{{hasHealthData}}">
+        <view class='pay_result_report_data_row' wx:if="{{hasHealthData}}">
           <view class='pay_result_report_data_item'>
             <view class='pay_result_report_data_item_value'>
               <text>{{acne_level=='normal' ? '正常' : acne_level=='one'? '轻度' : acne_level=='two' ? '中度' : '重度'}}</text>
@@ -302,9 +302,9 @@
             <view class='circle circle3'></view>
             <view class='circle circle4'></view>
             <view class='report_heart_rate_data_wrap'>
-              <view class='report_heart_rate_value' style="font-size: {{compatibleStyle.heartRateFont}}">{{heart_rate}}</view> 
+              <view class='report_heart_rate_value' style="font-size: {{compatibleStyle.heartRateFont}}">{{heart_rate}}</view>
               <view class='report_heart_rate_info'>次/分</view>
-            </view> 
+            </view>
           </view>
           <view class='report_get_health_detail' wx:if="{{hasHeartRateData}}">
             <view class='report_get_health_detail_title'>
@@ -377,7 +377,7 @@
                 <view>偏低</view>
                 <view>正常</view>
                 <view>偏高</view>
-              </view>  
+              </view>
             </view>
             <view class='report_blood_pressure_bar_item'>
               <view class='report_blood_pressure_bar_item_title'>
@@ -396,7 +396,7 @@
                 <view>偏低</view>
                 <view>正常</view>
                 <view>偏高</view>
-              </view>  
+              </view>
             </view>
             <view class='skin-spot-progress-suggest'>
               <view wx:if="{{blood_pressure_low_level === 1}}">
@@ -478,7 +478,7 @@
                   </view>
                 </view>
               </view>
-              <view class='report_get_health_btn' wx:if="{{!hasHealthData}}"  bindtap='getSkinAction'>
+              <view class='report_get_health_btn' wx:if="{{!hasHealthData}}" bindtap='getSkinAction'>
                 立即获取
               </view>
               <view class='skin-space'></view>
@@ -506,7 +506,7 @@
                     <text>严重</text>
                   </view>
                 </view>
-                <view class='skin-spot-wrap'  wx:if="{{hasHealthData}}">
+                <view class='skin-spot-wrap' wx:if="{{hasHealthData}}">
                   <view class='skin-spot-title'>黑眼圈严重程度：
                     <text class="level_text">{{dark_level=='normal'? '正常' : dark_level=='one'? '轻度' : dark_level=='two' ? '中度' : '重度'}}</text>
                   </view>
@@ -531,7 +531,7 @@
                   </view>
                 </view>
               </view>
-              <view class='report_get_health_btn' wx:if="{{!hasHealthData}}"  bindtap='getSkinAction'>
+              <view class='report_get_health_btn' wx:if="{{!hasHealthData}}" bindtap='getSkinAction'>
                 立即获取
               </view>
               <view class='skin-space'></view>
@@ -590,7 +590,7 @@
                   </view>
                 </view>
               </view>
-              <view class='report_get_health_btn' wx:if="{{!hasHealthData}}"  bindtap='getSkinAction'>
+              <view class='report_get_health_btn' wx:if="{{!hasHealthData}}" bindtap='getSkinAction'>
                 立即获取
               </view>
               <view class='skin-space'></view>
@@ -628,3 +628,30 @@
     </view>
   </view>
 </scroll-view>
+
+
+
+
+<view wx:if='{{showActModal}}' class='modal modal-popup'>
+  <view class='modal-layer'></view>
+  <view class='modal-dialog'>
+    <view class='modal-content'>
+      <view class='modal-body'>
+        <view class='relative w-auth'>
+          <image mode='widthFix' style='width:500rpx;height:auth;' src='/images/red_packet_bg.png'></image>
+          <view class='absolute w100 left-0 text-center text-white f36' style='top:10%;'>{{red_envelope>0?'恭喜获得红包':'谢谢使用'}}</view>
+          <view class='absolute w100 left-0 text-center text-white f36' style='top:52%;'>正念冥想红包</view>
+          <view class='absolute w100 left-0 text-center text-white f36' style='top:60%; color:#ffed5a;'>
+            <text wx:if='{{red_envelope>0}}' class='f100'>{{red_envelope/100}}</text>
+            <text wx:else class='f64'>祝您下次中奖</text>
+            <text wx:if='{{red_envelope>0}}' class='f40'>元</text>
+          </view>
+          <view class='absolute w100 left-0 bottom-0 text-center text-white f24' style='margin-bottom:10%;'>红包将在五分钟内自动放入「我的-钱包」</view>
+        </view>
+        <view class='text-center' style='margin-top:30rpx;'>
+          <image mode='widthFix' style='width:80rpx;' src='/images/red_packet_close.png' bindtap='hideActModal'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

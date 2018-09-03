@@ -63,14 +63,14 @@ function shareSleepNetwork(api, data, method, complete, that, errBack, hideError
         if (wx.hideLoading) {
           wx.hideLoading()
         }
-        if (res.data && res.data.err){
+        if (res.data && res.data.err) {
           that.show(res.data.err);
-        }else{
+        } else {
           if (!hideError) {
             that.show('网络开小差了...')
           }
         }
-        if (errBack){
+        if (errBack) {
           errBack()
         }
       }
@@ -80,7 +80,7 @@ function shareSleepNetwork(api, data, method, complete, that, errBack, hideError
        * -3026 未实名认证
        * -4014 区域号不存在
        */
-      if (res.data.ret == -3026 || res.data.ret == -9004 || res.data.ret == -9003 || res.data.ret == -9005 || res.data.ret == -1017 || res.data.ret == -1016 || res.data.ret == -3111) {
+      if (res.data.ret == -3026 || res.data.ret == -9004 || res.data.ret == -9003 || res.data.ret == -9005 || res.data.ret == -1017 || res.data.ret == -1016 || res.data.ret == -3111 || res.data.ret == -1053) {
         complete(res)
         return;
       }
@@ -119,23 +119,23 @@ function shareSleepNetwork(api, data, method, complete, that, errBack, hideError
             //   console.log('WebSocket 已关闭！')
             // })
           }
-        } 
-        if (res.data.ret == -4014){
-          setTimeout(()=>{
+        }
+        if (res.data.ret == -4014) {
+          setTimeout(() => {
             wx.navigateBack({
               delta: 1
             })
-          },1000)
+          }, 1000)
         }
         if (res.data.ret == -1055) {
           console.log("无押金理由");
         } else if (res.data.ret == -3106 || res.data.ret == -3107) {
           console.log("非月卡用户");
-        }else {
+        } else {
           complete(res)
           if (res.data.err != 'login required') {
             console.log('lalaal------------------------------------------')
-            if (!hideError){
+            if (!hideError) {
               that.show(res.data.err);
             }
           }

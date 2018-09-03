@@ -1,19 +1,24 @@
 /**app.wxss**/
-@import "./component/toast/toast.wxss"; 
-page{
-    height: 100%;
+@import "./component/toast/toast.wxss";
+
+page {
+  height: 100%;
 }
+
 button {
-    background-color: #189df9;
-    color: white;
+  background-color: #189df9;
+  color: white;
 }
+
 text {
-  font-family: PingFangSC-Regular,'Microsoft Yahei',sans-serif;
+  font-family: PingFangSC-Regular, 'Microsoft Yahei', sans-serif;
 }
+
 button::after {
   content: "";
   border: none;
 }
+
 .container {
   height: 100%;
   display: flex;
@@ -22,13 +27,261 @@ button::after {
   justify-content: space-between;
   /*padding: 200rpx 0;*/
   box-sizing: border-box;
-} 
-.fl{
+}
+
+.fl {
   float: left;
 }
-.fr{
+
+.fr {
   float: right;
 }
-.clear{
+
+.clear {
   clear: both;
+}
+
+.hr {
+  display: block;
+  height: 1px;
+  background-color: #ddd;
+  margin: 0.8em 0;
+  transform: scale(1, 0.5);
+}
+
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.flex-grow-2 {
+  flex-grow: 2;
+}
+
+.flex-grow-3 {
+  flex-grow: 3;
+}
+
+.flex-grow-4 {
+  flex-grow: 4;
+}
+
+.flex-grow-5 {
+  flex-grow: 5;
+}
+
+.align-items-conter {
+  align-items: conter;
+}
+
+button.span {
+  display: inline;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  min-width: auto;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.modal-layer {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-dialog {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-content, .modal-header, .modal-body, .modal-footer {
+  position: relative;
+}
+
+.redbtn {
+  display: inline-block;
+  width: auth;
+  background-color: #ff2352;
+  height: 60rpx;
+  border-radius: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+  padding: 0 3em;
+  min-width: 100rpx;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.static {
+  position: static;
+}
+
+.w100 {
+  width: 100%;
+}
+
+.w-auth {
+  width: auth;
+}
+
+.h-auth {
+  height: auth;
+}
+
+.cx {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.right-0 {
+  right: 0;
+}
+
+.text-white {
+  color: white;
+}
+
+.b-white {
+  background-color: white;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.f24 {
+  font-size: 24rpx;
+}
+
+.f34 {
+  font-size: 34rpx;
+}
+
+.f30 {
+  font-size: 30rpx !important;
+}
+
+.f40 {
+  font-size: 40rpx;
+}
+
+.f64 {
+  font-size: 64rpx;
+}
+
+.f100 {
+  font-size: 100rpx;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.dl {
+  margin: 40rpx 30rpx;
+  display: block;
+}
+
+.dt {
+  font-size: 36rpx;
+  color: black;
+  display: block;
+  line-height: 1.5;
+  margin-top: 1em;
+}
+
+.dd {
+  font-size: 28rpx;
+  color: black;
+  line-height: 1.5;
+  display: block;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.border-radius {
+  border-radius: 10rpx;
+}
+
+.tt50 {
+  transform: translateY(-50%);
+}
+
+.tb50 {
+  transform: translateY(50%);
 }

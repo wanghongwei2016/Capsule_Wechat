@@ -292,7 +292,7 @@ function openCapsule(capsule_id,that) {
             if (resp.confirm) {
               if (confitext == "补全押金") {
                 wx.navigateTo({
-                  url: '/pages/depositPay/depositPay?back_deposit=true',
+                  url: `/pages/depositPay/depositPay?ru=${encodeURIComponent('/')}&back_deposit=true`,
                 })
               } else {
                 wx.navigateTo({

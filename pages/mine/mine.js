@@ -159,12 +159,13 @@ Page({
         } else if (res.data.user_info.deposit >= res.data.standard_deposit) {
           deposit_text = "已交押金"
         }
-        var phoneNumber = phoneNumberResolve(res.data.user_info.phone)
+        var phoneNumber = res.data.user_info.phone ? phoneNumberResolve(res.data.user_info.phone) : null;
         console.log(phoneNumber)
         that.setData({
           deposit_total: res.data.standard_deposit ? res.data.standard_deposit : 0,
           deposit: res.data.user_info.deposit ? res.data.user_info.deposit : 0,
           nick_name: res.data.user_info.nick_name,
+          head_url: res.data.user_info.head_url,
           verified_disable: is_verified,
           deposit_des: deposit_text,
           phone: phoneNumber,
@@ -247,6 +248,12 @@ Page({
       url: '/pages/login/login',
     })
   },
+
+  yajinAction: function () {
+    wx.navigateTo({
+      url: '/pages/cashPledge/cashPledge',
+    })
+  },
   /**
    * 用户指南
    */
@@ -298,7 +305,7 @@ Page({
       wx.navigateTo({
         url: '/pages/health/health',
       })
-    }else if (title == "优惠券") {
+    } else if (title == "优惠券") {
       wx.navigateTo({
         url: '/pages/coupon/coupon',
       })

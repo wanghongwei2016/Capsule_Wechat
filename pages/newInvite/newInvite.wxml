@@ -1,6 +1,6 @@
 <!-- 自定义Toast -->
-<import src="../../component/toast/toast.wxml"/>
-<template is="toast" data="{{ ..._toast_ }}"/>
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
 
 <view class="invite_contain">
   <view class="invite_header">
@@ -39,21 +39,21 @@
   <view class="verifi_contain" wx:if="{{page_type == 1 || page_type == 4 || page_type == 5}}">
 
     <view class='card_corner_image'>
-        <image src='/images/card_corner.png' style="width:639rpx;height:118rpx;background-color:#d2edff" mode="aspectFit">    </image>
-         <view class='card_corner_content'>
-      <text class='card_corner_title'>周年特惠</text>
-    <text class='card_corner_des'>购月卡低至<text style="color:#ea3925;font-size:34rpx;font-weight:bold">29.8元</text>/月，每天可<text style="color:#ea3925;font-size:34rpx;font-weight:bold">免费</text>休息1小时</text>
+      <image src='/images/card_corner.png' style="width:639rpx;height:118rpx;background-color:#d2edff" mode="aspectFit"> </image>
+      <view class='card_corner_content'>
+        <text class='card_corner_title'>正念冥想体验月</text>
+        <text class='card_corner_des'>免费体验大师级冥想，即有<text style="color:#ea3925;font-size:34rpx;font-weight:bold">红包</text>相送</text>
 
-     </view>
+      </view>
     </view>
-   
-  
+
+
 
     <view class="input_contain">
-      <input placeholder="请输入手机号" class="phone_input" type="number" placeholder-class="input_placeholder" bindinput="inputPhone" cursor-spacing="100" auto-focus="true"/>
+      <input placeholder="请输入手机号" class="phone_input" type="number" placeholder-class="input_placeholder" bindinput="inputPhone" cursor-spacing="100" auto-focus="true" />
     </view>
     <view class="input_contain input_contain_bottom">
-      <input placeholder="请输入验证码" class="code_input" type="number" placeholder-class="input_placeholder" bindinput="inputCode" cursor-spacing="40"/>
+      <input placeholder="请输入验证码" class="code_input" type="number" placeholder-class="input_placeholder" bindinput="inputCode" cursor-spacing="40" />
       <button class="code_get_button" bindtap="getCodeAction" plain="true" disabled="{{code_disabled}}">{{motto}}</button>
     </view>
     <button class="invite_button" bindtap="buttonAction" disabled="{{login_disabled}}">立即领取</button>
@@ -70,20 +70,20 @@
       </view>
       <text class="text_content">
         <text class="text_content_item">1. 邀请好友得现金红包，被邀请者可立即领取{{invited_bonus}}元大礼包，且在成功使用享+完成第一笔订单后邀请者亦可获得{{invite_bonus}}元现金红包。\n</text>
-        <text class="text_content_item">2. 邀请者可同时邀请多人，无上限，被邀请者只可参与一次。所得金额直接发至到享+钱包，用户可在“首页”-“钱包”页面查询余额，下次使用可直接抵扣。\n</text>
-        <text class="text_content_item">3. 本活动仅限邀请新用户，赠送金额不支持提现。\n</text>
-        <text class="text_content_item">4. 本公司保留在法律允许范围内的解释权。\n</text>
+      <text class="text_content_item">2. 邀请者可同时邀请多人，无上限，被邀请者只可参与一次。所得金额直接发至到享+钱包，用户可在“首页”-“钱包”页面查询余额，下次使用可直接抵扣。\n</text>
+      <text class="text_content_item">3. 本活动仅限邀请新用户，赠送金额不支持提现。\n</text>
+      <text class="text_content_item">4. 本公司保留在法律允许范围内的解释权。\n</text>
       </text>
       <view class="close_icon">
         <image class="close_icon" src="../../images/close.png" mode="aspectFill"></image>
-      </view>      
+      </view>
     </view>
   </view>
 
   <!--二维码  -->
   <view class="code_hide" wx:if="{{!code_hide}}" bindtap="hideCodeAction">
     <view class="code_content">
-      <canvas style="width: 400rpx;height: 400rpx;background:#ffffff;" canvas-id="mycanvas" class="code_canvas"/>
+      <canvas style="width: 400rpx;height: 400rpx;background:#ffffff;" canvas-id="mycanvas" class="code_canvas" />
       <view class="coded_info">
         <text>扫码得大礼包</text>
       </view>

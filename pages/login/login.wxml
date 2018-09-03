@@ -14,7 +14,7 @@
         <view class='phone_wrap'>
           <text>手机号</text>
         </view>
-        <input class="input_phone" focus="true" bindinput="inputPhone" type="number" maxlength="13" placeholder="请输入手机号码" placeholder-style="color:#999999" value='{{phone}}' />
+        <input class="input_phone" bindinput="inputPhone" type="number" maxlength="13" placeholder="请输入手机号码" placeholder-style="color:#999999" value='{{phone}}' />
         <view class='login_close_wrap' bindtap="deleteAction" data-type='phone'>
           <image src='../../images/login_close.png' class='login_close login_close_phone' wx:if="{{phone_delete}}" bindtap="deleteAction" data-type='phone'></image>
         </view>
@@ -47,8 +47,16 @@
     <p class="active_show_default">首次登录即送
       <span class='agree_protocol'>{{register_bonus}}元</span>大礼包</p>
   </label>
-  <label class="protocol_show" hidden="{{protocol_label_hiden}}">
-    <p class='agree_left' bindtap="loginAction">点击登录，即表示已阅读同意</p>
+
+  <label class="protocol_show" hidden="{{protocol_label_hiden}}" style='padding-top:1rpx;'>
+    <view class="flex align-items-conter">
+      <view class='hr flex-grow-1' style='margin-right:1em;'></view>
+      <view class='f30' style='color:#189df9;'>定制版企业用户登录</view>
+      <view class='hr flex-grow-1' style='margin-left:1em;'></view>
+    </view>
+    <view style='height:80rpx;'></view>
+    <p class='agree_left'>
+      <button class='span' open-type="getUserInfo" bindgetuserinfo="loginByWeChatAction">点击登录</button>，即表示已阅读同意</p>
     <p class='agree_protocol' bindtap='protocolShowAction'>《享+用户协议》</p>
   </label>
 </view>

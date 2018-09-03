@@ -35,21 +35,21 @@
   </view> -->
   <!--老版本  -->
   <view class='btn_container_wrap' wx:if="{{capsule_version == 1}}">
-      <!-- <button class='openDoor' hover-class="openDoor_active" bindtap="openMusicAction">
+    <!-- <button class='openDoor' hover-class="openDoor_active" bindtap="openMusicAction">
         <text class='btn_item'>减压</text>
       </button> -->
-      <button class="end_booking" bindtap="handEndBooking" hover-class="end_booking_active">
-        <text>结束\n使用</text>
-      </button>
+    <button class="end_booking" bindtap="handEndBooking" hover-class="end_booking_active">
+      <text>结束\n使用</text>
+    </button>
   </view>
-  <view class='btn_open_container'  wx:if="{{capsule_version == 1}}">
+  <view class='btn_open_container' wx:if="{{capsule_version == 1}}">
     <button class='openDoor' hover-class="openDoor_active" bindtap="openTemporaryAction">
       <text class='btn_item'>开舱</text>
-    </button> 
+    </button>
   </view>
   <!--新版本  -->
   <view class='telecontrol_wrap' wx:if="{{capsule_version == 2}}">
-   <view class='count_open_wrap'>
+    <view class='count_open_wrap'>
       <image src='{{openSrc}}' class='count_open'></image>
       <view class='count_open_text'>
         <text>开舱</text>
@@ -68,14 +68,14 @@
       <view class='count_up_text'>
         <text>坐立</text>
       </view>
-      <view class='count_up_tap'  bindlongtap='changeStatus' data-function='up' bindtouchend='backStatus' bindtap='handleFunction'></view>
+      <view class='count_up_tap' bindlongtap='changeStatus' data-function='up' bindtouchend='backStatus' bindtap='handleFunction'></view>
     </view>
-     <view class='count_end_wrap'>
-      <image src='{{endSrc}}' class='count_end'></image>   
+    <view class='count_end_wrap'>
+      <image src='{{endSrc}}' class='count_end'></image>
       <view class='count_end_text'>
         <text>结束使用</text>
       </view>
-      <view class='count_end_tap' bindlongtap='changeStatus' data-function='end' bindtouchend='backStatus' bindtap='handleFunction'></view>
+      <view class='count_end_tap' bindlongtap='changeStatus' data-function='end' bindtouchend='backStatus' bindtap='onFinishBtnClick'></view>
     </view>
     <view class='count_light_wrap'>
       <image src='{{lightSrc}}' class='count_light'></image>
@@ -107,7 +107,7 @@
   <view class='count_functions'>
     <view class='function_item' data-type='music' bindtap='jumpTo'>
       <image src='../../images/count_function1.png' class='count_function1'></image>
-      <text class='function_item_text'>减压冥想</text>
+      <text class='function_item_text' style='color:#fe393d;'>冥想体验月</text>
     </view>
     <view class='function_item' data-type='skin' bindtap='jumpTo'>
       <image src='../../images/count_function2.png' class='count_function2'></image>
@@ -156,34 +156,76 @@
       <view class='more_button' bindtap='toggleMoreAction'>关闭</view>
     </view>
   </view>
-    <view class="order_fault order_fault_flow" bindtap="normalQuestionsAction">使用流程</view>
+  <view class="order_fault order_fault_flow" bindtap="normalQuestionsAction">使用流程</view>
   <view class="order_fault order_fault_report" bindtap="faultReportAction">故障</view>
   <!--月卡买单特惠  -->
-    <view class="activity_rules_hide" wx:if="{{month_card_flag != 1 && showed_buy_card == 2}}">
+  <view class="activity_rules_hide" wx:if="{{month_card_flag != 1 && showed_buy_card == 2}}">
     <view class="activity_rules">
-    <view class='top'>
-    <image class="text_title_contain" src='/images/es_top.png' mode='widthFix'>
-      
-      </image>
+      <view class='top'>
+        <image class="text_title_contain" src='/images/es_top.png' mode='widthFix'>
+
+        </image>
         <text class="text_title">月卡买单特惠</text>
         <text class="text_subtitle">低至29.8元/月，每天免费休息1小时</text>
-    </view>
-         <view class="text_content"> 
+      </view>
+      <view class="text_content">
         <text class="text_content_item">
         本次订单金额<text style="font-weight:700">{{card_price}}</text>元
         </text>
         <text class="text_content_item2">
         月卡支付仅需<text style="color:#ff0000">{{card_month_price == null?0:card_month_price}}</text>元
         </text>
-         <view class='button_container' style='width:100%'> 
-                <!-- <button class='end' bindtap='endOrderAction'>结束使用</button> -->
-                <button class='buycard' bindtap='buyRightNowAction'>购买月卡</button>
-         </view> 
-       </view> 
-      <view class="close_icon" bindlongtap='changeStatus' data-function='end' bindtouchend='backStatus' bindtap='toggleRulesAction'>
+        <view class='button_container' style='width:100%'>
+          <!-- <button class='end' bindtap='endOrderAction'>结束使用</button> -->
+          <button class='buycard' bindtap='buyRightNowAction'>购买月卡</button>
+        </view>
+      </view>
+      <view class="close_icon" bindlongtap='changeStatus' data-function='end' bindtouchend='backStatus' bindtap='onMonthCardModalClose'>
         <image class="close_icon_image" src="../../images/card_buy_close.png" mode="aspectFit"></image>
       </view>
     </view>
   </view>
 
+</view>
+
+
+<view wx:if='{{showActModal}}' class='modal modal-popup'>
+  <view class='modal-layer'></view>
+  <view class='modal-dialog'>
+    <view class='modal-content'>
+      <view class='modal-body'>
+        <view class='relative w-auth'>
+          <image mode='widthFix' style='width:600rpx;height:auth;' src='images/popup.png'></image>
+          <image mode='widthFix' class='absolute right-0 top-0' style='margin-top:20rpx;margin-right:20rpx;width:30rpx;height:30rpx;' src='images/icon-close.png' bindtap='hideActModal'></image>
+          <view class='absolute w100 left-0 bottom-0 text-center' style='padding:1px 0;'>
+            <button class='redbtn f34 ' bindtap='gotoMusic'>立即体验</button>
+            <view class='text-white f24' style='margin-bottom:25rpx; margin-top:20rpx;' bindtap='gotoMusicActDetail'>活动详情>></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<view wx:if='{{month_card_flag == 1  && showed_buy_card == 2}}' class='modal modal-popup'>
+  <view class='modal-layer'></view>
+  <view class='modal-dialog'>
+    <view class='modal-content'>
+      <view class='modal-body'>
+        <view class='relative w-auth'>
+          <image mode='widthFix' style='width:600rpx;height:auth;' src='images/month_bc.png'></image>
+          <image mode='widthFix' class='absolute right-0 top-0' style='margin-top:20rpx;margin-right:20rpx;width:30rpx;height:30rpx;' src='images/icon-close.png' bindlongtap='changeStatus' data-function='end' bindtouchend='backStatus' bindtap='onMonthCardModalClose'></image>
+          <view class='absolute text-center f40 w100 left-0 text-white' style='top:10%;'>您的月卡还有{{month_card_days}}天过期</view>
+          <view class='absolute f30 text-center w100 left-0' style='top:65%;'>
+            <view>月卡过期后，您的专属权益即会失效，</view>
+            <view>如需保留请尽快续费哦！</view>
+          </view>
+          <view class='absolute w100 left-0 bottom-0 text-center' style='margin-bottom:10%;'>
+            <button class='redbtn f34 ' style='background-color:#4f91ee;' bindtap='buyRightNowAction'>立即续买</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

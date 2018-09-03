@@ -371,7 +371,7 @@ var pageData = {
       //     })
       //   }
       // }
-      if (is_deposit == false && that.data.first_show_id == 0 && app.globalData.localUserInfo.uin != 100000) {
+      if (is_deposit == false && that.data.first_show_id == 0 && app.globalData.localUserInfo.uin != 100000 && false) {
         wx.redirectTo({
           url: '/pages/depositPay/depositPay?deposit=' + (that.data.deposit_total - that.data.deposit) / 100 + '&back_deposit=' + that.data.back_deposit,
         })
@@ -409,6 +409,72 @@ var pageData = {
         login_disabled: true
       })
     }
+  },
+  loginByWeChatAction: function (e) {
+    var that = this;
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          let code = res.code;
+          // 查看是否授权
+          wx.getSetting({
+            success: function (res) {
+              if (res.authSetting['scope.userInfo']) {
+                // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+                wx.getUserInfo({
+                  withCredentials: true,
+                  success: function (res) {
+                    console.log(code);
+                    console.log(res.iv);
+                    console.log(res.encryptedData);
+
+                    network.shareSleepNetwork("user/signup", { wechat_code: code, iv: res.iv, dec_data: res.encryptedData }, "POST", function complete(res) {
+                      if (wx.hideLoading) {
+                        wx.hideLoading()
+                      }
+                      if (res.data.ret == 0) {
+                        function initUserInfo() {
+                          var userinfo = that.data.userInfo
+                          userinfo['uin'] = res['data']['uin']
+                          userinfo['token'] = res['data']['token']
+                          userinfo['phone'] = that.data['phone'].replace(/\s*/g, "")
+                          app.globalData.localUserInfo = userinfo
+                          app.globalData.loginout = false
+                          wx.setStorage({
+                            key: 'localUserCache',
+                            data: userinfo,
+                            complete: function (res) {
+                              console.log(res)
+                            }
+                          })
+                          app.createSocket(res['data']['uin'], res['data']['token']);
+                          that.getLocalUserInfo();
+                        }
+                        if ((res.data.flag || res.data.flag == 1) && that.data.register_bonus > 0) {
+                          that.show(that.data.register_bonus + '元大礼包已到账')
+                          setTimeout(initUserInfo, 1000)
+                        } else {
+                          initUserInfo()
+                        }
+                      } else {
+                        that.setData({
+                          login_disabled: false
+                        })
+                      }
+
+                    }, that)
+
+
+                  }
+                })
+              }
+            }
+          })
+        } else {
+          console.log(res.errMsg)
+        }
+      }
+    });
   }
 }
 Page(pageData)

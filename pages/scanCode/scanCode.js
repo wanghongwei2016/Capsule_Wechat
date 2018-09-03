@@ -3,6 +3,7 @@ var app = getApp()
 var network = require('../../utils/network.js')
 var utils = require("../../utils/util.js")
 const hSwiper = require("../../component/hSwiper/hSwiper.js")
+var storageService = require('../../utils/storageService.js').default
 Page({
   /**
    * 页面的初始数据
@@ -41,7 +42,7 @@ Page({
       wx.showModal({
         content: '您的账号在另一台设备登录，如非本人操作，账户可能被盗用，请重新登录。',
         confirmText: "确定",
-        showCancel: 'false',
+        showCancel: false,
         success: function (res) {
           if (res.confirm) {
             wx.removeStorage({
@@ -65,7 +66,7 @@ Page({
       wx.navigateTo({
         url: '../newInvite/newInvite?uin=' + options.uin + "&type=1"
       })
-    }else if(options.card == 1){
+    } else if (options.card == 1) {
       wx.navigateTo({
         url: '/pages/card/card?share=1&uin=' + options.uin,
       })
@@ -101,7 +102,7 @@ Page({
           url: '/pages/login/login'
         })
       }
-    } else if (options.q && decodeURIComponent(options.q).indexOf('wallet/card') != -1){
+    } else if (options.q && decodeURIComponent(options.q).indexOf('wallet/card') != -1) {
       wx.navigateTo({
         url: '/pages/card/card?share=1&uin=' + options.uin,
       })
@@ -145,6 +146,10 @@ Page({
         })
       }
     }
+    let capsule_id = storageService.tryOpenCapsuleCmd();
+    if (capsule_id) {
+      openCapsule(capsule_id, this);
+    }
   },
   /**
    * 跳转到活动页面
@@ -158,9 +163,13 @@ Page({
         wx.navigateTo({
           url: "/pages/redeem/redeem"
         })
-      }else if (this.data.activityList[chooseId].url == 'xiangshui://mine/month_card') {
+      } else if (this.data.activityList[chooseId].url == 'xiangshui://mine/month_card') {
         wx.navigateTo({
           url: '/pages/card/card?share=1',
+        })
+      } else if (this.data.activityList[chooseId].url.search('xiangshui:') == 0) {
+        wx.navigateTo({
+          url: this.data.activityList[chooseId].url.substring('xiangshui:'.length),
         })
       } else {
         wx.navigateTo({
@@ -403,29 +412,41 @@ function openCapsule(capsule_id, that) {
             confirmText: '好的',
             success: function (resp) {
               if (resp.confirm) {
-                that.areaDetailAction(res.data.capsule_info.area_id )
+                that.areaDetailAction(res.data.capsule_info.area_id)
               }
             }
           })
         } else {
-          // wx.showModal({
-          //   content: res.data.calculate_rule,
-          //   confirmText: "立即开舱",
-          //   success: function (resp) {
-          //     if (resp.confirm) {
-          //       wx.navigateTo({
-          //         url: '/pages/openDoor/openDoor?capsule_id=' + capsule_id
-          //       })
-          //     } else if (resp.cancel) {
-          //       // wx.navigateBack({
-          //       //   delta: 1, // 回退前 delta(默认为1) 页面
-          //       // })
-          //     }
-          //   }
-          // })
-          wx.navigateTo({
-            url: '/pages/openDoor/openDoor?capsule_id=' + capsule_id
-          })
+          let calculate_rule = res.data.calculate_rule;
+          network.shareSleepNetwork("booking/bookinglist", {}, "GET", function complete(res) {
+            if (res.data.ret == 0) {
+              if (res.data.booking_infos && res.data.booking_infos.length > 0) {
+                wx.navigateTo({
+                  url: '/pages/openDoor/openDoor?capsule_id=' + capsule_id
+                })
+              } else {
+
+                wx.showModal({
+                  content: calculate_rule,
+                  confirmText: "立即开舱",
+                  success: function (resp) {
+                    if (resp.confirm) {
+                      wx.navigateTo({
+                        url: '/pages/openDoor/openDoor?capsule_id=' + capsule_id
+                      })
+                    } else if (resp.cancel) {
+                      // wx.navigateBack({
+                      //   delta: 1, // 回退前 delta(默认为1) 页面
+                      // })
+                    }
+                  }
+                })
+              }
+            }
+          }, that)
+
+
+
         }
 
       } else if (parseInt(res.data.ret) == -9003 || parseInt(res.data.ret) == -9004) {
@@ -437,11 +458,11 @@ function openCapsule(capsule_id, that) {
             if (resp.confirm) {
               if (confitext == "补全押金") {
                 wx.navigateTo({
-                  url: '/pages/depositPay/depositPay?back_deposit=true',
+                  url: `/pages/depositPay/depositPay?openCapsuleCmd=${capsule_id}&back_deposit=true`,
                 })
               } else {
                 wx.navigateTo({
-                  url: '/pages/depositPay/depositPay',
+                  url: `/pages/depositPay/depositPay?openCapsuleCmd=${capsule_id}`,
                 })
               }
             }
@@ -454,7 +475,7 @@ function openCapsule(capsule_id, that) {
           success: function (resp) {
             if (resp.confirm) {
               wx.navigateTo({
-                url: '/pages/myWallet/myWallet',
+                url: `/pages/myWallet/myWallet?openCapsuleCmd=${capsule_id}`,
               })
             }
           }
@@ -466,7 +487,7 @@ function openCapsule(capsule_id, that) {
           success: function (resp) {
             if (resp.confirm) {
               wx.navigateTo({
-                url: '/pages/verifi/verifi',
+                url: `/pages/verifi/verifi?openCapsuleCmd=${capsule_id}`,
               })
             }
           }

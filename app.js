@@ -1,4 +1,75 @@
 //app.js
+
+function type(o, t) {
+  if (t === undefined) {
+    if (o !== o) return 'NaN';
+    let typeStr = Object.prototype.toString.call(o);
+    return typeStr.substring(8, typeStr.length - 1);
+  } else {
+    return type(o) === t;
+  }
+}
+
+function typeValue(o, t, d) {
+  return type(o, t) ? o : (d || null);
+}
+
+let UUID = {
+  cs: '012346789abcdef'.toUpperCase().split(''),
+  get: function (n) {
+    n = n || 32;
+    var _uuid = "";
+    for (var i = 0; i < n; i++) {
+      var index = Math.floor(Math.random() * this.cs.length);
+      _uuid += this.cs[index];
+    }
+    return _uuid;
+  }
+};
+
+Date.prototype.format = function (fmt) {
+  if (!fmt) fmt = "yyyy-MM-dd hh:mm:ss";
+  var o = {
+    "M+": this.getMonth() + 1,//月份
+    "W": (function (date) {
+      switch (date.getDay()) {
+        case 0:
+          return "日";
+        case 1:
+          return "一";
+        case 2:
+          return "二";
+        case 3:
+          return "三";
+        case 4:
+          return "四";
+        case 5:
+          return "五";
+        case 6:
+          return "六";
+        default:
+          return "";
+      }
+    })(this),//星期
+    "d+": this.getDate(),//日
+    "h+": this.getHours(),//小时
+    "m+": this.getMinutes(),//分
+    "s+": this.getSeconds(),//秒
+    "q+": Math.floor((this.getMonth() + 3) / 3),//季度
+    "S": this.getMilliseconds()//毫秒
+  };
+  if (/(y+)/.test(fmt))
+    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+  return fmt;
+};
+
+
+
+
+
 var utils = require("utils/util.js")
 import { ToastPannel } from './component/toast/toast'
 
@@ -8,6 +79,14 @@ import T from './utils/wxapp-i18n'
 T.registerLocale(locales)
 T.setLocale('zh-Hans')
 wx.T = T
+
+
+
+
+
+
+
+
 
 App({
   ToastPannel,
@@ -76,17 +155,17 @@ App({
         console.log(res);
         if (res.data.ret == 0) {
           that.globalData.config = res.data;
-        }else{
+        } else {
           that.globalData.config = that.globalData.configDefault
         }
       },
-      fail: function(){
+      fail: function () {
         that.globalData.config = that.globalData.configDefault
       }
     })
   },
   onHide: function () {
-    
+
   },
 
   createSocket: function (uin, token) {
@@ -181,7 +260,7 @@ App({
                 })
               }
             }
-          })
+          }) 
         }
       })
     }
@@ -248,10 +327,10 @@ App({
     is_from_login: 0,
     localUserInfo: { uin: 100000 },
     websocket: 0,
-    app_version: '4.7.3',
+    app_version: '4.7.5',
     phoneService: '400-688-9960',
-    baseUrl: 'https://www.xiangshuispace.com/api/',
-    // baseUrl: 'http://dev.xiangshuispace.com:18083/api/',
+    // baseUrl: 'https://www.xiangshuispace.com/api/',
+    baseUrl: 'http://dev.xiangshuispace.com:18083/api/',
     config: {
       appraise4: ["空间狭小拥挤", "内饰不够好", "卷帘升降不顺畅", "沙发不够舒适", "控制板位置偏低", "操作略繁琐", "舱内有异味", "私密度不高", "隔音不太好", "灯光偏暗"],
       appraise5: ["外观时尚", "宽敞明亮", "卷帘升降顺畅", "沙发舒适", "控制板位置合适", "操作便利", "APP操作流畅", "干净卫生", "私密性良好", "比较隔音"],

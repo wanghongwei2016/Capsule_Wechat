@@ -24,10 +24,10 @@
       <view class='card_content' wx:if="{{!bougth_card}}" bindtap='cardBuyAction'>
         <view>
           <text class='card_left_title'>享+头等舱</text>
-          <text class='card_right_title' id='limit2'>拼团进行中</text> 
+          <text class='card_right_title' id='limit2'>拼团进行中</text>
           <!-- <p class='limit_contain'> -->
-            <!-- {{card_info.activity_title}} -->
-            <!-- <button class='card_right_buy' id='limit'>{{card_info.activity_title}}</button> -->
+          <!-- {{card_info.activity_title}} -->
+          <!-- <button class='card_right_buy' id='limit'>{{card_info.activity_title}}</button> -->
           <!-- </p> -->
         </view>
         <text class='card_middle_top_title middle_title'>月卡・{{card_info.activity_body}}</text>
@@ -37,21 +37,21 @@
       <view class='card_content' wx:if="{{bougth_card}}" bindtap='cardBuyAction'>
         <view>
           <text class='card_left_title'>享+头等舱・月卡</text>
-           <text class='card_right_title' id='limit2'>拼团进行中</text> 
+          <text class='card_right_title' id='limit2'>拼团进行中</text>
         </view>
         <view class='card_middle_content'>
           <text class='card_middle_left_title middle_title'>{{month_card_info.card_no}}</text>
           <!-- <text class='card_middle_right_title middle_title'>原价300元/月</text> -->
         </view>
         <view>
-          <text class='use_date'>有效期至{{month_card_info.end_date}}</text>
+          <text class='use_date'>{{month_card_info.end_date}}</text>
 
         </view>
         <view>
-                  <button class='card_right_buy' id='card_right_flow_buy'>续买月卡</button>
+          <button class='card_right_buy' id='card_right_flow_buy'>续买月卡</button>
 
         </view>
-    
+
 
 
       </view>
@@ -77,11 +77,11 @@
             <text class="deposit_status">去兑换 ></text>
           </view>
         </navigator>
-                  </view>
+      </view>
 
-              <view class="deposit_item">
+      <view class="deposit_item">
 
-         <navigator url="/pages/coupon/coupon" hover-class="none">
+        <navigator url="/pages/coupon/coupon" hover-class="none">
           <view class="deposit_item_wrap">
             <text class="deposit_info">优惠券</text>
             <text class="deposit_status">去查看 ></text>
@@ -96,14 +96,14 @@
         <text class="deposit_status">使用中 ></text>
       </view>
     </view> -->
-    <!-- <navigator url="/pages/cashPledge/cashPledge?deposit={{deposit}}&deposit_text_placeholder={{deposit_text_placeholder}}" hover-class="none">
-      <view class="deposit_item">
-          <view class="deposit_item_wrap">
-            <text class="deposit_info">押金</text>
-            <text class="deposit_status">{{deposit_pay_text}} ></text>
-          </view>
-      </view>
-    </navigator>  -->
+    <view class="deposit_item">
+      <navigator url="/pages/cashPledge/cashPledge?deposit={{deposit}}&deposit_text_placeholder={{deposit_text_placeholder}}" hover-class="none">
+        <view class="deposit_item_wrap">
+          <text class="deposit_info">押金</text>
+          <text class="deposit_status">{{deposit_pay_text}} ></text>
+        </view>
+      </navigator>
+    </view>
   </view>
 
   <!-- <view class="deposit_contain">

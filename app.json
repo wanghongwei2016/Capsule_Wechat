@@ -38,7 +38,8 @@
     "pages/cityList/cityList",
     "pages/orderItem/orderItem",
     "pages/depositList/depositList",
-    "pages/couponExchange/couponExchange"
+    "pages/couponExchange/couponExchange",
+    "pages/act_music/act_music"
   ],
   "window": {
     "backgroundTextStyle": "dark",

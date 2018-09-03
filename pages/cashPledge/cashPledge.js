@@ -26,19 +26,19 @@ Page({
       deposit: options.deposit,
       deposit_text_placeholder: options.deposit_text_placeholder
     })
-    if (that.data.deposit == 0){
+    if (that.data.deposit == 0) {
       that.setData({
         depositDisabled: true,
         btn_text: '押金充值',
         back_deposit: false
       })
-    } else if (that.data.deposit > 0 && that.data.deposit < that.data.deposit_total){
+    } else if (that.data.deposit > 0 && that.data.deposit < that.data.deposit_total) {
       that.setData({
         depositDisabled: false,
         back_deposit: true,
         btn_text: '退押金'
       })
-    } else if (that.data.deposit >= that.data.deposit_total){
+    } else if (that.data.deposit >= that.data.deposit_total) {
       that.setData({
         depositDisabled: false,
         back_deposit: false,
@@ -63,7 +63,7 @@ Page({
   /**
    * 获取用户信息
    */
-  getUserInfo: function(){
+  getUserInfo: function () {
     var that = this;
     network.shareSleepNetwork("user/info", {}, "GET", function complete(res) {
       that.setData({
@@ -89,7 +89,7 @@ Page({
           btn_text: '退押金'
         })
       }
-    },that)
+    }, that)
   },
 
   /**
@@ -171,20 +171,20 @@ Page({
       } else {
 
       }
-    },that)
+    }, that)
   },
   /**
    * 押金操作
    */
   depositAction: function () {
     var that = this;
-    if (that.data.deposit == 0){
+    if (that.data.deposit == 0) {
       wx.navigateTo({
         url: '/pages/depositPay/depositPay?deposit=' + (parseFloat(this.data.deposit_total) - parseFloat(this.data.deposit)),
       })
-    }else{
+    } else {
       wx.showModal({
-        title:'您确定要退押金吗？',
+        title: '您确定要退押金吗？',
         content: '退押金后您将无法继续使用共享头等舱，确定要退吗？',
         confirmText: "确定",
         success: function (res) {
@@ -192,14 +192,21 @@ Page({
             //请求退押金
             network.shareSleepNetwork("deposit/refund", {}, "POST", function complete(res) {
               console.log(res);
-              if(res.data.ret==0){
+              if (res.data.ret == 0) {
                 that.getUserInfo();
                 that.show(res.data.success)
                 // wx.showToast({
                 //   title: res.data.success
                 // })
+              } else if (res.data.ret == -3077){
+                wx.showModal({
+                  showCancel:false,
+                  title: '错误信息',
+                  content: res.data.err,
+                  confirmText: "确定",
+                })
               }
-            },that)
+            }, that)
           }
         }
       })
@@ -208,7 +215,7 @@ Page({
   /**
    * 补交押金
    */
-  backdepositAction: function (){
+  backdepositAction: function () {
     wx.navigateTo({
       url: '/pages/depositPay/depositPay?deposit=' + (parseFloat(this.data.deposit_total) - parseFloat(this.data.deposit)).toFixed(2) + '&back_deposit=' + this.data.back_deposit,
     })

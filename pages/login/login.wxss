@@ -1,10 +1,13 @@
 /**login.wxss**/
-.lalala{
+
+.lalala {
   width: 100%;
 }
+
 input {
   height: 100%;
 }
+
 .login_container {
   width: 92%;
   margin: 0 auto;
@@ -44,20 +47,24 @@ input {
   justify-content: flex-start;
   align-items: center;
 }
-.login_close_wrap{
+
+.login_close_wrap {
   width: 60rpx;
   height: 100%;
   display: flex;
   align-items: center;
 }
-.login_close{
+
+.login_close {
   width: 40rpx;
   height: 40rpx;
   margin-right: 20rpx;
 }
-.login_close_phone{
+
+.login_close_phone {
   margin-right: 12rpx;
 }
+
 .phone_wrap {
   width: 100rpx;
   height: 100%;
@@ -69,7 +76,7 @@ input {
 
 .input_phone, .input_password {
   width: 295rpx;
-  color: #333333;
+  color: #333;
   font-size: 28rpx;
 }
 
@@ -84,23 +91,25 @@ input {
   right: 0;
   width: 206rpx;
   text-align: center;
-  color: #ffffff;
+  color: #fff;
   height: 100%;
   background-color: #189df9;
   align-content: center;
   font-size: 26rpx;
   border-radius: 0;
   line-height: 80rpx;
-  transition: all .3s;
+  transition: all 0.3s;
 }
-.checkNumber::before{
+
+.checkNumber::before {
   content: '';
   width: 14rpx;
   height: 100%;
-  background-color: #ffffff;
+  background-color: #fff;
   position: absolute;
   left: -1rpx;
 }
+
 .section_code_wrap {
   background: #fff;
 }
@@ -109,18 +118,21 @@ button[disabled][type="default"], wx-button[disabled]:not([type]) {
   color: #fff;
   background-color: #d9d9d9;
 }
+
 .voice_show {
   left: 90rpx;
   font-size: 20rpx;
   margin-top: 25rpx;
 }
+
 .agree_left {
-  color: #666666;
+  color: #666;
 }
 
 .agree_protocol {
   color: #189df9;
 }
+
 .button_login {
   background-color: #189df9;
   color: white;
@@ -129,33 +141,40 @@ button[disabled][type="default"], wx-button[disabled]:not([type]) {
   font-size: 34rpx;
   height: 80rpx;
   border-radius: 0;
-  transition: all .3s;  
+  transition: all 0.3s;
 }
+
 .active_show {
   display: inline-block;
   text-align: center;
   width: 100%;
   margin-top: 40rpx;
 }
+
 .active_show_default {
   font-size: 24rpx;
   color: #333;
   text-align: center;
 }
+
 .agree_protocol {
   color: #189df9;
 }
+
 .protocol_show {
-  width: 100%;  
+  width: 92%;
   position: absolute;
   font-size: 22rpx;
   bottom: 3%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
 }
-.input_phone{
-  width:498rpx;
+
+.input_phone {
+  width: 498rpx;
 }
-.section_code_wrap_container{
+
+.section_code_wrap_container {
   position: relative;
 }

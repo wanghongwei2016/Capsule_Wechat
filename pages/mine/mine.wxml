@@ -1,6 +1,6 @@
 <!-- 自定义Toast -->
-<import src="../../component/toast/toast.wxml"/>
-<template is="toast" data="{{ ..._toast_ }}"/>
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
 
 <!--mine.wxml-->
 <view class="back_placeholder">
@@ -11,15 +11,16 @@
   <view class="header_contain" wx:if="{{uin != 100000}}">
     <view class="header_login_in_contain">
       <!--<view class="header_outer_back">-->
-        <view class="header_inner_back">
-          <image src="../../images/mine_header.png" class="header_placeholder_icon" mode="aspectFill"></image>
-        </view>
+      <view class="header_inner_back">
+        <image wx:if="{{head_url}}" src="{{head_url}}" class="header_placeholder_icon" style='width:100%;height:100%;' mode="aspectFill"></image>
+        <image wx:else src="../../images/mine_header.png" class="header_placeholder_icon" mode="aspectFill"></image>
+      </view>
       <!--</view>-->
       <view class="info_contain">
         <view class="header_section">
           <text class="nick_view">{{nick_name}}</text>
         </view>
-        <view class="header_section">
+        <view wx:if="{{phone}}" class="header_section">
           <image src="../../images/phone.png" class="phone_icon" mode="aspectFill"></image>
           <text class="phone_text">{{phone}}</text>
         </view>
@@ -30,6 +31,14 @@
         <view class="header_section2" bindtap="verifAction" wx:if="{{!verified_disable}}">
           <image src="../../images/verif.png" class="verif_icon" mode="aspectFill"></image>
           <text class="no_verif" wx:if="{{!verified_disable}}">未实名认证</text>
+        </view>
+        <view class="header_section2" wx:if="{{deposit_des=='已交押金'}}">
+          <image src="../../images/yajin.png" class="verif_icon tb50" style="width:25rpx;height:25rpx;margin-left:0rpx;" mode="widthFix"></image>
+          <text class="no_verif">已交押金</text>
+        </view>
+        <view wx:else class="header_section2" bindtap="yajinAction">
+          <image src="../../images/yajin2.png" class="verif_icon tb50" style="width:25rpx;height:25rpx;margin-left:0rpx;" mode="widthFix"></image>
+          <text class="no_verif " style='color:#fe393d;'>未交押金</text>
         </view>
       </view>
     </view>
@@ -85,7 +94,7 @@
       <view class="section_line"></view>
     </view>
   </view>
-   <view class="section_contain_normal">
+  <view class="section_contain_normal">
     <view wx:for="{{normal_pageData}}" class="section_item" wx:key="{{index}}">
       <view class="section_line_contain">
         <view class="section" bindtap="sectionSelectAction" data-title="{{item.title}}">

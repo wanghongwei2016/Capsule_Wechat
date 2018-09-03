@@ -4,17 +4,20 @@
 
 <view class='music_container'>
   <view class='music_play'>
-    <image src='../../images/music_bg.png' mode="aspectFill" class='music_bg'></image>
+    <image src='../../images/music_bg.png' mode='scaleToFill' class='music_bg'></image>
     <view class='music_play_wrap'>
       <view class='music_play_wrap_container'>
-        <text class='music_copyright'>{{showHead ? music_head : ''}}</text>
-        <view class="music_logo">
-          <image src="../../images/music_logo.png" mode="aspectFill" class='music_logo_icon' bindtap='playButtonAction'></image>
+        <!-- <text class='music_copyright'>{{showHead ? music_head : ''}}</text> -->
+        <text class='music_copyright f30' style='margin-left:100rpx;margin-right:100rpx;' bindtap='showActModal'>正念冥想是正念的冥想练习方法，通过专注呼吸或者感受某一事物，从而摆脱负面情绪对人的纠缠，提升身体和心理健康，提升正能量，获得幸福感。<text class='underline'>点我了解更多</text></text>
+        <view class="music_logo" style='margin-top:195rpx;'>
           <view class='small-pian-wrap' style='transform:rotate({{rotate || 0}}deg)'>
             <view class="small-pian">
               <view class="small-p"></view>
             </view>
           </view>
+          <!-- <image src="../../images/music_logo.png" mode="aspectFill" class='music_logo_icon' bindtap='playButtonAction'></image> -->
+          <image src="{{isPlay ? '../../images/music_play.png' : '../../images/music_pause.png'}}" mode="scaleToFill" class='music_logo_icon' bindtap='playButtonAction'></image>
+
         </view>
         <view class='music_control'>
           <view class='music_control_wrap'>
@@ -29,11 +32,11 @@
             <text class='music_control_text'>{{duration}}</text>
           </view>
         </view>
-        <image src="{{isPlay ? '../../images/music_play.png' : '../../images/music_pause.png'}}" mode="aspectFill" class='music_pause' bindtap='playButtonAction'></image>
+        <!-- <image src="{{isPlay ? '../../images/music_play.png' : '../../images/music_pause.png'}}" mode="aspectFill" class='music_pause' bindtap='playButtonAction'></image> -->
       </view>
     </view>
   </view>
-  <scroll-view scroll-y style="height: 546rpx" wx-if="{{music_list.length>1}}">
+  <scroll-view scroll-y style="height: 500rpx" wx-if="{{music_list.length>1}}">
     <view class='music_list_wrap'>
       <view class="music_list_item {{item.play ? 'music_list_item_active' : ''}}" wx:for="{{music_list}}" wx:key="{{index}}" data-music='{{index}}' bindtap='chooseMusic'>
         <view class='music_num'>
@@ -42,7 +45,10 @@
         </view>
         <view class="music_info">
           <view class='music_info_wrap'>
-            <text class='music_name'>{{item.music_title}}</text>
+            <view class='music_name'>
+              <image wx:if='{{item.tags&&item.tags.length>0}}' wx:for='{{item.tags}}' wx:for-item="tag" mode='aspectFit' style='height:.8em;width:1.5em;' src='{{"images/tag-"+tag+".png"}}'></image>
+              {{item.music_title}}
+            </view>
             <text class='music_intro'>{{item.music_intro ? item.music_intro : '无'}}</text>
           </view>
         </view>
@@ -55,4 +61,30 @@
       </view>
     </view>
   </scroll-view>
+</view>
+
+
+
+<view wx:if='{{showActModal}}' class='modal modal-popup'>
+  <view class='modal-layer'></view>
+  <view class='modal-dialog'>
+    <view class='modal-content'>
+
+
+      <view class='modal-body b-white border-radius' style='width:600rpx;'>
+        <image mode='widthFix' class='w100' src='images/modal-bc.png'></image>
+        <view class='dl '>
+          <view class='dt'>Q: 正念冥想是什么？</view>
+          <view class='dd'>
+            <text>A: 正念是个体有意识的把注意维持在当前内在或者外部体验上并对其不做评价的一种自我调节的方法。\n正念冥想是正念的冥想练习方法，通过专注呼吸或者感受某一事物，从而摆脱负面情绪对人的纠缠，提升身体和心理健康，提升正能量，获得幸福感。</text>
+          </view>
+
+          <view class='dt'>Q: 如何开启正念冥想?</view>
+          <view class='dd'>A: 找到一个舒服的姿势，放松，跟着冥想的音乐及环境声音的引导，开始冥想，专注于呼吸，减缓压力。</view>
+        </view>
+        <view style='height:1px;'></view>
+        <image mode='widthFix' class='absolute right-0 top-0' style='margin-top:20rpx;margin-right:20rpx;width:30rpx;height:30rpx;' src='images/icon-close.png' bindtap='hideActModal'></image>
+      </view>
+    </view>
+  </view>
 </view>

@@ -11,8 +11,8 @@ Page({
     order_data: [],
     group_data: [],
     last_id_order: '',
-    last_id_group:'',
-    list_type:0
+    last_id_group: '',
+    list_type: 0
   },
 
   /**
@@ -44,7 +44,7 @@ Page({
         order_data: []
       })
     })
-    this.getGroupList(function beforBack(res){
+    this.getGroupList(function beforBack(res) {
       that.setData({
         group_data: []
       })
@@ -62,7 +62,7 @@ Page({
       this.getGroupList()
     }
   },
-// 拉取拼单列表
+  // 拉取拼单列表
   getGroupList: function (beforBack) {
     var that = this
     if (wx.showLoading) {
@@ -70,8 +70,8 @@ Page({
         title: '订单拉取中',
       })
     }
-    network.shareSleepNetwork("group/get_group_list",{},"GET",function complete(res){
-      if(res.data && res.data.ret == 0){
+    network.shareSleepNetwork("group/get_group_list", {}, "GET", function complete(res) {
+      if (res.data && res.data.ret == 0) {
         that.setData({
           no_data_group: res.data.last_id ? false : true
         })
@@ -142,16 +142,16 @@ Page({
           }
         }
       }
-        if (res.data.num > 0) {
+      if (res.data.num > 0) {
         var old_bookings = that.data.order_data
         var tmp_arr = []
-        if(res.data.num > 9) {
+        if (res.data.num > 9) {
           tmp_arr = res.data.booking_infos.sort(by('create_time'))
-        }else {
+        } else {
           tmp_arr = res.data.booking_infos
         }
         var booking_data = []
-        
+
         for (var index in tmp_arr) {
           var item = tmp_arr[index]
           item.date = utils.date('Y-m-d h:i', item.create_time)
@@ -159,10 +159,10 @@ Page({
         }
         that.setData({
           order_data: old_bookings.concat(booking_data),
-          last_id: res.data.last_id_order ? res.data.last_id_order:''
+          last_id: res.data.last_id_order ? res.data.last_id_order : ''
         })
       }
-    },that)
+    }, that)
   },
   /**
    * 订单详情
@@ -181,13 +181,13 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: '/pages/orderItem/orderItem?id=' +booking.booking_id,
+        url: '/pages/orderItem/orderItem?id=' + booking.booking_id,
       })
 
     }
   },
   // 拼单详情
-  groupOrderDetail:function(e) {
+  groupOrderDetail: function (e) {
     var group = this.data.group_data[e.target.dataset.id]
 
     wx.navigateTo({
@@ -206,9 +206,9 @@ Page({
     })
   },
   // 选择订单
-  choosedAction: function(e) {
+  choosedAction: function (e) {
     this.setData({
-      list_type:e.target.dataset.index
+      list_type: e.target.dataset.index
     })
   }
 })

@@ -18,9 +18,9 @@
   width: 624rpx;
   height: 84rpx;
   margin-top: 184rpx;
-  -moz-box-shadow: 0px 0px 20px #7bc9ff;
-  -webkit-box-shadow: 0px 0px 20px #7bc9ff;
-  box-shadow: 0px 0px 20px #7bc9ff;
+   /* -moz-box-shadow: 0px 0px 20px #7bc9ff;  */
+  /* -webkit-box-shadow: 0px 0px 20px #7bc9ff; */
+  /* box-shadow: 0px 0px 20px #7bc9ff; */
   line-height: 84rpx;
 }
 

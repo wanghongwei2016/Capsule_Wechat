@@ -22,7 +22,44 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": -1,
+					"name": "测试音乐",
+					"pathName": "pages/music/music",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "测试音乐红包",
+					"pathName": "pages/paySucc/paySucc",
+					"query": "booking_id=124131271"
+				},
+				{
+					"id": -1,
+					"name": "邀请好友",
+					"pathName": "pages/newInvite/newInvite",
+					"query": "type=1"
+				},
+				{
+					"id": 3,
+					"name": "月卡过期提醒",
+					"pathName": "pages/orderDetail/orderDetail",
+					"query": "booking_id=2005240327"
+				},
+				{
+					"id": -1,
+					"name": "我的页面",
+					"pathName": "pages/mine/mine",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "act_music",
+					"pathName": "pages/act_music/act_music",
+					"query": ""
+				}
+			]
 		}
 	}
 }

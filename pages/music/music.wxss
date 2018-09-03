@@ -1,6 +1,6 @@
 .music_play {
   width: 750rpx;
-  height: 660rpx;
+  height: 650rpx;
   position: relative;
   background: radial-gradient(#60bcfb, #189df9);
 }
@@ -18,7 +18,7 @@
 
 .music_play_wrap_container {
   width: 750rpx;
-  height: 660rpx;
+  height: 600rpx;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -113,9 +113,11 @@
   position: relative;
   margin: 40rpx auto;
   border: 4rpx solid #fff;
-  z-index: 9999;
+  z-index: 999;
   box-sizing: border-box;
   background: transparent;
+  
+
 }
 .small-pian-wrap{
   width: 210rpx;
@@ -241,4 +243,10 @@
   margin: 70rpx auto 50rpx auto;
   font-size: 24rpx;
   color: rgb(94,94,94);
+}
+
+.tag{
+  display: inline-block;
+  height:1em;
+  width:auto;
 }

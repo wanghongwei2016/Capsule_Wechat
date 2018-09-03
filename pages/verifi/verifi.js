@@ -1,5 +1,7 @@
 // verifi.js
 var network = require('../../utils/network.js')
+var utils = require("../../utils/util.js")
+var storageService = require('../../utils/storageService.js').default
 var app = getApp()
 Page({
 
@@ -16,6 +18,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      setScanCodeCmd: options.setScanCodeCmd,
+      openCapsuleCmd: options.openCapsuleCmd,
+    });
     // toast组件实例
     new app.ToastPannel();
   },
@@ -69,7 +75,7 @@ Page({
     if (wx.showLoading) {
       wx.showLoading({
         title: '身份验证中',
-        mask:true
+        mask: true
       })
     } else {
       that.setData({
@@ -90,13 +96,23 @@ Page({
         //   title: '身份证验证通过',
         // })
         that.getLocalUserInfo();
+      } else if (res.data && res.data.ret == -1053) {
+        wx.showModal({
+          content: res.data.err,
+          confirmText: "拨打电话",
+          success: (res) => {
+            if (res.confirm) {
+              utils.callService("400-688-9960")
+            }
+          }
+        });
       } else {
         that.show(res.data.err);
         // wx.showToast({
         //   title: res.data.err,
         // })
       }
-    },that)
+    }, that)
   },
   /**
    * 姓名输入
@@ -176,27 +192,39 @@ Page({
         //   title: '用户信息更新失败，请重试',
         // })
       }
-      if (is_deposit == false && app.globalData.localUserInfo.uin != 100000) {
-        wx.redirectTo({
-          url: '/pages/depositPay/depositPay?deposit=' + (that.data.deposit_total - that.data.deposit) / 100 + '&back_deposit=' + that.data.back_deposit,
-        })
-      }else{
-        // setTimeout(function () {
-        //   wx.navigateBack({
-        //     delta: 1
-        //   })
-        // }, 2000)
-        var pages = getCurrentPages()
-        if (pages.length > 1) {
-          wx.navigateBack({
-            delta: 1
-          })
-        } else {
-          wx.redirectTo({
-            url: '/pages/scanCode/scanCode'
-          })
-        }
+
+
+      if (that.data.openCapsuleCmd) {
+        storageService.setOpenCapsuleCmd(that.data.openCapsuleCmd);
+        wx.navigateBack({ delta: 1 })
+        return;
       }
-    },that)
+
+
+
+
+      // if (is_deposit == false && app.globalData.localUserInfo.uin != 100000) {
+      //   wx.redirectTo({
+      //     url: '/pages/depositPay/depositPay?deposit=' + (that.data.deposit_total - that.data.deposit) / 100 + '&back_deposit=' + that.data.back_deposit,
+      //   })
+      // } else {
+      // setTimeout(function () {
+      //   wx.navigateBack({
+      //     delta: 1
+      //   })
+      // }, 2000)
+
+      var pages = getCurrentPages()
+      if (pages.length > 1) {
+        wx.navigateBack({
+          delta: 1
+        })
+      } else {
+        wx.redirectTo({
+          url: '/pages/scanCode/scanCode'
+        })
+      }
+      // }
+    }, that)
   }
 })

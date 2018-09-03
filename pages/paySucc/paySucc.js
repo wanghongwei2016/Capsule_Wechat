@@ -41,7 +41,7 @@ Page({
     lowArrowLeft: 0,
   },
 
-  onShow: function() {
+  onShow: function () {
 
     this.getBookingInfo()
   },
@@ -93,6 +93,23 @@ Page({
       })
     }
 
+    network.shareSleepNetwork("booking/bookingid/" + that.data.booking_id, {}, "GET", (res) => {
+      if (res.data.ret == 0 && res.data.booking_info && res.data.booking_info.red_envelope && res.data.booking_info.red_envelope > 0) {
+        this.setData({ red_envelope: res.data.booking_info.red_envelope || 0 });
+        this.showActModal();
+      }
+    }, that);
+
+  },
+  showActModal: function () {
+    this.setData({
+      showActModal: true,
+    });
+  },
+  hideActModal: function () {
+    this.setData({
+      showActModal: false,
+    });
   },
   drawSkinBar: function (healthReport) {
     if (healthReport.hasHealthData) {
@@ -185,7 +202,7 @@ Page({
         appraise_succ_text: (res.data.appraise_flag == 0 && that.data.appraise_bonus > 0) ? '提交成功，谢谢您的评价！' + that.data.appraise_bonus + '元红包已发放至您的钱包- 余额' : '提交成功，谢谢您的评价！',
         device_flag: res.data.device_flag,
         month_card_flag: res.data.month_card_flag,
-        coupon_cash: res.data.booking_info.coupon_cash ? res.data.booking_info.coupon_cash/100 : 0
+        coupon_cash: res.data.booking_info.coupon_cash ? res.data.booking_info.coupon_cash / 100 : 0
       })
     }, that)
   },
@@ -528,7 +545,7 @@ Page({
     })
   },
   getBloodHearAction: function () {
-    if (this.data.device_flag==='0'){
+    if (this.data.device_flag === '0') {
       wx.showModal({
         title: '提示',
         content: '功能即将开放，敬请期待！',
@@ -542,7 +559,7 @@ Page({
           }
         }
       })
-    }else{
+    } else {
       wx.showModal({
         title: '如何获取？',
         content: '您可在舱内佩戴手环获取心率血压等健康数据。',

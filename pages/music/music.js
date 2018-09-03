@@ -15,13 +15,23 @@ var pageData = {
     pageHide: false,
     showHead: false//展示顶部文案
   },
+  showActModal: function () {
+    this.setData({
+      showActModal: true,
+    });
+  },
+  hideActModal: function () {
+    this.setData({
+      showActModal: false,
+    });
+  },
   onLoad: function () {
     console.log('onload========')
     var that = this
     // toast组件实例
     new app.ToastPannel();
   },
-  onUnload: function(){
+  onUnload: function () {
     this.setData({
       musicPage: 0
     })
@@ -33,10 +43,10 @@ var pageData = {
     that.setData({
       pageHide: false
     })
-    if (that.data.music_list && that.data.music_list.length > 0){
+    if (that.data.music_list && that.data.music_list.length > 0) {
       that.watchOtherPageComeIn()
-    }else{
-      that.getMusicList(function(){
+    } else {
+      that.getMusicList(function () {
         that.watchOtherPageComeIn()
       })
     }
@@ -50,7 +60,7 @@ var pageData = {
       pageHide: true
     })
   },
-  updateHealthReportCache: function(){
+  updateHealthReportCache: function () {
     // 如果用户使用了冥想音乐，存储健康数据标记
     wx.getStorage({
       key: 'healthReportCache',
@@ -68,7 +78,7 @@ var pageData = {
     })
   },
   //获取音乐列表
-  getMusicList: function(callBack){
+  getMusicList: function (callBack) {
     var that = this;
     network.shareSleepNetwork('music/get_list_info', {}, "GET", function complete(res) {
       console.log(res);
@@ -84,10 +94,10 @@ var pageData = {
             music_head: res.data.music_head ? res.data.music_head : '美国顶级正念冥想大师制作',
             music_end: res.data.music_end ? res.data.music_end : '本冥想内容由@睿心提供'
           })
-          wx.setNavigationBarTitle({
-            title: that.data.music_head
-          })
-          if (callBack){
+          // wx.setNavigationBarTitle({
+          //   title: that.data.music_head
+          // })
+          if (callBack) {
             callBack()
           }
         }
@@ -97,7 +107,7 @@ var pageData = {
     }, that)
   },
   //监听从其他页面进来时判断有无背景音乐播放
-  watchOtherPageComeIn: function(){
+  watchOtherPageComeIn: function () {
     var that = this;
     var music_list = that.data.music_list;
     //从其他页面进来时判断有无背景音乐播放
@@ -116,9 +126,9 @@ var pageData = {
           music_list[i].play = false;
         }
       }
-      wx.setNavigationBarTitle({
-        title: music_list[app.globalData.musicPlayId].music_title,
-      })
+      // wx.setNavigationBarTitle({
+      //   title: music_list[app.globalData.musicPlayId].music_title,
+      // })
       var currentTime = backgroundAudioManager.currentTime;
       var duration = backgroundAudioManager.duration;
       that.setData({
@@ -185,10 +195,10 @@ var pageData = {
   openMusicAction: function (musicPlayId, dataUrl, title, complete) {
     var that = this;
     that.watchMusic();
-    if (that.data.musicPage === 1){
-      wx.setNavigationBarTitle({
-        title: title,
-      })
+    if (that.data.musicPage === 1) {
+      // wx.setNavigationBarTitle({
+      //   title: title,
+      // })
     }
     that.setData({
       showHead: musicPlayId < 9 ? true : false
@@ -245,7 +255,7 @@ var pageData = {
     //背景音频自然播放结束事件
     backgroundAudioManager.onEnded(() => {
       console.log('onEnd===============')
-      if (!this.data.endFlag){
+      if (!this.data.endFlag) {
         this.stopRotate()
         // this.setData({
         //   rotate: 0
@@ -322,13 +332,13 @@ var pageData = {
         duration: '00:00',
         currentTime: '00:00',
         music_list,
-        rotate:0,
+        rotate: 0,
         showHead: false,
-        musicProgressWidth:'0rpx'
+        musicProgressWidth: '0rpx'
       })
     })
     //用户在系统音乐播放面板点击下一曲事件（iOS only）
-    backgroundAudioManager.onNext(()=>{
+    backgroundAudioManager.onNext(() => {
       console.log('next===============')
       var that = this;
       var musicOriginId = parseInt(this.data.musicOriginId);
@@ -356,11 +366,11 @@ var pageData = {
       var musicOriginId = parseInt(this.data.musicOriginId);
       var music_list = this.data.music_list;
       var prevMusicId
-      if (musicOriginId == 0){
-        prevMusicId = music_list.length-1
-      }else{
+      if (musicOriginId == 0) {
+        prevMusicId = music_list.length - 1
+      } else {
         prevMusicId = (musicOriginId - 1) % music_list.length;
-      } 
+      }
       this.openMusicAction(prevMusicId, music_list[prevMusicId].music_url, music_list[prevMusicId].music_title, function () {
         for (var i = 0; i < music_list.length; i++) {
           if (i == prevMusicId) {
@@ -402,8 +412,8 @@ var pageData = {
     let offset = currentOffset - totalOffset
     let percent = offset / (this.data.totalProgress / rate)
     percent = percent > 1 ? 1 : percent
-    var musicProgressWidthOrigin= this.data.totalProgress * percent
-    var seekTime = (musicProgressWidthOrigin * that.data.durationSeconds) / this.data.totalProgress >= 0 ? (musicProgressWidthOrigin * that.data.durationSeconds) / this.data.totalProgress: 0
+    var musicProgressWidthOrigin = this.data.totalProgress * percent
+    var seekTime = (musicProgressWidthOrigin * that.data.durationSeconds) / this.data.totalProgress >= 0 ? (musicProgressWidthOrigin * that.data.durationSeconds) / this.data.totalProgress : 0
     this.setData({
       musicProgressWidthOrigin,
       musicProgressWidth: this.data.totalProgress * percent + 'rpx',
@@ -412,8 +422,8 @@ var pageData = {
     })
     if (moveHandler) clearTimeout(moveHandler)
     moveHandler = setTimeout(() => {
-      backgroundAudioManager.seek(seekTime-1)
-      if (backgroundAudioManager.pause){
+      backgroundAudioManager.seek(seekTime - 1)
+      if (backgroundAudioManager.pause) {
         backgroundAudioManager.play();
       }
       this.setData({
@@ -426,7 +436,7 @@ var pageData = {
   },
   //动画
   animationRotate: function () {
-    if (!this.data.pageHide){
+    if (!this.data.pageHide) {
       let handler = this.data.handler || 0;
       let speed = 0.4;
       let rotate = this.data.rotate || 0
@@ -447,7 +457,7 @@ var pageData = {
     }
   },
   //停止动画
-  stopRotate: function(){
+  stopRotate: function () {
     if (this.data.handler) clearInterval(this.data.handler)
   }
 }
