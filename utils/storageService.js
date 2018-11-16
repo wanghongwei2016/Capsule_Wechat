@@ -54,6 +54,10 @@ export default {
 
 
 
+  getLocalUserCache: function () {
+    return wx.getStorageSync('localUserCache');
+  }
+
 
 
 }

@@ -1,0 +1,21 @@
+<view>
+  <image mode='widthFix' class='fl w100' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/688FA8D1FF2C215B57D6588CC6A311F8'></image>
+  <view class='clearfix'></view>
+  <view class='absolute w100 text-center f34 bold' style='color:#c07c00;top:542rpx;'>已有{{countComplete}}人集齐</view>
+  <view class='absolute w100 left-0 text-center' style='top:755rpx;'>
+    <view class='card {{cardMap["中"]?"active":""}}'></view>
+    <view class='card {{cardMap["秋"]?"active":""}}'></view>
+    <view class='card {{cardMap["节"]?"active":""}}'></view>
+    <view class='card {{cardMap["快"]?"active":""}}'></view>
+    <view class='card {{cardMap["乐"]?"active":""}}'></view>
+  </view>
+  <!-- 立即兑换 不可点 -->
+  <image mode='widthFix' class='absolute cx' style='width:342rpx;top:1256rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/260F5DDC0306778D2D290A125A0DDEBD'></image>
+  <!-- 立即兑换 -->
+  <image wx:if='{{isComplete}}' bindtap='exchange' mode='widthFix' class='absolute cx' style='width:342rpx;top:1256rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/0F660CF9D945994C17C8C408602BB2D8'></image>
+  <!-- 以兑换 -->
+  <image wx:if='{{isExchange}}' mode='widthFix' class='absolute cx' style='width:342rpx;top:1256rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/D75C74E0904479E49DDE538A6A5821E7'></image>
+  <!-- 立即登录 -->
+  <image wx:if='{{!isLogin}}' bindtap='gotoLogin' mode='widthFix' class='absolute cx' style='width:342rpx;top:1256rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/71ED5F97456F1C6C3B5436C4DF53598A'></image>
+</view>
+<RedpModal id='redpModal'></RedpModal>

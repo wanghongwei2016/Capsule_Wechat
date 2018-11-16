@@ -1,1 +1,6 @@
-{}
+{
+  "usingComponents": {
+    "RedpModal": "/component/redpModal/redpModal",
+    "ZqPrizeModal": "/component/zqPrizeModal/zqPrizeModal"
+  }
+}

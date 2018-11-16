@@ -21,7 +21,7 @@
           <!-- </view> -->
 
         </view>
-                                   <button class='bottom_button_buy buy' bindtap="buyAction">{{bougth_card?"立即续买":"立即购买"}}</button>
+        <button class='bottom_button_buy buy' bindtap="buyAction">{{bougth_card?"立即续买":"立即购买"}}</button>
 
         <view>
           <!-- <button class='card_right_buy' id='buy_rightnow'>{{card_info.activity_title}}</button> -->
@@ -41,7 +41,7 @@
         <view>
           <text class='use_date'>有效期至{{month_card_info.end_date}}</text>
         </view>
-                           <button class='bottom_button_buy' bindtap="buyAction">{{bougth_card?"立即续买":"立即购买"}}</button>
+        <button class='bottom_button_buy' bindtap="buyAction">{{bougth_card?"立即续买":"立即购买"}}</button>
 
       </view>
     </view>
@@ -49,8 +49,11 @@
   <view class='card_equities'>
     <label class='equities_title'>月卡专属权益</label>
     <view class='card_equities_special'>
-      <image src='/images/card_time.png' mode="aspectFit" class='equities_time_image'></image>
-      <label class='equities_time_title'>每天免费1小时</label>
+      <image src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/CB524DD128341A356F029ECDF7D8B401' mode="widthFix" class='equities_time_image' style='width:60rpx;height:60rpx;'></image>
+      <label class='equities_time_title relative' style='top:-50%;'>
+        <view class='f30'>每天免费休息一次，限时一小时</view>
+        <view class='f24' style='margin-top:1em;'>（当天首次使用不超过3分钟可豁免）</view>
+      </label>
       <button class='equity_explain' bindtap="toggleRulesAction" data-type='1'>权益说明></button>
     </view>
   </view>
@@ -76,13 +79,14 @@
       </view>
       <text class="text_content">
         <text class="text_content_item">
-        1.月卡生效期间，每天一小时免费休息（一小时后按照场地规则按分钟计费)；\n
+        1.月卡生效期间，每天免费休息一次，限时一小时（当天首次使用不超过3分钟可豁免）；\n
 2.当前若无月卡，购买后月卡立即生效；当前若已有月卡，续费后有效期顺延(一个月按照30天计算)；\n
 3.购买或续费月卡成功后，相应费用不予退还；\n
-4.本月卡全国通用(注：部分头等舱使用需遵循场地方要求，如门禁，安检，身份登记等)；\n
-5.本月卡仅限本人持本人手机开舱使用；\n
-6.月卡用户可享受7X24小时服务，客服电话 400-688-9960；\n
-7.月卡权益最终解释权归享+共享头等舱所有。
+4.本月卡暂不支持享+钱包余额购买；\n
+5.本月卡全国通用(注：部分头等舱使用需遵循场地方要求，如门禁，安检，身份登记等)；\n
+6.本月卡仅限本人持本人手机开舱使用；\n
+7.月卡用户可享受7X24小时服务，客服电话 400-688-9960；\n
+8.月卡权益最终解释权归享+共享头等舱所有。
         </text>
       </text>
       <view class="close_view" data-type='1'>
@@ -112,9 +116,9 @@
       </view>
     </view>
   </view>
-<view class='button_contain'>
-  <button class='bottom_button share' open-type="share">分享新用户得{{invite_bonus}}元红包</button>
+  <view class='button_contain'>
+    <button class='bottom_button share' open-type="share">分享新用户得{{invite_bonus}}元红包</button>
 
-</view>
- 
+  </view>
+
 </view>

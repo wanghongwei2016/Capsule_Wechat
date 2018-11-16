@@ -161,6 +161,10 @@ button.span {
   width: 100%;
 }
 
+.h100 {
+  height: 100%;
+}
+
 .w-auth {
   width: auth;
 }
@@ -172,6 +176,11 @@ button.span {
 .cx {
   left: 50%;
   transform: translateX(-50%);
+}
+
+.cy {
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .text-center {
@@ -211,11 +220,11 @@ button.span {
 }
 
 .show {
-  display: block;
+  display: block !important;
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }
 
 .f24 {
@@ -270,6 +279,10 @@ button.span {
   float: left;
 }
 
+.bold{
+  font-weight: bold;
+}
+
 .float-right {
   float: right;
 }
@@ -284,4 +297,64 @@ button.span {
 
 .tb50 {
   transform: translateY(50%);
+}
+
+.clearfix::after {
+  display: block;
+  clear: both;
+  content: "";
+}
+
+.radius {
+  border-radius: 15rpx;
+}
+
+.card {
+  width: 170rpx;
+  height: 200rpx;
+  display: inline-block;
+  background-size: 100% 100%;
+  margin-left: 18rpx;
+  margin-right: 18rpx;
+  margin-bottom: 30rpx;
+}
+
+.card:nth-child(1) {
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/091AA53C243A00272A1CA7DA147ADDA5);
+}
+
+.card:nth-child(1).active {
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/3E32CA4E08D16E55BE2EAB8FBA4363E0);
+}
+
+.card:nth-child(2) {
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/42A869CDED2011FFCBBBED1099F89A41);
+}
+
+.card:nth-child(2).active {
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/57EA13EAC7CE727877B8CF9897A715FC);
+}
+
+.card:nth-child(3) {
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/B5B71F2473286977F00A48E2D1AE5B3E);
+}
+
+.card:nth-child(3).active {
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/F29B880D5A3FBCB25A828235647BC87B);
+}
+
+.card:nth-child(4) {
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/D5C9BC77FB5346D0EFD1E1F371F6A12F);
+}
+
+.card:nth-child(4).active {
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/F7DB1FFCFCDB98AC3DF21A2411B4738A);
+}
+
+.card:nth-child(5) {
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/4486504F2A769FB48FBEA530AE72EB08);
+}
+
+.card:nth-child(5).active {
+  background-image: url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/59FE544507DD7BFDDDF873B55D9E4549);
 }

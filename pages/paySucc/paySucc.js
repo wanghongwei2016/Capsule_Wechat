@@ -1,6 +1,19 @@
 var app = getApp()
 var network = require("../../utils/network.js")
 var utils = require("../../utils/util.js")
+var request = require('../../utils/request.js').default
+
+function type(o, t) {
+  if (t === undefined) {
+    if (o !== o) return 'NaN';
+    let typeStr = Object.prototype.toString.call(o);
+    return typeStr.substring(8, typeStr.length - 1);
+  } else {
+    return type(o) === t;
+  }
+}
+
+
 Page({
   data: {
     price: 0,
@@ -15,13 +28,20 @@ Page({
     rest_interval_width: 0,
     rest_width: 0,
     oxygen_width: 0,
-    compatibleStyle: { spcial1Font: '94rpx', spcial2Font: '133rpx', spcial3Font: '45rpx', vitalityInfoMarginTop: '0', heartRateFont: '133rpx', bloodPressureFont: '120rpx' },
+    compatibleStyle: {
+      spcial1Font: '94rpx',
+      spcial2Font: '133rpx',
+      spcial3Font: '45rpx',
+      vitalityInfoMarginTop: '0',
+      heartRateFont: '133rpx',
+      bloodPressureFont: '120rpx'
+    },
     isDialogShow: false,
     isScroll: true,
     vitalityRunStyle: '',
-    heart_rate_level: 2,//心率等级 1->稍慢 2->正常 3->稍快
-    blood_pressure_high_level: 2,//高压等级 1->偏高 2->正常 3->偏高
-    blood_pressure_low_level: 2,//低压等级 1->偏高 2->正常 3->偏高
+    heart_rate_level: 2, //心率等级 1->稍慢 2->正常 3->稍快
+    blood_pressure_high_level: 2, //高压等级 1->偏高 2->正常 3->偏高
+    blood_pressure_low_level: 2, //低压等级 1->偏高 2->正常 3->偏高
     stain_level: 'normal',
     dark_level: 'normal',
     acne_level: 'normal',
@@ -39,16 +59,35 @@ Page({
     heartArrowLeft: 0,
     highArrowLeft: 0,
     lowArrowLeft: 0,
+    // prize modal
+    prize_show: false,
+    prize_title: '中秋集卡赢大奖',
+    prize_subtitle: '恭喜您获得红包',
+    prize_footertext: '红包将在五分钟内自动放入「我的-钱包」',
+    prize_unit: '',
+    prize_failtext: '',
+    prize_price: 100,
+
   },
 
-  onShow: function () {
+  showPrizeModal: function() {
+    this.setData({
+      prize_show: true
+    });
+  },
+  hidePrizeModal: function() {
+    this.setData({
+      prize_show: false
+    });
+  },
+
+  onShow: function() {
 
     this.getBookingInfo()
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     // toast组件实例
     new app.ToastPannel();
-    console.log(options);
     this.initData();
     var that = this;
     var appraise_bonus = app.globalData.config.appraise_bonus == 0 || app.globalData.config.appraise_bonus ? app.globalData.config.appraise_bonus / 100 : app.globalData.configDefault.appraise_bonus / 100
@@ -62,12 +101,12 @@ Page({
       title: '支付成功'
     })
     if (options.page_from != 'skinTest') {
-      setTimeout(function () {
+      setTimeout(function() {
         that.setData({
           appraise_show: true
         })
       }, 1000)
-      setTimeout(function () {
+      setTimeout(function() {
         that.setData({
           appraise_animation_show: true
         })
@@ -81,7 +120,7 @@ Page({
 
     var isIOS;
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         // success
         console.log(res)
         isIOS = res.system.toUpperCase().indexOf('IOS') > -1 ? 1 : 0
@@ -89,29 +128,103 @@ Page({
     })
     if (isIOS === 0) {
       this.setData({
-        compatibleStyle: { spcial1Font: '74rpx', spcial2Font: '113rpx', spcial3Font: '35rpx', vitalityInfoMarginTop: '40rpx', heartRateFont: '110rpx', bloodPressureFont: '80rpx' }
+        compatibleStyle: {
+          spcial1Font: '74rpx',
+          spcial2Font: '113rpx',
+          spcial3Font: '35rpx',
+          vitalityInfoMarginTop: '40rpx',
+          heartRateFont: '110rpx',
+          bloodPressureFont: '80rpx'
+        }
       })
     }
 
+    // network.shareSleepNetwork("booking/bookingid/" + that.data.booking_id, {}, "GET", (res) => {
+    //   if (res.data.ret == 0 && res.data.booking_info && res.data.booking_info.card_item) {
+    //     request({
+    //       url: '/api/acitvity/get_mid_autumn_card_list', loading: true,
+    //       success: resp => {
+    //         let countComplete = resp.success_num || 0;
+    //         let isExchange = resp.status == 1;
+    //         let cardList = resp.card_list || [];
+    //         let cardMap = {};
+    //         cardList.map(card => {
+    //           cardMap[card] = true;
+    //         });
+    //         let isComplete = cardMap['中'] && cardMap['秋'] && cardMap['节'] && cardMap['快'] && cardMap['乐'] ? true : false;
+    //         this.selectComponent('#zqPrizeModal').setData({
+    //           show: true,
+    //           title: '中秋集卡赢大奖',
+    //           card: res.data.booking_info.card_item,
+    //           footer_text: isComplete ? '您已集齐卡片，赶快兑换大奖吧' : '集齐五张卡片就可以兑换大奖哦',
+    //           countComplete, isExchange, cardMap, isComplete,
+    //           redpModalNode: this.selectComponent('#redpModal')
+    //         });
+    //       }
+    //     });
+    //   }
+    // }, that);
+
+    request({
+      url: `/api/booking/bookingid/${that.data.booking_id}`,
+      success: resp => {
+        if (type(resp.booking_info.red_envelope, 'Number') && resp.booking_info.red_envelope > 0) {
+          this.selectComponent('#redpModal').setData({
+            show: true,
+            title: '躺着也赚钱',
+            sub_title: '恭喜您获得红包',
+            footer_text: '红包将在5分钟内自动放入「我的-钱包」',
+            unit: '元',
+            fail_text: 'String',
+            prize_text: resp.booking_info.red_envelope / 100,
+          })
+        }
+      }
+    });
+
+
     network.shareSleepNetwork("booking/bookingid/" + that.data.booking_id, {}, "GET", (res) => {
-      if (res.data.ret == 0 && res.data.booking_info && res.data.booking_info.red_envelope && res.data.booking_info.red_envelope > 0) {
-        this.setData({ red_envelope: res.data.booking_info.red_envelope || 0 });
-        this.showActModal();
+      if (res.data.ret == 0 && res.data.booking_info && res.data.booking_info.card_item) {
+        request({
+          url: '/api/acitvity/get_mid_autumn_card_list',
+          loading: true,
+          success: resp => {
+            let countComplete = resp.success_num || 0;
+            let isExchange = resp.status == 1;
+            let cardList = resp.card_list || [];
+            let cardMap = {};
+            cardList.map(card => {
+              cardMap[card] = true;
+            });
+            let isComplete = cardMap['中'] && cardMap['秋'] && cardMap['节'] && cardMap['快'] && cardMap['乐'] ? true : false;
+            this.selectComponent('#zqPrizeModal').setData({
+              show: true,
+              title: '中秋集卡赢大奖',
+              card: res.data.booking_info.card_item,
+              footer_text: isComplete ? '您已集齐卡片，赶快兑换大奖吧' : '集齐五张卡片就可以兑换大奖哦',
+              countComplete,
+              isExchange,
+              cardMap,
+              isComplete,
+              redpModalNode: this.selectComponent('#redpModal')
+            });
+          }
+        });
       }
     }, that);
 
   },
-  showActModal: function () {
+  showActModal: function() {
     this.setData({
       showActModal: true,
     });
   },
-  hideActModal: function () {
+  hideActModal: function() {
     this.setData({
       showActModal: false,
     });
   },
-  drawSkinBar: function (healthReport) {
+  drawSkinBar: function(healthReport) {
     if (healthReport.hasHealthData) {
       this.setData({
         health: Math.ceil(healthReport.beauty),
@@ -125,9 +238,12 @@ Page({
       this.acneProgress(this.data.acne)
     }
   },
-  drawVitalityBar: function (data) {
+  drawVitalityBar: function(data) {
     var bar_width = 360;
-    var sleep_score = data.sleep_score ? data.sleep_score / 100 : 0, fee_score = data.fee_score ? data.fee_score / 100 : 0, other_score = data.other_score ? data.other_score / 100 : 0, negative_oxygen = data.negative_oxygen ? (data.negative_oxygen).toFixed(1) : 0;
+    var sleep_score = data.sleep_score ? data.sleep_score / 100 : 0,
+      fee_score = data.fee_score ? data.fee_score / 100 : 0,
+      other_score = data.other_score ? data.other_score / 100 : 0,
+      negative_oxygen = data.negative_oxygen ? (data.negative_oxygen).toFixed(1) : 0;
     var vitalityValue = sleep_score + fee_score + other_score
     var sleep_score_width = bar_width * sleep_score / 100
     var fee_score_width = bar_width * fee_score / 100
@@ -147,7 +263,7 @@ Page({
       vitalityRunStyle,
     })
   },
-  drawHeartRateBar: function (data) {
+  drawHeartRateBar: function(data) {
     if (data.hasHeartRateData) {
       var heartRate = data.heart_rate
       //整个进度条分为4段从左到右分值依次为： 20 50 100 200
@@ -159,7 +275,7 @@ Page({
       })
     }
   },
-  getGenerateReport: function () {
+  getGenerateReport: function() {
     var that = this;
     try {
       var data = wx.getStorageSync('healthReportCache')
@@ -174,7 +290,14 @@ Page({
       this.drawHeartRateBar(data)
       this.drawBloodPressureBarHigh(data)
       this.drawBloodPressureBarLow(data)
-      network.shareSleepNetwork('booking/generate_report', { booking_id: parseInt(that.data.booking_id), muse_flag: muse_flag, face_flag: face_flag, health_flag: health_flag, heart_flag: heart_flag, blood_flag: blood_flag }, "POST", function complete(res) {
+      network.shareSleepNetwork('booking/generate_report', {
+        booking_id: parseInt(that.data.booking_id),
+        muse_flag: muse_flag,
+        face_flag: face_flag,
+        health_flag: health_flag,
+        heart_flag: heart_flag,
+        blood_flag: blood_flag
+      }, "POST", function complete(res) {
         console.log(res)
         if (res.data.ret == 0) {
           app.initHealthReportCache()
@@ -186,7 +309,7 @@ Page({
       console.log(e)
     }
   },
-  getBookingInfo: function () {
+  getBookingInfo: function() {
     var that = this;
     network.shareSleepNetwork("booking/bookingid/" + that.data.booking_id, {}, "GET", function complete(res) {
       that.getGenerateReport()
@@ -206,11 +329,11 @@ Page({
       })
     }, that)
   },
-  completeAction: function () {
+  completeAction: function() {
     if (wx.reLaunch) {
       wx.reLaunch({
-        url: '/pages/scanCode/scanCode',//这里需要绝对路径
-        complete: function (res) {
+        url: '/pages/scanCode/scanCode', //这里需要绝对路径
+        complete: function(res) {
           console.log(res)
         }
       })
@@ -232,10 +355,10 @@ Page({
     }
     app.initHealthReportCache()
   },
-  inviteFriendAction: function () {
+  inviteFriendAction: function() {
     wx.navigateTo({
-      url: '/pages/newInvite/newInvite?page_from=1',//这里需要绝对路径
-      complete: function (res) {
+      url: '/pages/newInvite/newInvite?page_from=1', //这里需要绝对路径
+      complete: function(res) {
         console.log(res)
       }
     })
@@ -243,7 +366,7 @@ Page({
   /**
    * 跳转到故障报修
    */
-  faultReportAction: function () {
+  faultReportAction: function() {
     wx.navigateTo({
       url: '../faultReport/faultReport?capsule_id=' + this.data.capsule_id_origin + '&booking_id=' + this.data.booking_id + '&area_id=' + this.data.area_id + '&phone=' + this.data.phone
     })
@@ -251,7 +374,7 @@ Page({
   /**
    * 选择星星
    */
-  selectStarAction: function (event) {
+  selectStarAction: function(event) {
     var selectId = event.currentTarget.dataset.index;
     if ((this.data.starFrom == 4 || selectId == 4) && (!(this.data.starFrom == 4 && selectId == 4))) {
       this.setData({
@@ -279,7 +402,7 @@ Page({
   /**
    * 检查星星选择状态
    */
-  checkStarStatus: function () {
+  checkStarStatus: function() {
     var appraise_stars = this.data.appraise_stars;
     var starsNum = 0;
     for (var i = 0; i < appraise_stars.length; i++) {
@@ -294,7 +417,7 @@ Page({
   /**
    * 比较满意标签选择
    */
-  appraiseSatisfiedAction: function (event) {
+  appraiseSatisfiedAction: function(event) {
     var index = event.currentTarget.dataset.index;
     var appraise_satisfied = this.data.appraise_satisfied;
     var tags = [];
@@ -316,7 +439,7 @@ Page({
   /**
    * 非常满意标签选择
    */
-  appraiseVerySatisfiedAction: function (event) {
+  appraiseVerySatisfiedAction: function(event) {
     var index = event.currentTarget.dataset.index;
     var appraise_very_satisfied = this.data.appraise_very_satisfied;
     var tags = [];
@@ -338,13 +461,13 @@ Page({
   /**
    * 检测字符串是否为空格
    */
-  checkStrIsNull: function (str) {
+  checkStrIsNull: function(str) {
     return str.length > 0 && str.trim().length == 0 ? false : true
   },
   /**
    * 输入框textarea
    */
-  textareaAction: function (event) {
+  textareaAction: function(event) {
     var text = event.detail.value;
     var canInputNum = this.data.canInputNum;
     canInputNum = canInputNum - text.length;
@@ -361,7 +484,7 @@ Page({
   /**
    * 检测提交按钮是否可用
    */
-  checkDisabledAction: function () {
+  checkDisabledAction: function() {
     var submit_disabled;
     if (this.data.starsNum >= 0 && this.data.starsNum <= 4) {
       if (this.data.tags.length > 0 || (this.checkStrIsNull(this.data.suggest) && this.data.suggest)) {
@@ -379,23 +502,29 @@ Page({
   /**
    * 关闭评论
    */
-  appraiseCloseAction: function () {
+  appraiseCloseAction: function() {
     this.initData();
   },
   /**
    * 初始化数据
    */
-  initData: function () {
+  initData: function() {
     console.log('init!!!!!!!!!!!!!!!!!!')
     var appraise_satisfied = []
     var appraise_very_satisfied = []
     var appraise4 = app.globalData.config.appraise4 && app.globalData.config.appraise4.length > 0 ? app.globalData.config.appraise4 : app.globalData.configDefault.appraise4
     var appraise5 = app.globalData.config.appraise5 && app.globalData.config.appraise5.length > 0 ? app.globalData.config.appraise5 : app.globalData.configDefault.appraise5
     for (var i = 0; i < appraise4.length; i++) {
-      appraise_satisfied.push({ tag: appraise4[i], toggle: false })
+      appraise_satisfied.push({
+        tag: appraise4[i],
+        toggle: false
+      })
     }
     for (var i = 0; i < appraise5.length; i++) {
-      appraise_very_satisfied.push({ tag: appraise5[i], toggle: false })
+      appraise_very_satisfied.push({
+        tag: appraise5[i],
+        toggle: false
+      })
     }
     this.setData({
       isScroll: true,
@@ -410,12 +539,21 @@ Page({
       appraise_satisfied,
       appraise_very_satisfied_origin: appraise_very_satisfied,
       appraise_very_satisfied,
-      appraise_stars: [
-        { active: false },
-        { active: false },
-        { active: false },
-        { active: false },
-        { active: false }
+      appraise_stars: [{
+          active: false
+        },
+        {
+          active: false
+        },
+        {
+          active: false
+        },
+        {
+          active: false
+        },
+        {
+          active: false
+        }
       ],
       textarea_placeholder: '请输入您的建议或对我们的意见！'
     })
@@ -423,7 +561,7 @@ Page({
   /**
    * 提交评价
    */
-  submitAction: function () {
+  submitAction: function() {
     var that = this;
     if (wx.showLoading) {
       wx.showLoading({
@@ -468,7 +606,7 @@ Page({
   /**
    * 关闭红包页面
    */
-  closeRed: function () {
+  closeRed: function() {
     this.setData({
       showRed: false,
       isScroll: true
@@ -477,7 +615,7 @@ Page({
   /**
    * 显示、关闭弹窗
    */
-  showDialog: function (e) {
+  showDialog: function(e) {
     var currentStatu = e.currentTarget.dataset.statu;
     console.log('currentStatu:', currentStatu);
     //关闭  
@@ -496,9 +634,9 @@ Page({
     }
   },
   /**
- * 色斑进度条
- */
-  stainProgress: function (stain) {
+   * 色斑进度条
+   */
+  stainProgress: function(stain) {
     var stain_level = stain < 10 ? 'normal' : stain < 50 ? 'one' : stain < 75 ? 'two' : 'three'
     if (stain >= 10 && stain <= 25) {
       stain = Number(stain) + 15;
@@ -511,7 +649,7 @@ Page({
   /**
    * 黑眼圈进度条
    */
-  darkProgress: function (dark_circle) {
+  darkProgress: function(dark_circle) {
     console.log(dark_circle)
     var dark_level = dark_circle < 10 ? 'normal' : dark_circle < 50 ? 'one' : dark_circle < 75 ? 'two' : 'three'
     if (dark_circle >= 10 && dark_circle <= 25) {
@@ -526,7 +664,7 @@ Page({
   /**
    * 青春痘进度条
    */
-  acneProgress: function (acne_circle) {
+  acneProgress: function(acne_circle) {
     var acne_level = acne_circle < 10 ? 'normal' : acne_circle < 50 ? 'one' : acne_circle < 75 ? 'two' : 'three'
     if (acne_circle >= 10 && acne_circle <= 25) {
       acne_circle = Number(acne_circle) + 15;
@@ -539,19 +677,19 @@ Page({
   /**
    * 立即获取肤质健康，跳转到测肤质页面
    */
-  getSkinAction: function () {
+  getSkinAction: function() {
     wx.navigateTo({
       url: '/pages/skinTest/skinTest?page_from=paySucc&booking_id=' + this.data.booking_id
     })
   },
-  getBloodHearAction: function () {
+  getBloodHearAction: function() {
     if (this.data.device_flag === '0') {
       wx.showModal({
         title: '提示',
         content: '功能即将开放，敬请期待！',
         confirmText: '知道了',
         showCancel: false,
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             console.log('用户点击确定')
           } else if (res.cancel) {
@@ -565,7 +703,7 @@ Page({
         content: '您可在舱内佩戴手环获取心率血压等健康数据。',
         confirmText: '知道了',
         showCancel: false,
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             console.log('用户点击确定')
           } else if (res.cancel) {
@@ -575,7 +713,7 @@ Page({
       })
     }
   },
-  computeArrowLeft: function (pressureValue, n1, n2, n3, n4) {
+  computeArrowLeft: function(pressureValue, n1, n2, n3, n4) {
     //整个进度条分为4段从左到右分值依次为： n1 n2 n3 n4
     var partLength = 33.33 //进度条分为3段，每段为占33.33%
     var arrowLeft = 0
@@ -592,7 +730,7 @@ Page({
     }
     return arrowLeft
   },
-  drawBloodPressureBarHigh: function (data) {
+  drawBloodPressureBarHigh: function(data) {
     if (data.hasBloodPressureData) {
       var high_pressure = data.high_pressure
       //整个进度条分为4段从左到右分值依次为： 60 90 140 200
@@ -604,7 +742,7 @@ Page({
       })
     }
   },
-  drawBloodPressureBarLow: function (data) {
+  drawBloodPressureBarLow: function(data) {
     if (data.hasBloodPressureData) {
       var low_pressure = data.low_pressure
       //整个进度条分为4段从左到右分值依次为： 30 60 90 120
@@ -616,7 +754,7 @@ Page({
       })
     }
   },
-  buyCardAction: function () {
+  buyCardAction: function() {
     wx.navigateTo({
       url: '/pages/card/card?bougth_card=' + (this.data.month_card_flag == 1 ? true : false),
     })

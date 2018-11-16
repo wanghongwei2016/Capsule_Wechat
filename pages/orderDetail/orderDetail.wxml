@@ -195,13 +195,14 @@
     <view class='modal-content'>
       <view class='modal-body'>
         <view class='relative w-auth'>
-          <image mode='widthFix' style='width:600rpx;height:auth;' src='images/popup.png'></image>
-          <image mode='widthFix' class='absolute right-0 top-0' style='margin-top:20rpx;margin-right:20rpx;width:30rpx;height:30rpx;' src='images/icon-close.png' bindtap='hideActModal'></image>
-          <view class='absolute w100 left-0 bottom-0 text-center' style='padding:1px 0;'>
-            <button class='redbtn f34 ' bindtap='gotoMusic'>立即体验</button>
-            <view class='text-white f24' style='margin-bottom:25rpx; margin-top:20rpx;' bindtap='gotoMusicActDetail'>活动详情>></view>
+          <image mode='widthFix' style='width:600rpx;height:auth;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/DF57D2212C970BD0E53EDEE569A80D3A'></image>
+          <!-- <image mode='widthFix' class='absolute right-0 top-0' style='margin-top:20rpx;margin-right:20rpx;width:30rpx;height:30rpx;' src='images/icon-close.png' bindtap='hideActModal'></image> -->
+          <view class='absolute w100 left-0 bottom-0 text-center' style='padding:65rpx 0;'>
+            <image mode='widthFix' style='width:350rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/1B28BD84C3AE64E496F134413B82479B' bindtap='gotoActPage'></image>
+            <!-- <view class='text-white f24' style='margin-bottom:25rpx; margin-top:20rpx;' bindtap='gotoMusicActDetail'>活动详情>></view> -->
           </view>
         </view>
+        <image mode='widthFix' class='cx' style='margin-top:20rpx;margin-left:50%;width:60rpx;height:60rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/090813358E7F020F48F2AEF9BDAFDD16' bindtap='hideActModal'></image>
       </view>
     </view>
   </view>

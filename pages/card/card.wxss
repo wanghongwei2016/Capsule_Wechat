@@ -154,7 +154,7 @@ page {
   margin-top: -285rpx; */
   /* position:absolute; */
   width: 680rpx;
-  margin-top: 105rpx;
+  margin-top: 55rpx;
 
 }
 
@@ -194,7 +194,7 @@ page {
 
 .equities_time_title{
   font-size: 27rpx;
-  height: 27rpx;
+  /* height: 27rpx; */
   line-height: 27rpx;
   margin-left: 24rpx;
 }

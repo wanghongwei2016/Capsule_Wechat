@@ -74,10 +74,29 @@ Page({
       wx.navigateTo({
         url: '/pages/groupbuy/groupbuy?group_id=' + options.group_id + '&uin=' + options.uin,
       })
+    } else if (options.assignUrl) {
+      let assignUrl = decodeURIComponent(options.assignUrl);
+      if (assignUrl == 'xiangshui://mine/convert') {
+        wx.navigateTo({
+          url: "/pages/redeem/redeem"
+        })
+      } else if (assignUrl == 'xiangshui://mine/month_card') {
+        wx.navigateTo({
+          url: '/pages/card/card?share=1',
+        })
+      } else if (assignUrl.search('xiangshui:') == 0) {
+        wx.navigateTo({
+          url: assignUrl.substring('xiangshui:'.length),
+        })
+      } else {
+        wx.navigateTo({
+          url: "/pages/activity/activity?web_view_url=" + encodeURIComponent(assignUrl)
+        })
+      }
     }
     if (options.q && decodeURIComponent(options.q).indexOf('invite') != -1) {
       if (utils.getUinFromUrl(options.q)) {
-        wx.navigateTo({
+        wx.navigateTo({ 
           url: '../newInvite/newInvite?uin=' + utils.getUinFromUrl(options.q) + "&type=1"
         })
       } else {

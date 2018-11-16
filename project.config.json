@@ -20,8 +20,16 @@
 			"current": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"plugin": {
 			"current": -1,
+			"list": []
+		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
@@ -58,6 +66,53 @@
 					"name": "act_music",
 					"pathName": "pages/act_music/act_music",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "act_zhongqiu",
+					"pathName": "pages/act_zhongqiu/act_zhongqiu",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "test_comp",
+					"pathName": "pages/test_comp/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "orderPay",
+					"pathName": "pages/orderPay/orderPay",
+					"query": "time=25:00:54&final_price=1006000&booking_id=1905386419&status=2&capsule_id=1100002001&calculate_rule=233243241&balance=undefined&need_charge=undefined"
+				},
+				{
+					"id": -1,
+					"name": "paySucc",
+					"pathName": "pages/paySucc/paySucc",
+					"query": "time=25:00:54&final_price=1006000&booking_id=1905386419&status=2&capsule_id=1100002001&calculate_rule=233243241&balance=undefined&need_charge=undefined"
+				},
+				{
+					"id": -1,
+					"name": "act_make_money",
+					"pathName": "pages/act_make_money/act_make_money",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "card",
+					"pathName": "pages/card/card",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "paySucc",
+					"pathName": "pages/paySucc/paySucc",
+					"query": "time=00:00:16&final_price=3000&capsule_id=1100002010&balance=998675&capsule_id_origin=1100002010&booking_id=92846408&area_id=1100002&phone=&appraise_flag=0"
+				},
+				{
+					"id": -1,
+					"name": "act_nuandong",
+					"pathName": "pages/act_nuandong/act_nuandong"
 				}
 			]
 		}

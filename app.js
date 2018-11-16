@@ -1,5 +1,7 @@
 //app.js
 
+const debug = false;
+
 function type(o, t) {
   if (t === undefined) {
     if (o !== o) return 'NaN';
@@ -260,7 +262,7 @@ App({
                 })
               }
             }
-          }) 
+          })
         }
       })
     }
@@ -321,16 +323,16 @@ App({
   },
 
   globalData: {
+    debug: debug,
     userInfo: {
       // uin:'100000'
     },
     is_from_login: 0,
     localUserInfo: { uin: 100000 },
     websocket: 0,
-    app_version: '4.7.5',
+    app_version: '4.7.6',
     phoneService: '400-688-9960',
-    // baseUrl: 'https://www.xiangshuispace.com/api/',
-    baseUrl: 'http://dev.xiangshuispace.com:18083/api/',
+    baseUrl: debug ? 'http://dev.xiangshuispace.com:18083/api/' : 'https://www.xiangshuispace.com/api/',
     config: {
       appraise4: ["空间狭小拥挤", "内饰不够好", "卷帘升降不顺畅", "沙发不够舒适", "控制板位置偏低", "操作略繁琐", "舱内有异味", "私密度不高", "隔音不太好", "灯光偏暗"],
       appraise5: ["外观时尚", "宽敞明亮", "卷帘升降顺畅", "沙发舒适", "控制板位置合适", "操作便利", "APP操作流畅", "干净卫生", "私密性良好", "比较隔音"],

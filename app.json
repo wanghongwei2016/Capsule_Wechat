@@ -39,7 +39,11 @@
     "pages/orderItem/orderItem",
     "pages/depositList/depositList",
     "pages/couponExchange/couponExchange",
-    "pages/act_music/act_music"
+    "pages/act_music/act_music",
+    "pages/act_zhongqiu/act_zhongqiu",
+    "pages/booing_flow/booking_flow",
+    "pages/act_make_money/act_make_money",
+    "pages/act_nuandong/act_nuandong"
   ],
   "window": {
     "backgroundTextStyle": "dark",

@@ -1,0 +1,41 @@
+<!--component/zqPrizeModal/zqPrizeModal.wxml-->
+<view wx:if='{{show}}' class='modal modal-popup'>
+  <view class='modal-layer'></view>
+  <view class='modal-dialog'>
+    <view class='modal-content'>
+      <view class='modal-body'>
+        <view class='relative w-auth'>
+          <image mode='widthFix' style='width:500rpx;height:auth;' src='/images/red_packet_bg.png'></image>
+          <view class='absolute w100 h100 top-0 left-0 radius' style='background-color:#f1394a;'></view>
+          <view class='absolute w100 left-0 text-center text-white f40 bold' style='top:60rpx;'>中秋集卡赢大奖</view>
+
+          <view class='absolute w100 left-0 text-center' style='top:140rpx;'>
+            <view class='card active {{card=="中"?"":"hide"}}'></view>
+            <view class='card active {{card=="秋"?"":"hide"}}'></view>
+            <view class='card active {{card=="节"?"":"hide"}}'></view>
+            <view class='card active {{card=="快"?"":"hide"}}'></view>
+            <view class='card active {{card=="乐"?"":"hide"}}'></view>
+          </view>
+
+
+          <view class='absolute w100 left-0 text-center text-white f36' style='top:52%;'>恭喜获得一张 [{{card}}] 卡</view>
+          <view class='absolute w100 left-0 text-center' style='top:460rpx;'>
+            <view class='card card-sm {{cardMap["中"]?"active":""}}'></view>
+            <view class='card card-sm {{cardMap["秋"]?"active":""}}'></view>
+            <view class='card card-sm {{cardMap["节"]?"active":""}}'></view>
+            <view class='card card-sm {{cardMap["快"]?"active":""}}'></view>
+            <view class='card card-sm {{cardMap["乐"]?"active":""}}'></view>
+          </view>
+          <!-- 立即领取－不可点 -->
+          <image wx:if='{{!isComplete}}' mode='widthFix' bindtap='hide' class='absolute cx' style='top:570rpx;width:348rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/8461648B7D07149635410F2B48153632'></image>
+          <!-- 立即领取 -->
+          <image wx:if='{{isComplete}}' mode='widthFix' bindtap='exchange' class='absolute cx' style='top:570rpx;width:348rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/70BC38FE9783239C647BDF73F592C1E9'></image>
+          <view class='absolute w100 left-0 bottom-0 text-center text-white f24' style='bottom:15rpx;'>{{footer_text}}</view>
+        </view>
+        <view class='text-center' style='margin-top:30rpx;'>
+          <image mode='widthFix' style='width:80rpx;' src='/images/red_packet_close.png' bindtap='hide'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

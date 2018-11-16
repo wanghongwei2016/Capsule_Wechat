@@ -655,3 +655,30 @@
     </view>
   </view>
 </view>
+
+<view wx:if='{{prize_show}}' class='modal modal-popup'>
+  <view class='modal-layer'></view>
+  <view class='modal-dialog'>
+    <view class='modal-content'>
+      <view class='modal-body'>
+        <view class='relative w-auth'>
+          <image mode='widthFix' style='width:500rpx;height:auth;' src='/images/red_packet_bg.png'></image>
+          <view class='absolute w100 left-0 text-center text-white f36' style='top:10%;'>{{prize_title}}</view>
+          <view class='absolute w100 left-0 text-center text-white f36' style='top:52%;'>{{prize_subtitle}}</view>
+          <view class='absolute w100 left-0 text-center text-white f36' style='top:60%; color:#ffed5a;'>
+            <text wx:if='{{prize_price>0}}' class='f100'>{{(prize_price||0)/100}}</text>
+            <text wx:else class='f64'>{{prize_failtext}}</text>
+            <text wx:if='{{prize_price>0}}' class='f40'>{{prize_unit}}</text>
+          </view>
+          <view class='absolute w100 left-0 bottom-0 text-center text-white f24' style='margin-bottom:10%;'>{{prize_footertext}}</view>
+        </view>
+        <view class='text-center' style='margin-top:30rpx;'>
+          <image mode='widthFix' style='width:80rpx;' src='/images/red_packet_close.png' bindtap='hidePrizeModal'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<RedpModal id='redpModal'></RedpModal>
+<ZqPrizeModal id='zqPrizeModal'></ZqPrizeModal>

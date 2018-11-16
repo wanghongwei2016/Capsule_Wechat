@@ -1,0 +1,10 @@
+/* component/zqPrizeModal/zqPrizeModal.wxss */
+@import '/app.wxss';
+
+.card.card-sm {
+  width: 54rpx;
+  height: 64rpx;
+  margin-left: 7rpx;
+  margin-right: 7rpx;
+  margin-bottom: 0;
+}

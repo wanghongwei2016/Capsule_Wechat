@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "中秋集卡赢百元红包",
+  "usingComponents": {
+    "RedpModal": "/component/redpModal/redpModal"
+  }
+}

@@ -1,0 +1,24 @@
+<!--component/redpModal/redpModal.wxml-->
+<view wx:if='{{show}}' class='modal modal-popup'>
+  <view class='modal-layer'></view>
+  <view class='modal-dialog'>
+    <view class='modal-content'>
+      <view class='modal-body'>
+        <view class='relative w-auth'>
+          <image mode='widthFix' style='width:500rpx;height:auth;' src='/images/red_packet_bg.png'></image>
+          <view class='absolute w100 left-0 text-center text-white f40 bold' style='top:10%;'>{{title}}</view>
+          <view class='absolute w100 left-0 text-center text-white f36' style='top:52%;'>{{sub_title}}</view>
+          <view class='absolute w100 left-0 text-center text-white f36' style='top:63%; color:#ffed5a;'>
+            <text wx:if='{{fail}}' class='f64'>{{fail_text}}</text>
+            <text wx:if='{{!fail}}' class='f100'>{{prize_text}}</text>
+            <text wx:if='{{!fail}}' class='f40'>{{unit}}</text>
+          </view>
+          <view class='absolute w100 left-0 bottom-0 text-center text-white f24' style='margin-bottom:10%;'>{{footer_text}}</view>
+        </view>
+        <view class='text-center' style='margin-top:30rpx;'>
+          <image mode='widthFix' style='width:80rpx;' src='/images/red_packet_close.png' bindtap='hide'></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
