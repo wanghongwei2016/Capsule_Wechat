@@ -31,7 +31,7 @@ Page({
           record.create_time_text = record.create_time ? new Date(record.create_time * 1000).format('yyyy-MM-dd hh:mm') : '';
         });
         this.setData({
-          list: resp.BonusInfos,
+          list: resp.BonusInfos||null,
         });
       }
     });

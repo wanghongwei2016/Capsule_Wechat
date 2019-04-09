@@ -7,7 +7,7 @@ const urlDomain = app.globalData.debug ?
   // 'http://dev.xiangshuispace.com:18084' :
   'https://www.xiangshuispace.com';
 
-export default function(opt = {}) {
+function request(opt = {}) {
   let localUserCache = storageService.getLocalUserCache();
   let url = `${urlDomain}${opt.url}`;
   let method = opt.method ? opt.method.toUpperCase() : 'GET';
@@ -53,6 +53,11 @@ export default function(opt = {}) {
           if (opt.success) {
             opt.success(resp);
           }
+        } else if (resp.ret == -103) {
+          wx.showToast({
+            title: '未登录，或登录已超时！',
+            icon: 'none',
+          });
         } else {
           console.warn('response', resp);
           wx.showToast({
@@ -63,6 +68,10 @@ export default function(opt = {}) {
 
       } else {
         console.error('response', response);
+        wx.showToast({
+          title: `statusCode=${response.statusCode},errMsg=${response.errMsg}`,
+          icon: 'none',
+        });
       }
     },
     fail: function(error) {
@@ -85,3 +94,19 @@ export default function(opt = {}) {
     }
   };
 }
+
+request.loadUserInfo = function(page) {
+  request({
+    url: '/api/user/info',
+    success: resp => {
+      wx.setStorageSync('userInfo', resp.user_info || null);
+      if (page) {
+        page.setData({
+          userInfo: resp.user_info || null
+        });
+      }
+    }
+  });
+}
+
+export default request;

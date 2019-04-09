@@ -1,6 +1,7 @@
 // deposit.js
 var app = getApp()
 var network = require('../../utils/network.js')
+var request = require('../../utils/request.js').default
 var utils = require("../../utils/util.js")
 Page({
 
@@ -36,6 +37,7 @@ Page({
   onShow: function () {
     this.getMineInfo();
     this.getMyCardInfo();
+    request.loadUserInfo(this);
   },
 
   /**

@@ -58,7 +58,7 @@
         <navigator url="/pages/profit/profit" hover-class="none">
           <view class="deposit_item_wrap">
             <text class="deposit_info">奖金提现</text>
-            <text class="deposit_status">0.00元 ></text>
+            <text class="deposit_status">{{userInfo&&userInfo.cash_amount?userInfo.cash_amount/100:0}}元 ></text>
           </view>
         </navigator>
       </view>

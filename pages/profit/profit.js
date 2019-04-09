@@ -3,14 +3,25 @@
 
 var request = require("../../utils/request.js").default
 
-
+function getUserInfo(page) {
+  request({
+    url: '/api/user/info',
+    success: resp => {
+      wx.setStorageSync('userInfo', resp.user_info || null);
+      if (page) {
+        page.setData({
+          userInfo: resp.user_info || null
+        });
+      }
+    }
+  });
+}
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    disabled: false,
     rule: false,
   },
 
@@ -18,6 +29,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
+    getUserInfo(this);
 
   },
 
@@ -93,7 +106,23 @@ Page({
         uin: wx.getStorageSync('localUserCache').uin
       },
       success: resp => {
-
+        if (resp.ret == 0 && resp.result_code == 'SUCCESS') {
+          wx.showToast({
+            title: `提现成功，提现金额稍后到您的微信钱包里`,
+            icon: 'none',
+          });
+          request.lodeUserInfo(this);
+        } else if (resp.ret == 0) {
+          wx.showToast({
+            title: `提现失败:${resp.return_msg}`,
+            icon: 'none',
+          });
+        } else {
+          wx.showToast({
+            title: `提现失败`,
+            icon: 'none',
+          });
+        }
       }
     });
   },
