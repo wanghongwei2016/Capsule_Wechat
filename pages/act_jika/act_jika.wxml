@@ -1,0 +1,14 @@
+<!--pages/act_jika/act_jika.wxml-->
+<view>
+  <image class='w100 block' mode='widthFix' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/C232E7BFC87E78EE4C0947CC965D6139'></image>
+  <!-- 规则 -->
+  <view class='absolute right-0' style='z-index:1;top:80rpx;width:40rpx;height:110rpx;' catchtap='bindOpenActionLink' data-link='https://www.xiangshuispace.com/www/activity/jika_guize.html'></view>
+  <!-- 季卡 -->
+  <view class='absolute cx' style='z-index:1;top:1264rpx;width:300rpx;height:82rpx;' catchtap='bindOpenActionLink' data-link='xcx:/pages/card/card'></view>
+  <!-- 充值 -->
+  <view class='absolute cx' style='z-index:1;top:2110rpx;width:300rpx;height:82rpx;' catchtap='bindOpenActionLink' data-link='xcx:/pages/myWallet/myWallet'></view>
+  <!-- 充值规则 -->
+  <view class='absolute cx' style='z-index:1;top:2200rpx;width:300rpx;height:70rpx;' catchtap='bindOpenActionLink' data-link='https://www.xiangshuispace.com/www/activity/jika_guize.html'></view>
+  <!-- 邀请 -->
+  <view class='absolute cx' style='z-index:1;top:2770rpx;width:300rpx;height:82rpx;' catchtap='bindOpenActionLink' data-link='xcx:/pages/newInvite/newInvite'></view>
+</view>

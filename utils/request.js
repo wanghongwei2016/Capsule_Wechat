@@ -2,9 +2,12 @@ const storageService = require('./storageService.js').default
 
 const app = getApp();
 
-const urlDomain = app.globalData.debug ? 'http://dev.xiangshuispace.com:18083' : 'https://www.xiangshuispace.com';
+const urlDomain = app.globalData.debug ?
+  'http://dev.xiangshuispace.com:18083' :
+  // 'http://dev.xiangshuispace.com:18084' :
+  'https://www.xiangshuispace.com';
 
-export default function (opt = {}) {
+export default function(opt = {}) {
   let localUserCache = storageService.getLocalUserCache();
   let url = `${urlDomain}${opt.url}`;
   let method = opt.method ? opt.method.toUpperCase() : 'GET';
@@ -26,11 +29,20 @@ export default function (opt = {}) {
     });
   }
 
-  console.log('request', { url, method, header, data, });
+  console.log('request', {
+    url,
+    method,
+    header,
+    data,
+  });
   let requestTask = wx.request({
-    url, method, header, data,
-    dataType: opt.dataType || 'json', responseType: opt.responseType || 'text',
-    success: function (response) {
+    url,
+    method,
+    header,
+    data,
+    dataType: opt.dataType || 'json',
+    responseType: opt.responseType || 'text',
+    success: function(response) {
       if (opt.loading) {
         wx.hideLoading();
       }
@@ -53,19 +65,19 @@ export default function (opt = {}) {
         console.error('response', response);
       }
     },
-    fail: function (error) {
+    fail: function(error) {
       if (opt.loading) {
         wx.hideLoading();
       }
     },
-    complete: function () {
+    complete: function() {
       if (opt.complete) {
         opt.complete();
       }
     },
   });
   return {
-    abort: function () {
+    abort: function() {
       if (opt.loading) {
         wx.hideLoading();
       }

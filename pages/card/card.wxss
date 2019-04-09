@@ -71,7 +71,7 @@ page {
 
 
 .card_middle_content {
-  margin-top: 60rpx;
+  margin-top: 100rpx;
   align-content: center;
   justify-content: center;
   align-items: flex-end; 
@@ -99,7 +99,7 @@ page {
 }
 
 .card_content view:last-child {
-  margin-top: 76rpx;
+  margin-top: 48rpx;
 }
 
 /* .card_contain view:last-child {
@@ -159,7 +159,7 @@ page {
 }
 
 .card_equities_special {
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
   align-content: center;
   align-items:  center;
@@ -174,8 +174,8 @@ page {
 }
 
 .card_equities image {
-  width: 50rpx;
-  height: 50rpx;
+  /* width: 50rpx; */
+  /* height: 50rpx; */
 }
 /* .equities_time_image { */
   /* margin-top: 84rpx; */
@@ -188,7 +188,7 @@ page {
   height: 40rpx;
   line-height: 40rpx;
     left: 16px;
-    position: absolute;
+    /* position: absolute; */
 
 }
 
@@ -196,7 +196,9 @@ page {
   font-size: 27rpx;
   /* height: 27rpx; */
   line-height: 27rpx;
-  margin-left: 24rpx;
+  /* margin-left: 24rpx; */
+  /* margin-top:83rpx; */
+
 }
 
 .equity_explain {

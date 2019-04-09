@@ -1,0 +1,30 @@
+<!--pages/profit/profit.wxml-->
+<view class='relative' style='height:480rpx;background-color:#26a4fc;'>
+  <view class='absolute w100 left-0 text-center' style='color:#fff;font-size:103rpx;top:168rpx;'>
+    <text class='bold'>0.00</text>
+    <text style='font-size:.5em;'>元</text>
+  </view>
+  <view class='absolute w100 left-0 text-center' style='color:#fff;font-size:28rpx;bottom:64rpx;'>满10元可提现</view>
+</view>
+
+<button class='' disabled='{{disabled}}' style='font-size:34rpx;margin:106rpx 64rpx;' catchtap='submit'>提现</button>
+
+<view class='fixed bottom-0 left-0 w100 text-center' style='padding:1em 0;'>
+  <text style='display:inline-block;font-size:28rpx;color:#333;line-height:2;padding:0 2em;' catchtap='profitRecord'>奖金明细</text>
+  <text style='display:inline-block;font-size:28rpx;color:#333;line-height:2;padding:0 2em;' catchtap='openRule'>提现说明</text>
+</view>
+
+
+<view wx:if='{{rule}}' class='fixed left-0 top-0 w100 h100' style='background-color:rgba(0,0,0,.5);'>
+  <view class='absolute cxy' style='width:80%;padding:64rpx 64rpx;background-color:#fff;box-sizing:border-box;border-radius: 10rpx;'>
+    <view class='bold' style='font-size:40rpx;margin-bottom:49rpx;'>提现说明</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>活动一：季卡首发8折，限量100张，售完恢复原价，当前若无月卡，购买后季卡立即生效；当前若已有月卡，购买后有效期顺延（季度按90天计算）。季卡购买、使用权益同月卡权益说明。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;margin-top:.5em;'>活动二：充值赠送等额现金大礼包及优惠券，充值100元以上获赠精美晴雨伞一把
+      <br/>充值20赠2元+优惠券6张（面值18元）
+      <br/>充值50赠10元+优惠券9张（面值40元）
+      <br/>充值100赠30元+优惠券10张（面值70元）
+      <br/>充值200赠100元+优惠券11张（面值100元）
+    </view>
+    <view class='absolute top-0 right-0 text-center' style='transform:rotate(45deg);font-size:44rpx;width:2em;height:2em;line-height:2em;' catchtap='closeRule'>+</view>
+  </view>
+</view>

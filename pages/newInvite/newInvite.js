@@ -304,9 +304,9 @@ Page({
       }
       console.log('/pages/scanCode/scanCode?invite=1&uin=' + app.globalData.localUserInfo.uin + "&type=1");
       return {
-        title: "您的自助休息空间+健康加油站",
+        title: `您的好友送您${this.data.invited_bonus}元头等舱红包!新用户尊享1小时免费体验！`,
         path: '/pages/scanCode/scanCode?invite=1&uin=' + app.globalData.localUserInfo.uin + "&type=1",
-        imageUrl: '/images/invited.png',
+        imageUrl: 'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/7C202C26F8DCFED2F5DE4786567D66EF',
         success: function (res) {
           that.show('邀请成功');
         },
@@ -331,9 +331,9 @@ Page({
       }
       console.log('/pages/scanCode/scanCode?invite=1&uin=' + app.globalData.localUserInfo.uin + "&type=1")
       return {
-        title: "您的自助休息空间+健康加油站",
+        title: `您的好友送您${this.data.invited_bonus}元头等舱红包!新用户尊享1小时免费体验！`,
         path: '/pages/scanCode/scanCode?invite=1&uin=' + app.globalData.localUserInfo.uin + "&type=1",
-        imageUrl: '/images/invited.png',
+        imageUrl: 'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/7C202C26F8DCFED2F5DE4786567D66EF',
         success: function (res) {                    
           that.show('邀请成功');
         },

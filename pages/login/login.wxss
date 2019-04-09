@@ -152,7 +152,7 @@ button[disabled][type="default"], wx-button[disabled]:not([type]) {
 }
 
 .active_show_default {
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #333;
   text-align: center;
 }

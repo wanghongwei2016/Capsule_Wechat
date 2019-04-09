@@ -67,7 +67,7 @@
       <text class="loginText" bindtap="loginAction">登录/注册</text>
     </view>
     <view class="login_des_contain">
-      <text class="loginDes" wx:if="{{register_bonus!=0}}">首次登录即送{{register_bonus}}元大礼包</text>
+      <text class="loginDes" wx:if="{{register_bonus!=0}}">首次登录即送88元大礼包</text>
     </view>
   </view>
   <!--</view>-->

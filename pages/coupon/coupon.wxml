@@ -32,10 +32,13 @@
         <view class="right_content_contain" data-id="{{item.coupon_id}}">
 
           <view class="sub_title_view" data-id="{{item.coupon_id}}">
-            <text class="sub_title_min_text" data-id="{{item.coupon_id}}">{{item.type == 1? "现金抵扣券":""}}</text>
+            <text class="sub_title_min_text" data-id="{{item.coupon_id}}">{{item.type == 1? "现金抵扣券":""}}{{item.type == 2? "免费体验券":""}}</text>
           </view>
           <view class="sub_title_view" data-id="{{item.coupon_id}}">
             <text class="sub_title_date" data-id="{{item.coupon_id}}">有效期至 {{item.end_date}}</text>
+          </view>
+          <view wx:if='{{item.type == 2}}' class="sub_title_view" data-id="{{item.coupon_id}}">
+            <text class="sub_title_date" data-id="{{item.coupon_id}}">仅限非高峰时段使用，有效期一个月</text>
           </view>
         </view>
         <image src="/images/coupon_selected.png" class="coupon_selected_img" wx:if="{{item.coupon_id==select_coupon_id}}"></image>

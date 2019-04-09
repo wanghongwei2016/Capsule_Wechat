@@ -114,7 +114,7 @@
 
         </view>
         <view class='card_container'>
-          <button class='buyCard' bindtap='buyCardAction'>{{month_card_flag != 1 ? "购买月卡 低至29.8元/月": "续买月卡 低至29.8元/月"}}</button>
+          <button class='buyCard' bindtap='buyCardAction'>{{month_card_flag != 1 ? "购买月卡 低至49.8元/月": "续买月卡 低至49.8元/月"}}</button>
         </view>
 
 
@@ -606,7 +606,7 @@
     <view class='pay_result_invite'>
       <view class='pay_result_btns_wrap'>
         <view class='pay_result_home_btn' bindtap="completeAction">返回首页</view>
-        <view class='pay_result_invite_btn' bindtap="inviteFriendAction">邀请好友得{{invite_bonus}}元</view>
+        <view class='pay_result_invite_btn' bindtap="inviteFriendAction">邀请好友最高得100元</view>
       </view>
     </view>
     <!-- 什么是活力值 -->

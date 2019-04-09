@@ -43,7 +43,12 @@
     "pages/act_zhongqiu/act_zhongqiu",
     "pages/booing_flow/booking_flow",
     "pages/act_make_money/act_make_money",
-    "pages/act_nuandong/act_nuandong"
+    "pages/act_nuandong/act_nuandong",
+    "pages/act_yanzhao/act_yanzhao",
+    "pages/webView/webView",
+    "pages/act_jika/act_jika",
+    "pages/profit/profit",
+    "pages/profitRecord/profitRecord"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -57,5 +62,10 @@
     "uploadFile": 10000,
     "downloadFile": 10000
   },
-  "debug": true
+  "debug": true,
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  }
 }

@@ -2,7 +2,33 @@
 var app = getApp()
 var network = require("../../utils/network.js")
 var utils = require("../../utils/util.js")
+var request = require("../../utils/request.js").default
 var storageService = require('../../utils/storageService.js').default
+
+
+function openActionLink(actionlink) {
+  if (!actionlink) return;
+  if (/^xcx:.+$/.test(actionlink)) {
+    wx.navigateTo({
+      url: actionlink.substring('xcx:'.length),
+    })
+  } else if (/^https:.+$/.test(actionlink)) {
+    wx.navigateTo({
+      url: `/pages/webView/webView?url=${encodeURIComponent(actionlink)}`,
+    })
+  } else if (/^article:.+$/.test(actionlink)) {
+    wx.navigateTo({
+      url: `/pages/article/article?article_id=${actionlink.substring('article:'.length)}`,
+    })
+  }
+}
+
+
+function bindOpenActionLink(event) {
+  openActionLink(event.currentTarget.dataset.link);
+}
+
+
 var pageData = {
   data: {
     count_show: "00:00:00",
@@ -71,8 +97,15 @@ var pageData = {
 
   },
   showActModal: function() {
-    this.setData({
-      showActModal: true,
+    request({
+      url: '/api/booking/get_booking_advertising',
+      success: resp => {
+        this.setData({
+          showActModal: true,
+          act_img_url: resp.img_url,
+          act_action_link: resp.action_link,
+        });
+      }
     });
   },
   hideActModal: function() {
@@ -81,10 +114,18 @@ var pageData = {
     });
   },
   gotoActPage: function() {
+    request({
+      url: `/api/statistics/click_sum`,
+      method: 'post',
+      data: {
+        page_id: 6001
+      }
+    });
     this.hideActModal();
-    wx.navigateTo({
-      url: '/pages/act_make_money/act_make_money',
-    })
+    openActionLink(this.data.act_action_link);
+    // wx.navigateTo({
+    //   url: '/pages/act_yanzhao/act_yanzhao',
+    // })
   },
   gotoMusic: function() {
     this.hideActModal();

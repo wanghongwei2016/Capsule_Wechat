@@ -205,7 +205,7 @@ var pageData = {
               that.getLocalUserInfo();
             }
             if ((res.data.flag || res.data.flag == 1) && that.data.register_bonus > 0) {
-              that.show(that.data.register_bonus + '元大礼包已到账')
+              that.show('领取成功，大礼包已发放至你的账户，请到“我的－优惠券”页面查看')
               setTimeout(initUserInfo, 1000)
             } else {
               initUserInfo()
@@ -451,7 +451,7 @@ var pageData = {
                           that.getLocalUserInfo();
                         }
                         if ((res.data.flag || res.data.flag == 1) && that.data.register_bonus > 0) {
-                          that.show(that.data.register_bonus + '元大礼包已到账')
+                          that.show('88元大礼包已到账')
                           setTimeout(initUserInfo, 1000)
                         } else {
                           initUserInfo()

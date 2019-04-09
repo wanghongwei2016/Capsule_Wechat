@@ -25,9 +25,9 @@ Page({
   inputVerifyCode: function (e) {
     var verify_code = e.detail.value
     var code_delete;
-    if(verify_code){
+    if (verify_code) {
       code_delete = true
-    }else{
+    } else {
       code_delete = false
     }
     this.setData({
@@ -44,7 +44,7 @@ Page({
   /**
    * 关闭弹窗
    */
-  handleCloseAction () {
+  handleCloseAction() {
     this.setData({
       verify_code: '',
       redeemSuccess: false,
@@ -56,7 +56,7 @@ Page({
    */
   handleRedeemAction: function () {
     console.log(app.globalData.localUserInfo)
-    if (app.globalData.localUserInfo.uin === 100000){
+    if (app.globalData.localUserInfo.uin === 100000) {
       wx.showModal({
         content: '登录后才能兑换现金红包哦~',
         confirmText: '去登录',
@@ -71,7 +71,7 @@ Page({
       return
     }
     var that = this;
-    if (!that.data.verify_code){
+    if (!that.data.verify_code) {
       that.show('请输入兑换码')
       return
     }
@@ -81,7 +81,7 @@ Page({
         duration: 2000
       })
     }
-    network.shareSleepNetwork("user/get_verify_red", { 'verify_code': that.data.verify_code}, "POST", function complete(res) {
+    network.shareSleepNetwork("user/get_verify_red", { 'verify_code': that.data.verify_code }, "POST", function complete(res) {
       if (wx.hideLoading) {
         wx.hideLoading()
       }
@@ -89,6 +89,9 @@ Page({
       if (res.data.ret == 0) {
         that.setData({
           redeemSuccess: true,
+          type: res.data.type || 0,
+          min_price: res.data.min_price ? res.data.min_price / 100 : 0,
+          cash: res.data.cash ? res.data.cash / 100 : 0,
           verify_code: '',
           red_envelope: res.data.red_envelope ? res.data.red_envelope / 100 : 0,
           code_delete: false

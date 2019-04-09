@@ -1,5 +1,5 @@
-<import src="../../component/toast/toast.wxml"/>
-<template is="toast" data="{{ ..._toast_ }}"/>
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
 
 <view class="redeem_container">
   <view class='redeem_icon_wrap'>
@@ -10,7 +10,7 @@
   </view>
   <view class='redeem_input_wrap'>
     <input class='redeem_input' focus="true" value='{{verify_code}}' bindinput="inputVerifyCode"></input>
-    <view class='code_delete_wrap' bindtap="deleteAction"  wx:if="{{code_delete}}">
+    <view class='code_delete_wrap' bindtap="deleteAction" wx:if="{{code_delete}}">
       <image src='../../images/login_close.png' class='code_delete'></image>
     </view>
   </view>
@@ -28,10 +28,10 @@
           <text>兑换成功</text>
         </view>
         <view class='redeem_success_info_wrap'>
-          <text>恭喜获得现金红包</text>
+          <text>恭喜获得{{type==1?'优惠券':'现金红包'}}</text>
         </view>
         <view class='redeem_success_price_wrap'>
-          <text>{{red_envelope}}</text>
+          <text>{{type==1?cash:red_envelope}}</text>
           <text class='redeem_success_price_text'>元</text>
         </view>
         <view class='redeem_success_btn' bindtap='handleCloseAction' hover-class='redreem_success_btn_tap'>立即收下</view>

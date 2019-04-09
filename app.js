@@ -1,6 +1,6 @@
 //app.js
 
-const debug = false;
+const debug = true;
 
 function type(o, t) {
   if (t === undefined) {
@@ -18,7 +18,7 @@ function typeValue(o, t, d) {
 
 let UUID = {
   cs: '012346789abcdef'.toUpperCase().split(''),
-  get: function (n) {
+  get: function(n) {
     n = n || 32;
     var _uuid = "";
     for (var i = 0; i < n; i++) {
@@ -29,11 +29,11 @@ let UUID = {
   }
 };
 
-Date.prototype.format = function (fmt) {
+Date.prototype.format = function(fmt) {
   if (!fmt) fmt = "yyyy-MM-dd hh:mm:ss";
   var o = {
-    "M+": this.getMonth() + 1,//月份
-    "W": (function (date) {
+    "M+": this.getMonth() + 1, //月份
+    "W": (function(date) {
       switch (date.getDay()) {
         case 0:
           return "日";
@@ -52,13 +52,13 @@ Date.prototype.format = function (fmt) {
         default:
           return "";
       }
-    })(this),//星期
-    "d+": this.getDate(),//日
-    "h+": this.getHours(),//小时
-    "m+": this.getMinutes(),//分
-    "s+": this.getSeconds(),//秒
-    "q+": Math.floor((this.getMonth() + 3) / 3),//季度
-    "S": this.getMilliseconds()//毫秒
+    })(this), //星期
+    "d+": this.getDate(), //日
+    "h+": this.getHours(), //小时
+    "m+": this.getMinutes(), //分
+    "s+": this.getSeconds(), //秒
+    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+    "S": this.getMilliseconds() //毫秒
   };
   if (/(y+)/.test(fmt))
     fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
@@ -73,7 +73,9 @@ Date.prototype.format = function (fmt) {
 
 
 var utils = require("utils/util.js")
-import { ToastPannel } from './component/toast/toast'
+import {
+  ToastPannel
+} from './component/toast/toast'
 
 import locales from './utils/locales'
 import T from './utils/wxapp-i18n'
@@ -92,7 +94,7 @@ wx.T = T
 
 App({
   ToastPannel,
-  onLaunch: function (options) {
+  onLaunch: function(options) {
     console.log('options====================')
     console.log(options)
     var that = this
@@ -121,7 +123,7 @@ App({
     }
     if (wx.getNetworkType) {
       wx.getNetworkType({
-        success: function (res) {
+        success: function(res) {
           if (res.networkType == "none") {
             wx.navigateBack({
               delta: 1
@@ -131,7 +133,7 @@ App({
               content: '无法打开小程序，请检查网络状态',
               showCancel: false,
               confirmText: "知道了",
-              success: function (resp) {
+              success: function(resp) {
                 if (resp.confirm) {
                   wx.navigateBack({
                     delta: 1
@@ -144,7 +146,7 @@ App({
       })
     }
   },
-  onShow: function () {
+  onShow: function() {
     var that = this;
     if (this.globalData.websocket == 0) {
       this.createSocket(this.globalData.localUserInfo.uin, this.globalData.localUserInfo.token)
@@ -152,7 +154,7 @@ App({
     wx.request({
       url: this.globalData.baseUrl + 'sysconfig',
       method: 'GET',
-      success: function (res) {
+      success: function(res) {
         console.log('config===============')
         console.log(res);
         if (res.data.ret == 0) {
@@ -161,16 +163,16 @@ App({
           that.globalData.config = that.globalData.configDefault
         }
       },
-      fail: function () {
+      fail: function() {
         that.globalData.config = that.globalData.configDefault
       }
     })
   },
-  onHide: function () {
+  onHide: function() {
 
   },
 
-  createSocket: function (uin, token) {
+  createSocket: function(uin, token) {
     var that = this;
     var baseUrl = this.globalData.baseUrl;
     this.globalData.websocket = 1;
@@ -187,10 +189,12 @@ App({
 
       wx.request({
         url: baseUrl + 'user/set',
-        data: JSON.stringify({ igetui_cltid: String(uin) }),
+        data: JSON.stringify({
+          igetui_cltid: String(uin)
+        }),
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         header: headerDict, // 设置请求的 header
-        success: function (res) {
+        success: function(res) {
           console.log(res.data)
         }
       })
@@ -200,7 +204,7 @@ App({
         url: 'wss://www.xiangshuispace.com/chat'
       })
 
-      wx.onSocketOpen(function (res) {
+      wx.onSocketOpen(function(res) {
         console.log('WebSocket连接已打开！')
         socketOpen = true
         sendSocketMessage(JSON.stringify({
@@ -209,11 +213,11 @@ App({
         }))
       })
 
-      wx.onSocketError(function (res) {
+      wx.onSocketError(function(res) {
         console.log('WebSocket连接打开失败，请检查！')
       })
 
-      wx.onSocketClose(function (res) {
+      wx.onSocketClose(function(res) {
         console.log('WebSocket 已关闭！')
         console.log(res);
         console.log(that.globalData.timer)
@@ -229,7 +233,9 @@ App({
           })
           that.globalData.timer = setInterval(() => {
             wx.sendSocketMessage({
-              data: JSON.stringify({ msg_type: "ping" })
+              data: JSON.stringify({
+                msg_type: "ping"
+              })
             })
           }, 30000)
         } else {
@@ -237,7 +243,7 @@ App({
         }
       }
 
-      wx.onSocketMessage(function (res) {
+      wx.onSocketMessage(function(res) {
         console.log('收到服务器内容：' + res.data)
         var reqData = JSON.parse(res.data)
         console.log(reqData);
@@ -248,7 +254,7 @@ App({
             data: {},
             method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
             header: headerDict, // 设置请求的 header
-            success: function (resp) {
+            success: function(resp) {
               console.log("booking/bookingid/=========")
               console.log(resp.data)
               var timeString = utils.timeShowString(resp.data.booking_info.end_time - resp.data.booking_info.create_time)
@@ -268,16 +274,16 @@ App({
     }
     //链接websocket结束
   },
-  getUserInfo: function (cb) {
+  getUserInfo: function(cb) {
     var that = this
     if (this.globalData.userInfo) {
       typeof cb == "function" && cb(this.globalData.userInfo)
     } else {
       //调用登录接口
       wx.login({
-        success: function () {
+        success: function() {
           wx.getUserInfo({
-            success: function (res) {
+            success: function(res) {
               console.log(res)
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo)
@@ -287,7 +293,7 @@ App({
       })
     }
   },
-  getLocalUserInfo: function (cb) {
+  getLocalUserInfo: function(cb) {
     var that = this
     if (that.globalData.localUserInfo) {
       typeof cb == "function" && cb(that.globalData.userInfo)
@@ -298,25 +304,27 @@ App({
       })
     }
   },
-  setUserInfo: function (info) {
+  setUserInfo: function(info) {
     that.globalData.userInfo = userinfo
   },
-  setLocalUserInfo: function (info) {
+  setLocalUserInfo: function(info) {
     var that = this
     that.globalData.rotateOrigin = 0
     that.globalData.musicPlayId = null
     if (!info || info.keys.count == 0) {
-      that.globalData.localUserInfo = { uin: 100000 }
+      that.globalData.localUserInfo = {
+        uin: 100000
+      }
     } else {
       that.globalData.localUserInfo = info
     }
   },
   //初始化健康报告数据
-  initHealthReportCache: function () {
+  initHealthReportCache: function() {
     wx.setStorage({
       key: 'healthReportCache',
       data: {},
-      complete: function (res) {
+      complete: function(res) {
         console.log(res)
       }
     })
@@ -328,11 +336,16 @@ App({
       // uin:'100000'
     },
     is_from_login: 0,
-    localUserInfo: { uin: 100000 },
+    localUserInfo: {
+      uin: 100000
+    },
     websocket: 0,
     app_version: '4.7.6',
     phoneService: '400-688-9960',
-    baseUrl: debug ? 'http://dev.xiangshuispace.com:18083/api/' : 'https://www.xiangshuispace.com/api/',
+    baseUrl: debug ?
+      'http://dev.xiangshuispace.com:18083/api/' :
+      // 'http://dev.xiangshuispace.com:18084/api/' :
+      'https://www.xiangshuispace.com/api/',
     config: {
       appraise4: ["空间狭小拥挤", "内饰不够好", "卷帘升降不顺畅", "沙发不够舒适", "控制板位置偏低", "操作略繁琐", "舱内有异味", "私密度不高", "隔音不太好", "灯光偏暗"],
       appraise5: ["外观时尚", "宽敞明亮", "卷帘升降顺畅", "沙发舒适", "控制板位置合适", "操作便利", "APP操作流畅", "干净卫生", "私密性良好", "比较隔音"],
@@ -347,18 +360,19 @@ App({
   },
 
 })
+
 function showVersionUpdate() {
   var baseVersion = ''
   var sysVersion = ''
   wx.getSystemInfo({
-    success: function (res) {
+    success: function(res) {
       console.log(res)
       baseVersion = res.SDKVersion
       sysVersion = res.version
     }
   })
-  var [MAJOR, MINOR, PATCH] = decodeURI(baseVersion).split('.')//baseVersion.split('.').map(Number)
-  var [SYS_MAJOR, SYS_MINOR, SYS_PATCH] = decodeURI(sysVersion).split('.')// sysVersion.split('.').map(Number)
+  var [MAJOR, MINOR, PATCH] = decodeURI(baseVersion).split('.') //baseVersion.split('.').map(Number)
+  var [SYS_MAJOR, SYS_MINOR, SYS_PATCH] = decodeURI(sysVersion).split('.') // sysVersion.split('.').map(Number)
   console.log(sysVersion)
   console.log(SYS_MAJOR, SYS_MINOR, SYS_PATCH)
   if (SYS_MAJOR <= 6 && SYS_MINOR <= 5 && SYS_PATCH < 6) {
@@ -366,7 +380,7 @@ function showVersionUpdate() {
       content: "未避免影响您使用“享+”的部分功能，建议您升级微信客户端",
       showCancel: false,
       confirmText: "知道了",
-      complete: function (res) {
+      complete: function(res) {
         console.log(res)
       }
     })

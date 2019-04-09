@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 13,
+			"current": 26,
 			"list": [
 				{
 					"id": -1,
@@ -51,9 +51,9 @@
 				},
 				{
 					"id": 3,
-					"name": "月卡过期提醒",
+					"name": "orderDetail",
 					"pathName": "pages/orderDetail/orderDetail",
-					"query": "booking_id=2005240327"
+					"query": "booking_id=1452825818&capsule_id=1100017002&calculate_rule=sdfsdfsdf"
 				},
 				{
 					"id": -1,
@@ -112,7 +112,98 @@
 				{
 					"id": -1,
 					"name": "act_nuandong",
-					"pathName": "pages/act_nuandong/act_nuandong"
+					"pathName": "pages/act_nuandong/act_nuandong",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "act_yanzhao",
+					"pathName": "pages/act_yanzhao/act_yanzhao",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "balance",
+					"pathName": "pages/balance/balance",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 16,
+					"name": "orderDetail",
+					"pathName": "pages/orderDetail/orderDetail",
+					"query": "booking_id=589660813&create_time=1553671434&calculate_rule=6元/半小时，高峰期（11-15点）9.9元/半小时，按分钟计费/最低半小时。活动价格&capsule_id=1100017002",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "webView",
+					"pathName": "pages/webView/webView",
+					"query": "url=https%3A%2F%2Fwww.xiangshuispace.com%2Fwww%2Factivity%2Fyanzhao.html",
+					"scene": null
+				},
+				{
+					"id": 18,
+					"name": "newInvite",
+					"pathName": "pages/newInvite/newInvite",
+					"query": "type=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "paySucc",
+					"pathName": "pages/paySucc/paySucc",
+					"query": "time=00:03:36&final_price=100&capsule_id=1100017002&balance=9&capsule_id_origin=1100017002&booking_id=975624384&area_id=1100017&phone=11000000001&appraise_flag=0",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "coupon",
+					"pathName": "pages/coupon/coupon",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的钱包",
+					"pathName": "pages/deposit/deposit",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "购买月卡",
+					"pathName": "pages/card/card",
+					"query": "bougth_card=true&card_no=11000000001&end_date=有效期至2019年04月25日",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "充值",
+					"pathName": "pages/myWallet/myWallet",
+					"query": "is_mine_page=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "act_jika",
+					"pathName": "pages/act_jika/act_jika",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 25,
+					"name": "profit",
+					"pathName": "pages/profit/profit",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "profitRecord",
+					"pathName": "pages/profitRecord/profitRecord",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

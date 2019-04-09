@@ -45,7 +45,7 @@
   </view>
   <label class="active_show" hidden="{{protocol_label_hiden}}">
     <p class="active_show_default">首次登录即送
-      <span class='agree_protocol'>{{register_bonus}}元</span>大礼包</p>
+      <span class='agree_protocol'>88元</span>大礼包</p>
   </label>
 
   <label class="protocol_show" hidden="{{protocol_label_hiden}}" style='padding-top:1rpx;'>

@@ -2,7 +2,7 @@
 <import src="../../component/toast/toast.wxml" />
 <template is="toast" data="{{ ..._toast_ }}" />
 
-<view class="contain" style='{{(rules_hide && group_rules_hide)?"padding-bottom:50rpx;":"height:100%;overflow:hidden"}}'>
+<view class="contain" style='{{(rules_hide && group_rules_hide)?"padding-bottom:50rpx;":"height:100%;overflow:hidden"}} ;padding-top:15rpx;'>
 
   <view class="card_contain">
     <view class='card_item'>
@@ -15,16 +15,12 @@
         </view>
         <view class='card_middle_content'>
           <text class='card_middle_left_title middle_title'>{{card_info.discount_price/100.0}}元/月</text>
-
-          <!-- <view class='card_middle_right_title'> -->
           <text class='card_middle_right_title middle_title'>原价{{card_info.original_price/100.0}}元/月</text>
-          <!-- </view> -->
-
         </view>
-        <button class='bottom_button_buy buy' bindtap="buyAction">{{bougth_card?"立即续买":"立即购买"}}</button>
-
         <view>
-          <!-- <button class='card_right_buy' id='buy_rightnow'>{{card_info.activity_title}}</button> -->
+          <text class='use_date'>季卡8折  限量抢购</text>
+        </view>
+        <view>
         </view>
       </view>
       <view class='card_content' wx:if="{{bougth_card}}">
@@ -35,29 +31,60 @@
         </view>
         <view class='card_middle_content'>
           <text class='card_middle_left_title middle_title'>{{month_card_info.card_no}}</text>
-          <!-- <text class='card_middle_right_title middle_title'>原价300元/月</text> -->
         </view>
-
         <view>
           <text class='use_date'>有效期至{{month_card_info.end_date}}</text>
         </view>
-        <button class='bottom_button_buy' bindtap="buyAction">{{bougth_card?"立即续买":"立即购买"}}</button>
-
       </view>
     </view>
   </view>
+
+
+  <view class='' style='display:block;width:680rpx;'>
+
+    <view class='text-left bold' style='font-size:36rpx;color:#333;margin-top:1em;margin-bottom:1.5em;'>选择购买套餐</view>
+
+    <view class='flex flex-x  text-center' style='justify-content:center;'>
+      <view bindtap='bindSelect' data-mom='3' class='text-center' style='position: relative; {{mom==3?"background:#e6f8ff;":""}} border:solid 1px {{mom==3?"#e84338":"#bfbfbf"}};border-radius:10rpx;display: inline-block;width:200rpx;height:240rpx;'>
+        <view class='' style='position: absolute;top:0;left:0;border-bottom-right-radius: 15rpx;background:#fae54f;color:#8c591d;font-size:24rpx;padding:0 .5em;'>限量抢购</view>
+        <view style='font-size:40rpx;margin-top:1em;'>
+          季卡
+          <text style='font-size:.5em;'>(三个月)</text>
+        </view>
+        <view style='font-size:50rpx;color:#e84338;'>
+          <text style='font-size:.5em;'>¥</text>119</view>
+        <view style='font-size:24rpx;color:#999999;text-decoration:line-through;'>¥149</view>
+      </view>
+      <view bindtap='bindSelect' data-mom='1' class='text-center' style='position: relative; {{mom==1?"background:#e6f8ff;":""}} border:solid 1px {{mom==1?"#e84338":"#bfbfbf"}};border-radius:10rpx;display: inline-block;width:200rpx;height:240rpx;margin-left:100rpx;'>
+        <view style='font-size:40rpx;margin-top:1em;'>
+          1个月
+        </view>
+        <view style='font-size:50rpx;color:#e84338;'>
+          <text style='font-size:.5em;'>¥</text>49.8
+        </view>
+      </view>
+    </view>
+
+
+    <button class='' style='background:#189df9;color:#fff;font-size:38rpx;padding:0;line-height:2em;display:block;margin-top:1em;margin-bottom:1.5em;' bindtap="buyAction">{{bougth_card?"立即续买":"立即购买"}}</button>
+
+  </view>
+
+
+
   <view class='card_equities'>
-    <label class='equities_title'>月卡专属权益</label>
-    <view class='card_equities_special'>
-      <image src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/CB524DD128341A356F029ECDF7D8B401' mode="widthFix" class='equities_time_image' style='width:60rpx;height:60rpx;'></image>
-      <label class='equities_time_title relative' style='top:-50%;'>
-        <view class='f30'>每天免费休息一次，限时一小时</view>
+    <view class='equities_title block text-left'>月卡专属权益</view>
+    <view class='card_equities_special flex flex-x'>
+      <image src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/CB524DD128341A356F029ECDF7D8B401' mode="widthFix" class='equities_time_image' style='width:80rpx'></image>
+      <view class='equities_time_title relative flex-1' style='margin-left:.5em;'>
+        <view class='f30'>每天免费休息一次，限时45分钟</view>
         <view class='f24' style='margin-top:1em;'>（当天首次使用不超过3分钟可豁免）</view>
-      </label>
-      <button class='equity_explain' bindtap="toggleRulesAction" data-type='1'>权益说明></button>
+      </view>
+      <button class='equity_explain' style='margin:0;padding:0;' bindtap="toggleRulesAction" data-type='1'>权益说明></button>
     </view>
   </view>
-  <view class='card_group'>
+  <!-- 拼团（已下线） -->
+  <!-- <view class='card_group hide'>
     <view class='group_title_view'>
       <label class='bold_text' id='group_top_title'>拼团更优惠</label>
       <label class='border_text act_ing'>未成团立退</label>
@@ -71,7 +98,8 @@
       <button class='selected_button' wx:if="{{item.status== 1}}" bindtap='groupInfoAction' data-index='{{index}}'>开团中</button>
     </view>
 
-  </view>
+  </view> -->
+
   <view class="activity_rules_hide" wx:if="{{!rules_hide}}" bindtap="toggleRulesAction" data-type='1'>
     <view class="activity_rules">
       <view class="text_title_contain">
@@ -79,7 +107,7 @@
       </view>
       <text class="text_content">
         <text class="text_content_item">
-        1.月卡生效期间，每天免费休息一次，限时一小时（当天首次使用不超过3分钟可豁免）；\n
+        1.月卡生效期间，每天免费休息一次，限时45分钟（当天首次使用不超过3分钟可豁免）；\n
 2.当前若无月卡，购买后月卡立即生效；当前若已有月卡，续费后有效期顺延(一个月按照30天计算)；\n
 3.购买或续费月卡成功后，相应费用不予退还；\n
 4.本月卡暂不支持享+钱包余额购买；\n
@@ -95,7 +123,7 @@
     </view>
   </view>
 
-  <view class="activity_rules_hide" wx:if="{{!group_rules_hide}}" bindtap="toggleRulesAction" data-type='2'>
+  <!-- <view class="activity_rules_hide" wx:if="{{!group_rules_hide}}" bindtap="toggleRulesAction" data-type='2'>
     <view class="activity_rules">
       <view class="text_title_contain">
         <text class="text_title">拼团规则</text>
@@ -115,10 +143,24 @@
         <image class="close_icon" src="../../images/close.png" mode="aspectFill" data-type='2'></image>
       </view>
     </view>
-  </view>
+  </view> -->
   <view class='button_contain'>
-    <button class='bottom_button share' open-type="share">分享新用户得{{invite_bonus}}元红包</button>
+    <button class='bottom_button share' open-type="share">分享新用户最高得100元</button>
 
   </view>
 
+</view>
+
+<view wx:if='{{showNoticeModal}}' class='modal'>
+  <view class='modal-layer'></view>
+  <view class='modal-dialog' style='width:80%'>
+    <view class='modal-content'>
+      <view class='modal-body'>
+        <image mode='widthFix' class='w100' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/38E53DBBE0AB99D79D56F59A95829685'></image>
+        <view class='text-center' style='margin-top:30rpx;'>
+          <image mode='widthFix' style='width:80rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/0AEABDBA84DECFDB442412E853F77C17' bindtap='hideNoticeModal'></image>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

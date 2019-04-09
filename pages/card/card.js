@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    invite_code:100000,
+    showNoticeModal: false,
+    invite_code: 100000,
     rules_hide: true,
     group_rules_hide: true,
     bougth_card: false,
@@ -21,8 +22,7 @@ Page({
       original_price: 30000
     },
     invite_bonus: app.globalData.config.invite_bonus == 0 || app.globalData.config.invite_bonus ? app.globalData.config.invite_bonus / 100 : app.globalData.configDefault.invite_bonus / 100,
-    group_buy: [
-      {
+    group_buy: [{
         count: 2,
         price: 39.8,
         status: 0
@@ -37,13 +37,20 @@ Page({
         price: 29.8,
         status: 0
       },
-    ]
+    ],
+    mom: 3,
+  },
+
+  bindSelect: function(event) {
+    this.setData({
+      mom: event.currentTarget.dataset.mom
+    });
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // toast组件实例
     new app.ToastPannel();
     this.getCardInfo()
@@ -74,11 +81,11 @@ Page({
         url: '../newInvite/newInvite?uin=' + this.data.invite_code + '&type=4'
       })
       return
-    } else {//如果是从分享或者扫码进入月卡购买页面 拉取用户月卡信息 if(options.share == 1)
+    } else { //如果是从分享或者扫码进入月卡购买页面 拉取用户月卡信息 if(options.share == 1)
       this.getMyCardInfo()
     }
   },
-  navigateBackFunc: function (ret, auto) {
+  navigateBackFunc: function(ret, auto) {
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2];
     var that = this;
@@ -98,14 +105,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
+  onReady: function() {
+    // this.showNoticeModal();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
     if (!this.data.bougth_card && this.data.page_from && this.data.page_from == 1) {
       this.navigateBackFunc(2, false)
@@ -116,49 +123,56 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (res) {
+  onShareAppMessage: function(res) {
     if (res.from === "button") {
       console.log(res.target);
     }
     return {
       title: "您的自助休息空间+健康加油站",
       path: '/pages/scanCode/scanCode?card=1&uin=' + app.globalData.localUserInfo.uin,
-      imageUrl: '/images/card_share.png'
+      imageUrl: 'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/395916227E0EC431DB022B62AA6CEDB0'
     }
   },
   /**
    * 去支付，购买月卡
    */
 
-  buyAction: function () {
+  buyAction: function() {
+    if (this.data.mom == 1) {
+      this.buy1();
+    } else if (this.data.mom == 3) {
+      this.buy3();
+    }
+  },
+  buy1: function() {
     // 如果用户未登录，跳转注册页面
     if (app.globalData.localUserInfo.uin === 100000) {
       wx.navigateTo({
@@ -170,7 +184,7 @@ Page({
 
     var that = this
     var loc = {}
-    if (!isNaN(that.data.location.latitude)) {
+    if (that.data.location && !isNaN(that.data.location.latitude)) {
       loc = {
         latitude: parseInt(parseFloat(that.data.location.latitude) * 1000000),
         longitude: parseInt(parseFloat(that.data.location.longitude) * 1000000)
@@ -189,64 +203,108 @@ Page({
           package: res.data.wechat_pay_info['package'],
           signType: res.data.wechat_pay_info['signType'],
           paySign: res.data.wechat_pay_info['paySign'],
-          complete: function (result) {
-            // complete
+          complete: function(result) {
             console.log(that.data.is_mine_page)
-            if (result.errMsg == "requestPayment:ok") {
-              //请求成功 重新拉取拼团信息
+            if (result.errMsg == "requestPayment:ok") { //支付成功
               that.getGroupBuyingInfo()
-
               //设置上一个页面是否继续弹框
               if (that.data.page_from == 1) {
                 that.navigateBackFunc(3, true)
-                // that.setData({
-                //   bougth_card: true,
-                // })
               }
               if (that.data.booking_id > 0) {
                 var pages = getCurrentPages()
                 var booking_page = pages[pages.length - 2]
-                // if (booking_page.updateBookingStatus()){
                 booking_page.setData({
                   need_update: 1
                 })
-
-                // }
               }
               wx.navigateBack({
-                // delta: that.data.is_mine_page == 1 ? 2 : 1,
                 delta: 1,
-                success: function () {
+                success: function() {
                   that.show('购买成功');
-                  // wx.showToast({
-                  //   title: '充值成功',
-                  // })
-                  // 购买月卡成功，修改标记
                   that.setData({
                     bougth_card: true,
                   })
 
                 }
               })
-            } else if (result.errMsg == "requestPayment:fail cancel") {
+            } else if (result.errMsg == "requestPayment:fail cancel") { //支付取消
               that.show('取消购买');
-              // wx.showToast({
-              //   title: '支付取消',
-              // })
-            } else {
+            } else { //支付失败
               that.show('购买失败，请重试，或者联系客服反馈');
-              // wx.showToast({
-              //   title: '充值失败，请重试，或者联系客服反馈',
-              // })
             }
           }
         })
-      } else {
-
       }
-    }, that)
+    }, that);
   },
-  getCardInfo: function () {
+  buy3: function() {
+    // 如果用户未登录，跳转注册页面
+    if (app.globalData.localUserInfo.uin === 100000) {
+      wx.navigateTo({
+        url: '../newInvite/newInvite?uin=' + this.data.invite_code + '&type=4'
+      })
+      return
+    }
+    console.log("去购买")
+
+    var that = this
+    var loc = {}
+    if (that.data.location && !isNaN(that.data.location.latitude)) {
+      loc = {
+        latitude: parseInt(parseFloat(that.data.location.latitude) * 1000000),
+        longitude: parseInt(parseFloat(that.data.location.longitude) * 1000000)
+      }
+    }
+    network.shareSleepNetwork("wallet/season_card", loc, "POST", function complete(res) {
+      if (wx.hideLoading) {
+        wx.hideLoading()
+      }
+      if (res.data && res.data.ret == 0) {
+        console.log(res)
+        //月卡请求支付
+        wx.requestPayment({
+          timeStamp: res.data.wechat_pay_info['timeStamp'],
+          nonceStr: res.data.wechat_pay_info['nonceStr'],
+          package: res.data.wechat_pay_info['package'],
+          signType: res.data.wechat_pay_info['signType'],
+          paySign: res.data.wechat_pay_info['paySign'],
+          complete: function(result) {
+            console.log(that.data.is_mine_page)
+            if (result.errMsg == "requestPayment:ok") { //支付成功
+              that.getGroupBuyingInfo()
+              //设置上一个页面是否继续弹框
+              if (that.data.page_from == 1) {
+                that.navigateBackFunc(3, true)
+              }
+              if (that.data.booking_id > 0) {
+                var pages = getCurrentPages()
+                var booking_page = pages[pages.length - 2]
+                booking_page.setData({
+                  need_update: 1
+                })
+              }
+              wx.navigateBack({
+                delta: 1,
+                success: function() {
+                  that.show('购买成功');
+                  that.setData({
+                    bougth_card: true,
+                  })
+
+                }
+              })
+            } else if (result.errMsg == "requestPayment:fail cancel") { //支付取消
+              that.show('取消购买');
+            } else { //支付失败
+              that.show('购买失败，请重试，或者联系客服反馈');
+            }
+          }
+        })
+      }
+    }, that);
+  },
+  getCardInfo: function() {
     var that = this
     network.shareSleepNetwork("wallet/month_card_activity_info", {}, "GET", function complete(res) {
       if (wx.hideLoading) {
@@ -259,7 +317,7 @@ Page({
       }
     }, that)
   },
-  toggleRulesAction: function (e) {
+  toggleRulesAction: function(e) {
     if (e.target.dataset.type == 1) {
       this.setData({
         rules_hide: !this.data.rules_hide
@@ -269,16 +327,16 @@ Page({
         group_rules_hide: !this.data.group_rules_hide
       })
     }
-    
+
   },
   /**
-  * 获取定位
-  */
-  getLocation: function () {
+   * 获取定位
+   */
+  getLocation: function() {
     var that = this;
     //获取定位
     wx.getLocation({
-      success: function (res) {
+      success: function(res) {
         console.log('获取定位')
         console.log(res)
         var loc = utils.convert_GCJ02_To_BD09(res.latitude, res.longitude)
@@ -287,7 +345,7 @@ Page({
           location: loc
         })
       },
-      fail: function () {
+      fail: function() {
         that.show('定位失败')
       }
     })
@@ -295,7 +353,7 @@ Page({
   /**
    * 获取我的钱包信息
    */
-  getMyCardInfo: function () {
+  getMyCardInfo: function() {
     var that = this
     network.shareSleepNetwork("wallet/month_card_info", {}, "GET", function complete(res) {
       console.log(res)
@@ -319,14 +377,18 @@ Page({
     }, that)
   },
   //团购
-  groupbuyNowAction: function(e){
+  groupbuyNowAction: function(e) {
     var index = e.target.dataset.index
     var item = this.data.group_buy[index]
     var that = this
-    var loc = { group_id: 0, group_type: 1000, group_amount: item.count }
+    var loc = {
+      group_id: 0,
+      group_type: 1000,
+      group_amount: item.count
+    }
     if (!isNaN(that.data.location.latitude)) {
       // loc += {
-        loc.latitude = parseInt(parseFloat(that.data.location.latitude) * 1000000),
+      loc.latitude = parseInt(parseFloat(that.data.location.latitude) * 1000000),
         loc.longitude = parseInt(parseFloat(that.data.location.longitude) * 1000000)
       // }
     }
@@ -336,8 +398,8 @@ Page({
         duration: 2000
       })
     }
-    network.shareSleepNetwork("group/start_group_buy", loc, "POST", function (res){
-      if(wx.hideLoading){
+    network.shareSleepNetwork("group/start_group_buy", loc, "POST", function(res) {
+      if (wx.hideLoading) {
         wx.hideLoading()
       }
       //月卡团购请求支付
@@ -347,7 +409,7 @@ Page({
         package: res.data.wechat_pay_info['package'],
         signType: res.data.wechat_pay_info['signType'],
         paySign: res.data.wechat_pay_info['paySign'],
-        complete: function (result) {
+        complete: function(result) {
           // complete
           console.log(that.data.is_mine_page)
           if (result.errMsg == "requestPayment:ok") {
@@ -356,14 +418,14 @@ Page({
             array[index] = item
             that.setData({
               booking_id: res.data.booking_id,
-                group_buy: array
-              })
-              // 月卡购买成功，跳转参团页面
+              group_buy: array
+            })
+            // 月卡购买成功，跳转参团页面
             wx.navigateTo({
               url: '/pages/groupbuy/groupbuy?booking_id=' + res.data.booking_id,
-              success: function (res) { },
-              fail: function (res) { },
-              complete: function (res) { },
+              success: function(res) {},
+              fail: function(res) {},
+              complete: function(res) {},
             })
           } else if (result.errMsg == "requestPayment:fail cancel") {
             that.show('取消购买');
@@ -378,16 +440,16 @@ Page({
           }
         }
       })
-    },that)
+    }, that)
   },
- 
+
   //跳转开团详情页面
   groupInfoAction: function(e) {
     var index = e.target.dataset.index
     var item = this.data.group_buy[index]
-    var path = (item.id > 0?"group_id="+item.id:"booking_id="+this.data.booking_id)
+    var path = (item.id > 0 ? "group_id=" + item.id : "booking_id=" + this.data.booking_id)
     wx.navigateTo({
-      url: '/pages/groupbuy/groupbuy?'+path,
+      url: '/pages/groupbuy/groupbuy?' + path,
       success: function(res) {},
       fail: function(res) {},
       complete: function(res) {},
@@ -396,19 +458,19 @@ Page({
   // 月卡 团购拼团中
   getGroupBuyingInfo: function() {
     var that = this
-    network.shareSleepNetwork("group/1000/get_group_detail",{},"GET",function(res){
+    network.shareSleepNetwork("group/1000/get_group_detail", {}, "GET", function(res) {
       if (res.data && res.data.ret == 0) {
         var infos = res.data.group_list_info
         var group_buy = that.data.group_buy
         let my_uin = app.globalData.localUserInfo.uin
 
-        for (var i = 0; i < group_buy.length;i++){
+        for (var i = 0; i < group_buy.length; i++) {
           var group_info = group_buy[i]
           group_info.status = 0
           group_info.id = 0
           for (var j = 0; infos && j < infos.length; j++) {
             var item = infos[j]
-            if (item.group_amount == group_info.count && my_uin == item.group_master){
+            if (item.group_amount == group_info.count && my_uin == item.group_master) {
               group_info.status = item.group_status
               group_info.id = item.group_id
               break;
@@ -420,6 +482,16 @@ Page({
           group_buy: group_buy
         })
       }
-    },that)
-  }
+    }, that)
+  },
+  showNoticeModal: function() {
+    this.setData({
+      showNoticeModal: true
+    })
+  },
+  hideNoticeModal: function() {
+    this.setData({
+      showNoticeModal: false
+    })
+  },
 })

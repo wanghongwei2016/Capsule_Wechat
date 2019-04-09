@@ -7,7 +7,7 @@
   <view class="item_contain">
     <view class="item {{item.charge_id==charge_id?'active':''}}" wx:for="{{type_list}}" wx:key="{{type_list}}" bindtap="selecteRechargeAction" data-chargeid="{{item.charge_id}}">
       <text class="title {{item.charge_id==charge_id?'active':''}}" data-chargeid="{{item.charge_id}}">充{{item.money/100.0}}元</text>
-      <text class="des {{item.charge_id==charge_id?'active':''}}" data-chargeid="{{item.charge_id}}">送{{item.bonus/100.0}}元</text>
+      <text class="des {{item.charge_id==charge_id?'active':''}}" style='color:#e84338!important;' data-chargeid="{{item.charge_id}}">得{{(item.money+item.bonus)/100.0}}元</text>
     </view>
   </view>
   <button class="rechargebutton" bindtap="rechargeAction">充值</button>

@@ -1,6 +1,6 @@
 <!-- 自定义Toast -->
-<import src="../../component/toast/toast.wxml"/>
-<template is="toast" data="{{ ..._toast_ }}"/>
+<import src="../../component/toast/toast.wxml" />
+<template is="toast" data="{{ ..._toast_ }}" />
 
 <view class="contain">
   <view class="balance_container">
@@ -12,5 +12,36 @@
     </view>
   </view>
   <button class="pay_button" bindtap="payAction">充值</button>
-  <view class="recharge_details" bindtap="chargeDetailAction">充值明细</view>  
+  <view class="recharge_details">
+    <text style='margin:0 20rpx;' bindtap="chargeDetailAction">充值明细</text>
+    <text style='margin:0 20rpx;' bindtap="bindChargeShuoming">充值说明</text>
+  </view>
+</view>
+
+<view wx:if='{{showShuoming}}' class='modal'>
+  <view class='modal-layer'></view>
+  <view class='modal-dialog' style='width:80%;'>
+    <view class='modal-content' style='background:#fff;border-radius: 10rpx;overflow:hidden;'>
+      <view class='modal-header relative text-center' style='padding:.5em;'>
+        充值说明
+        <text class='' style='top:10rem;right:10rem;float:right;' catchtap='hideShuoming'>X</text>
+      </view>
+      <view class='modal-body' style='font-size:24rpx;padding:20rpx;'>
+        <text style='display:block;margin:.5em 0;'>1. 充值用户可以获得以下用户权益：
+充值20赠2元+优惠券6张（面值18元）
+充值50赠10元+优惠券9张（面值40元）
+充值100赠30元+优惠券10张（面值70元）
+充值200赠100元+优惠券11张（面值100元）
+充值赠送优惠券自充值之日起一个月内有效。</text>
+        <text style='display:block;margin:.5em 0;'>2. 充值金额可用于享+头等舱订单支付使用，使用头等舱会优先从帐户余额内抵扣； </text>
+        <text style='display:block;margin:.5em 0;'>3. 充值金额不支持购买月卡； </text>
+        <text style='display:block;margin:.5em 0;'>4. 充值金额不可提现，不支持退款； </text>
+        <text style='display:block;margin:.5em 0;'>5. 充值账户金额全国通用（注：部分头等舱使用需遵循场地方要求，如门禁、安检、身份登记等）； </text>
+        <text style='display:block;margin:.5em 0;'>6. 充值金额仅限本人持本人手机开舱使用； </text>
+        <text style='display:block;margin:.5em 0;'>7. 充值用户可享受7*24小时服务，客服电话400-688-9960； </text>
+        <text style='display:block;margin:.5em 0;'>8. 充值权益最终解释权归享＋共享头等舱所有.</text>
+      </view>
+      <view class='modal-footer'></view>
+    </view>
+  </view>
 </view>

@@ -12,9 +12,11 @@
     <view class="invite_info" wx:if="{{page_type == 0}}">
       <text style="font-size:49rpx">每邀请1位好友完成首单\n</text>
       <text class="invite_info_special">可得{{invite_bonus}}元现金红包</text>
+      <text class="" style='display:block;color:#ff2352;'>头等舱免费体验券2张</text>
     </view>
     <view class="invite_info" wx:if="{{page_type == 1 || page_type == 4 || page_type == 5}}">
-      <text class="invite_info_special">注册送{{invited_bonus}}元大礼包\n</text>
+      <text class="invite_info_special">您的好友送您{{invited_bonus}}元头等舱红包\n</text>
+      <text class="" style='display:block;color:#ff2352;line-height:1em;'>新用户尊享1小时免费体验！</text>
     </view>
   </view>
 
@@ -41,8 +43,8 @@
     <view class='card_corner_image'>
       <image src='/images/card_corner.png' style="width:639rpx;height:118rpx;background-color:#d2edff" mode="aspectFit"> </image>
       <view class='card_corner_content'>
-        <text class='card_corner_title'>正念冥想体验月</text>
-        <text class='card_corner_des'>免费体验大师级冥想，即有<text style="color:#ea3925;font-size:34rpx;font-weight:bold">红包</text>相送</text>
+        <text class='card_corner_title'>周年特惠</text>
+        <text class='card_corner_des'>购月卡低至<text style='color:#ff2352;'>49.8元</text>/月，每天可免费休息<text style='color:#ff2352;'>45</text>分钟</text>
 
       </view>
     </view>
@@ -69,7 +71,7 @@
         <view class="right_line"></view>
       </view>
       <text class="text_content">
-        <text class="text_content_item">1. 邀请好友得现金红包，被邀请者可立即领取{{invited_bonus}}元大礼包，且在成功使用享+完成第一笔订单后邀请者亦可获得{{invite_bonus}}元现金红包。\n</text>
+        <text class="text_content_item">1. 邀请好友得现金红包，被邀请者可立即领取88元大礼包及免费体验券，且在成功使用享+完成第一笔订单后邀请者可获得10元现金红包及1小时免费体验券。\n</text>
       <text class="text_content_item">2. 邀请者可同时邀请多人，无上限，被邀请者只可参与一次。所得金额直接发至到享+钱包，用户可在“首页”-“钱包”页面查询余额，下次使用可直接抵扣。\n</text>
       <text class="text_content_item">3. 本活动仅限邀请新用户，赠送金额不支持提现。\n</text>
       <text class="text_content_item">4. 本公司保留在法律允许范围内的解释权。\n</text>
