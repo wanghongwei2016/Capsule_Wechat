@@ -18,13 +18,13 @@
 <view wx:if='{{rule}}' class='fixed left-0 top-0 w100 h100' style='background-color:rgba(0,0,0,.5);'>
   <view class='absolute cxy' style='width:80%;padding:64rpx 64rpx;background-color:#fff;box-sizing:border-box;border-radius: 10rpx;'>
     <view class='bold' style='font-size:40rpx;margin-bottom:49rpx;'>提现说明</view>
-    <view class='' style='font-size:24rpx;line-height:48rpx;'>活动一：季卡首发8折，限量100张，售完恢复原价，当前若无月卡，购买后季卡立即生效；当前若已有月卡，购买后有效期顺延（季度按90天计算）。季卡购买、使用权益同月卡权益说明。</view>
-    <view class='' style='font-size:24rpx;line-height:48rpx;margin-top:.5em;'>活动二：充值赠送等额现金大礼包及优惠券，充值100元以上获赠精美晴雨伞一把
-      <br/>充值20赠2元+优惠券6张（面值18元）
-      <br/>充值50赠10元+优惠券9张（面值40元）
-      <br/>充值100赠30元+优惠券10张（面值70元）
-      <br/>充值200赠100元+优惠券11张（面值100元）
-    </view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>1. 即日起，凡在06:00-11:00或15:00-24:00完成订单的月卡用户，可获得奖励金。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>2. 完成订单是指开启休息舱及结束订单的时间,都在规定时间:06:00-11:00或15:00-24:00时间段内，且每笔订单使用时长不低于3分钟，不限订单次数。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>3、您获得的奖励金将在5分钟内自动放入【我的-钱包】。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>4、奖励金可充值至享+账户余额，用于头等舱休息消费。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>5、奖励金满10元可提现至微信钱包，现金秒提。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;margin-top:.5em;'>6. 本活动最终解释权归北京享睡科技有限公司所有。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;margin-top:.5em;'>7. 客服热线：400-688-9960。</view>
     <view class='absolute top-0 right-0 text-center' style='transform:rotate(45deg);font-size:44rpx;width:2em;height:2em;line-height:2em;' catchtap='closeRule'>+</view>
   </view>
 </view>

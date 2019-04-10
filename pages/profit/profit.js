@@ -111,7 +111,7 @@ Page({
             title: `提现成功，提现金额稍后到您的微信钱包里`,
             icon: 'none',
           });
-          request.lodeUserInfo(this);
+          request.loadUserInfo(this);
         } else if (resp.ret == 0) {
           wx.showToast({
             title: `提现失败:${resp.return_msg}`,
