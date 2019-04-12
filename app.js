@@ -1,6 +1,6 @@
 //app.js
 
-const debug = true;
+const debug = false;
 
 function type(o, t) {
   if (t === undefined) {
