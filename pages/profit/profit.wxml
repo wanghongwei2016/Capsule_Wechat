@@ -20,9 +20,9 @@
     <view class='bold' style='font-size:40rpx;margin-bottom:49rpx;'>提现说明</view>
     <view class='' style='font-size:24rpx;line-height:48rpx;'>1. 即日起，凡在06:00-11:00或15:00-24:00完成订单的月卡用户，可获得奖励金。</view>
     <view class='' style='font-size:24rpx;line-height:48rpx;'>2. 完成订单是指开启休息舱及结束订单的时间,都在规定时间:06:00-11:00或15:00-24:00时间段内，且每笔订单使用时长不低于3分钟，不限订单次数。</view>
-    <view class='' style='font-size:24rpx;line-height:48rpx;'>3、您获得的奖励金将在5分钟内自动放入【我的-钱包】。</view>
-    <view class='' style='font-size:24rpx;line-height:48rpx;'>4、奖励金可充值至享+账户余额，用于头等舱休息消费。</view>
-    <view class='' style='font-size:24rpx;line-height:48rpx;'>5、奖励金满10元可提现至微信钱包，现金秒提。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>3. 您获得的奖励金将在5分钟内自动放入【我的-钱包】。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>4. 奖励金可充值至享+账户余额，用于头等舱休息消费。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>5. 奖励金满10元可提现至微信钱包，现金秒提。</view>
     <view class='' style='font-size:24rpx;line-height:48rpx;margin-top:.5em;'>6. 本活动最终解释权归北京享睡科技有限公司所有。</view>
     <view class='' style='font-size:24rpx;line-height:48rpx;margin-top:.5em;'>7. 客服热线：400-688-9960。</view>
     <view class='absolute top-0 right-0 text-center' style='transform:rotate(45deg);font-size:44rpx;width:2em;height:2em;line-height:2em;' catchtap='closeRule'>+</view>
