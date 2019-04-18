@@ -7,7 +7,12 @@
   <view class='absolute w100 left-0 text-center' style='color:#fff;font-size:28rpx;bottom:64rpx;'>满10元可提现</view>
 </view>
 
-<button class='' disabled='{{!(userInfo&&userInfo.cash_amount&&userInfo.cash_amount>=1000)}}' style='font-size:34rpx;margin:106rpx 64rpx;' catchtap='submit'>提现</button>
+<button class='' disabled='{{!(true||userInfo&&userInfo.cash_amount&&userInfo.cash_amount>=1000)}}' style='font-size:34rpx;margin:106rpx 64rpx 56rpx 64rpx;' catchtap='submit' data-type='{{3}}'>充值到余额</button>
+
+
+<button class='' disabled='{{!(true||userInfo&&userInfo.cash_amount&&userInfo.cash_amount>=1000)}}' style='font-size:34rpx;margin:56rpx 64rpx 56rpx 64rpx;color:#27a4fc;background-color:#fff;border: solid 1px #27a4fc;' catchtap='submit' data-type='{{0}}'>提现</button>
+
+
 
 <view class='fixed bottom-0 left-0 w100 text-center' style='padding:1em 0;'>
   <text style='display:inline-block;font-size:28rpx;color:#333;line-height:2;padding:0 2em;' catchtap='profitRecord'>奖金明细</text>
@@ -20,9 +25,9 @@
     <view class='bold' style='font-size:40rpx;margin-bottom:49rpx;'>提现说明</view>
     <view class='' style='font-size:24rpx;line-height:48rpx;'>1. 即日起，凡在06:00-11:00或15:00-24:00完成订单的月卡用户，可获得奖励金。</view>
     <view class='' style='font-size:24rpx;line-height:48rpx;'>2. 完成订单是指开启休息舱及结束订单的时间,都在规定时间:06:00-11:00或15:00-24:00时间段内，且每笔订单使用时长不低于3分钟，不限订单次数。</view>
-    <view class='' style='font-size:24rpx;line-height:48rpx;'>3. 您获得的奖励金将在5分钟内自动放入【我的-钱包】。</view>
-    <view class='' style='font-size:24rpx;line-height:48rpx;'>4. 奖励金可充值至享+账户余额，用于头等舱休息消费。</view>
-    <view class='' style='font-size:24rpx;line-height:48rpx;'>5. 奖励金满10元可提现至微信钱包，现金秒提。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>3. 您获得的奖励金将在5分钟内自动放入【我的-钱包】。每笔订单奖励金为2元。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>4. 奖励金可充值至享+账户余额，用于头等舱休息消费，充值金额无上限。</view>
+    <view class='' style='font-size:24rpx;line-height:48rpx;'>5. 奖励金满10元可提现至微信钱包，现金秒提，每日提现额度为10元。</view>
     <view class='' style='font-size:24rpx;line-height:48rpx;margin-top:.5em;'>6. 本活动最终解释权归北京享睡科技有限公司所有。</view>
     <view class='' style='font-size:24rpx;line-height:48rpx;margin-top:.5em;'>7. 客服热线：400-688-9960。</view>
     <view class='absolute top-0 right-0 text-center' style='transform:rotate(45deg);font-size:44rpx;width:2em;height:2em;line-height:2em;' catchtap='closeRule'>+</view>

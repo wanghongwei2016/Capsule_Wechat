@@ -97,18 +97,19 @@ Page({
       url: '/pages/profitRecord/profitRecord'
     })
   },
-  submit: function() {
+  submit: function(event) {
     request({
       url: '/api/withdraw/bonus',
       method: 'post',
       loading: true,
       data: {
-        uin: wx.getStorageSync('localUserCache').uin
+        // uin: wx.getStorageSync('localUserCache').uin,
+        type: event.currentTarget.dataset.type,
       },
       success: resp => {
         if (resp.ret == 0 && resp.result_code == 'SUCCESS') {
           wx.showToast({
-            title: `提现成功，提现金额稍后到您的微信钱包里`,
+            title: event.currentTarget.dataset.type == 3 ? `提现成功，奖励金稍后发送到您的享＋钱包` : `提现成功，奖励金稍后发送到您的微信钱包`,
             icon: 'none',
           });
           request.loadUserInfo(this);

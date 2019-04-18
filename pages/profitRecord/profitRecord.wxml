@@ -4,7 +4,9 @@
 </view>
 <view wx:if='{{list&&list.length>0}}' wx:for='{{list}}' wx:for-item='record' class='flex flex-x' style='border-bottom:solid 1px #f0f0f0;margin-left:40rpx;height:110rpx;padding-right:40rpx;'>
   <view class='flex-1 flex flex-y' style=''>
-    <view class='flex-1' style='font-size:26rpx;color:#333;line-height:55rpx;'>{{record.type==1?'非高峰奖金':'奖金提取'}}</view>
+    <view class='flex-1' style='font-size:26rpx;color:#333;line-height:55rpx;'>
+      {{record.type==1?'非高峰奖金':''}} {{record.type==2?'奖金提取':''}} {{record.type==3?'奖金提取':''}}
+    </view>
     <view class='flex-1' style='font-size:22rpx;color:#999;line-height:55rpx;'>{{record.create_time_text}}</view>
   </view>
   <view class='inline-block h100' style='font-size:30rpx;color:#{{record.type==1?"404040":"ff1c1c"}};line-height:110rpx;'>{{record.cash_num/100}}元</view>

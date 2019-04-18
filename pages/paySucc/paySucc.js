@@ -173,7 +173,7 @@ Page({
             show: true,
             title: '躺着也赚钱',
             sub_title: '恭喜您获得红包',
-            footer_text: '红包将在5分钟内自动放入「我的-钱包」',
+            footer_text: '红包将在5分钟内自动放入「我的-钱包-奖金提现」',
             unit: '元',
             fail_text: 'String',
             prize_text: resp.booking_info.red_envelope / 100,
