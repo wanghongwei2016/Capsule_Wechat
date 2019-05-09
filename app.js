@@ -351,7 +351,7 @@ App({
       appraise5: ["外观时尚", "宽敞明亮", "卷帘升降顺畅", "沙发舒适", "控制板位置合适", "操作便利", "APP操作流畅", "干净卫生", "私密性良好", "比较隔音"],
       appraise_bonus: 500,
       invite_bonus: 1000,
-      invited_bonus: 6600,
+      invited_bonus: 8800,
       qa: ["无法开舱", "卷帘无法关闭", "灯不亮", "行李舱无法打开", "座椅无法调节", "充电板无法使用", "舱内脏乱", "有异味", "其他"],
       register_bonus: 6600,
       standard_deposit: 0,

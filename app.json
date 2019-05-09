@@ -48,7 +48,8 @@
     "pages/webView/webView",
     "pages/act_jika/act_jika",
     "pages/profit/profit",
-    "pages/profitRecord/profitRecord"
+    "pages/profitRecord/profitRecord",
+    "pages/notice_month_card/notice_month_card"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -67,5 +68,6 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

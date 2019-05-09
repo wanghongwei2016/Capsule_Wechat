@@ -154,7 +154,7 @@ page {
   margin-top: -285rpx; */
   /* position:absolute; */
   width: 680rpx;
-  margin-top: 55rpx;
+  margin-top: 30rpx;
 
 }
 

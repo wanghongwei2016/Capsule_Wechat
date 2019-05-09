@@ -111,5 +111,24 @@ Page({
 
       }
     },that)
-  }
+  },
+
+  /**
+   * 充值明细
+   */
+  chargeDetailAction: function (e) {
+    wx.navigateTo({
+      url: '/pages/depositList/depositList?type=2',
+    })
+  },
+  bindChargeShuoming: function () {
+    this.setData({
+      showShuoming: true,
+    });
+  },
+  hideShuoming: function () {
+    this.setData({
+      showShuoming: false,
+    });
+  },
 })

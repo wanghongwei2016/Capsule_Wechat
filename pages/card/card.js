@@ -2,12 +2,46 @@
 var app = getApp()
 var network = require('../../utils/network.js')
 var utils = require("../../utils/util.js")
+var request = require("../../utils/request.js").default
+
+
+function openActionLink(actionlink) {
+  if (!actionlink) return;
+  if (/^xcx:.+$/.test(actionlink)) {
+    wx.navigateTo({
+      url: actionlink.substring('xcx:'.length),
+    })
+  } else if (/^https:.+$/.test(actionlink)) {
+    wx.navigateTo({
+      url: `/pages/webView/webView?url=${encodeURIComponent(actionlink)}`,
+    })
+  } else if (/^article:.+$/.test(actionlink)) {
+    wx.navigateTo({
+      url: `/pages/article/article?article_id=${actionlink.substring('article:'.length)}`,
+    })
+  }
+}
+
+
+function bindOpenActionLink(event) {
+  openActionLink(event.currentTarget.dataset.link);
+}
+
+
+
+
 Page({
+  bindOpenActionLink,
+
 
   /**
    * 页面的初始数据
    */
   data: {
+    notice_padding_left_step: 10,
+    notice_padding_left_max: 100,
+    notice_padding_left: 0,
+
     showNoticeModal: false,
     invite_code: 100000,
     rules_hide: true,
@@ -51,6 +85,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    setInterval(() => {
+      if (this.data.notice_padding_left >= this.data.notice_padding_left_max) {
+        this.setData({
+          notice_padding_left: 0,
+        });
+      } else {
+        this.setData({
+          notice_padding_left: this.data.notice_padding_left + 1,
+        });
+      }
+    }, 1000 / 30);
+
     // toast组件实例
     new app.ToastPannel();
     this.getCardInfo()
@@ -84,7 +130,25 @@ Page({
     } else { //如果是从分享或者扫码进入月卡购买页面 拉取用户月卡信息 if(options.share == 1)
       this.getMyCardInfo()
     }
+    this.notice();
   },
+
+
+  notice: function() {
+
+    request({
+      url: '/api/wallet/activity_list',
+      success: resp => {
+        this.setData({
+          notice_title: resp.activity_title,
+          notice_link: resp.activity_url,
+          notice_padding_left_max: (resp.activity_title ? resp.activity_title.length : 0) * this.data.notice_padding_left_step,
+        });
+      }
+    });
+  },
+
+
   navigateBackFunc: function(ret, auto) {
     var pages = getCurrentPages()
     var prevPage = pages[pages.length - 2];

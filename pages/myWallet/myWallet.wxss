@@ -63,3 +63,14 @@ view.title:active,view.des:active,.des:active,.title:active {
   width: 90%;
   font-size: 34rpx;
 }
+
+
+.recharge_details {
+  position: fixed;
+  text-align: center;
+  color: #189df9;
+  font-size: 28rpx;
+  bottom: 100rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}

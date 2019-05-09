@@ -1,0 +1,5 @@
+/* pages/notice_month_card/notice_month_card.wxss */
+
+page {
+  background-color: #f0f7ff;
+}
