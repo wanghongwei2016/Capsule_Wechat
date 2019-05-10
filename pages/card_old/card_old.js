@@ -13,7 +13,7 @@ Page({
     firstShow: false, //是否是第一次进来
     page_from:0, // 1 从订单详情过来
     card_info:{
-      activity_body: "49.8元/月",
+      activity_body: "59.8元/月",
       activity_title: "特惠中",
       discount_price: 3000,
       original_price: 30000

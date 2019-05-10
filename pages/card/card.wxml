@@ -19,14 +19,14 @@
       <view class='card_content' wx:if="{{!bougth_card}}">
         <view>
           <text class='card_left_title'>享+头等舱・月卡</text>
-          <text class='card_right_title' id='limit'>{{card_info.activity_body}}</text>
+          <text class='card_right_title' id='limit'>59.8/月</text>
         </view>
         <view class='card_middle_content'>
-          <text class='card_middle_left_title middle_title'>{{card_info.discount_price/100.0}}元/月</text>
-          <text class='card_middle_right_title middle_title'>原价{{card_info.original_price/100.0}}元/月</text>
+          <text class='card_middle_left_title middle_title'>59.8元/月</text>
+          <text class='card_middle_right_title middle_title'>原价300元/月</text>
         </view>
         <view>
-          <text class='use_date'>季卡8折  限量抢购</text>
+          <text class='use_date' style='color:#fae54f;'>月卡延长至35天 限时抢购</text>
         </view>
         <view>
         </view>
@@ -35,7 +35,7 @@
         <view>
           <text class='card_left_title'>享+头等舱・月卡</text>
           <!-- 1元1天 -->
-          <text class='card_right_title' id='limit2'>{{card_info.activity_body}}</text>
+          <text class='card_right_title' id='limit2'>59.8/月</text>
         </view>
         <view class='card_middle_content'>
           <text class='card_middle_left_title middle_title'>{{month_card_info.card_no}}</text>
@@ -56,26 +56,27 @@
 
 
       <view bindtap='bindSelect' data-mom='3' class='text-center' style='position: relative; {{mom==3?"background:#e6f8ff;":""}} border:solid 1px {{mom==3?"#e84338":"#bfbfbf"}};border-radius:10rpx;display: inline-block;width:200rpx;height:240rpx;'>
-        <view class='' style='position: absolute;top:0;left:0;border-bottom-right-radius: 15rpx;background:#fae54f;color:#8c591d;font-size:24rpx;padding:0 .5em;'>限量抢购</view>
+        <view class='' style='position: absolute;top:0;left:0;border-bottom-right-radius: 15rpx;background:#fae54f;color:#8c591d;font-size:24rpx;padding:0 .5em;'>8折抢购</view>
         <view style='font-size:40rpx;margin-top:1em;'>
           季卡
           <text style='font-size:.5em;'>(三个月)</text>
         </view>
         <view style='font-size:50rpx;color:#e84338;'>
-          <text style='font-size:.5em;'>¥</text>119
+          <text style='font-size:.5em;'>¥</text>149
         </view>
-        <view style='font-size:24rpx;color:#999999;text-decoration:line-through;'>¥149</view>
+        <view style='font-size:24rpx;color:#999999;text-decoration:line-through;'>¥179</view>
       </view>
 
 
       <view bindtap='bindSelect' data-mom='1' class='text-center' style='position: relative; {{mom==1?"background:#e6f8ff;":""}} border:solid 1px {{mom==1?"#e84338":"#bfbfbf"}};border-radius:10rpx;display: inline-block;width:200rpx;height:240rpx;margin-left:100rpx;'>
         <view style='font-size:40rpx;margin-top:1em;'>
-          1个月
+          月卡
+          <text style='font-size:.5em;'>(限时35天)</text>
         </view>
         <view style='font-size:50rpx;color:#e84338;'>
-          <text style='font-size:.5em;'>¥</text>49.8
+          <text style='font-size:.5em;'>¥</text>59.8
         </view>
-         <view style='font-size:24rpx;color:#999999;text-decoration:line-through;'>¥59.8</view>
+         <!-- <view style='font-size:24rpx;color:#999999;text-decoration:line-through;'>¥59.8</view> -->
       </view>
 
 

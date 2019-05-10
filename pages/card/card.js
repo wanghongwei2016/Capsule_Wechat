@@ -50,7 +50,7 @@ Page({
     firstShow: false, //是否是第一次进来
     page_from: 0, // 1 从订单详情过来
     card_info: {
-      activity_body: "49.8元/月",
+      activity_body: "59.8元/月",
       activity_title: "特惠中",
       discount_price: 3000,
       original_price: 30000
@@ -222,7 +222,7 @@ Page({
     return {
       title: "您的自助休息空间+健康加油站",
       path: '/pages/scanCode/scanCode?card=1&uin=' + app.globalData.localUserInfo.uin,
-      imageUrl: 'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/395916227E0EC431DB022B62AA6CEDB0'
+      imageUrl: 'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/7F0EB9F181FDB46B983275A7252D4694'
     }
   },
   /**

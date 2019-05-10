@@ -44,7 +44,7 @@
       <image src='/images/card_corner.png' style="width:639rpx;height:118rpx;background-color:#d2edff" mode="aspectFit"> </image>
       <view class='card_corner_content'>
         <text class='card_corner_title'>周年特惠</text>
-        <text class='card_corner_des'>购月卡低至<text style='color:#ff2352;'>49.8元</text>/月，每天可免费休息<text style='color:#ff2352;'>45</text>分钟</text>
+        <text class='card_corner_des'>购月卡低至<text style='color:#ff2352;'>59.8元</text>/月，每天可免费休息<text style='color:#ff2352;'>45</text>分钟</text>
 
       </view>
     </view>

@@ -114,7 +114,7 @@
 
         </view>
         <view class='card_container'>
-          <button class='buyCard' bindtap='buyCardAction'>{{month_card_flag != 1 ? "购买月卡 低至49.8元/月": "续买月卡 低至49.8元/月"}}</button>
+          <button class='buyCard' bindtap='buyCardAction'>{{month_card_flag != 1 ? "购买月卡 低至59.8元/月": "续买月卡 低至59.8元/月"}}</button>
         </view>
 
 
