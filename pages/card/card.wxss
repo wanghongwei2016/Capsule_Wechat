@@ -65,13 +65,13 @@ page {
   float: right;
   width: 51%;
   height: 40rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   line-height: 40rpx;
 }
 
 
 .card_middle_content {
-  margin-top: 100rpx;
+  margin-top: 80rpx;
   align-content: center;
   justify-content: center;
   align-items: flex-end; 

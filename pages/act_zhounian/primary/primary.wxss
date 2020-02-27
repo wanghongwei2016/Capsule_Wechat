@@ -1,0 +1,5 @@
+/* pages/act_zhounian/primary/primary.wxss */
+page{
+  position: relative;
+  background-color:#ff632d;
+}

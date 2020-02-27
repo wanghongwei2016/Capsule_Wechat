@@ -41,7 +41,6 @@
     "pages/couponExchange/couponExchange",
     "pages/act_music/act_music",
     "pages/act_zhongqiu/act_zhongqiu",
-    "pages/booing_flow/booking_flow",
     "pages/act_make_money/act_make_money",
     "pages/act_nuandong/act_nuandong",
     "pages/act_yanzhao/act_yanzhao",
@@ -49,7 +48,13 @@
     "pages/act_jika/act_jika",
     "pages/profit/profit",
     "pages/profitRecord/profitRecord",
-    "pages/notice_month_card/notice_month_card"
+    "pages/notice_month_card/notice_month_card",
+    "pages/act_zhounian/rule/rule",
+    "pages/act_zhounian/primary/primary",
+    "pages/act_zhounian/secondary/secondary",
+    "pages/act_zhounian/saveimg/saveimg",
+    "pages/booking_flow/booking_flow",
+    "pages/pour/pour"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -69,5 +74,8 @@
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "navigateToMiniProgramAppIdList": [
+    "wx4835be4f1ec6b591"
+  ]
 }

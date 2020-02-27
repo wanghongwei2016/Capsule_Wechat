@@ -1,0 +1,94 @@
+<!--pages/act_zhounian/primary/primary.wxml-->
+
+<view class="relative clearfix">
+  <image mode="widthFix" class="w100 fl" style="" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/4CB9E0E62B2FC5CDD39F22FCA41EA294"></image>
+  <image mode="widthFix" class="absolute cx" style="bottom:-10%;width:80%;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/FC88C9AD0E9B1049F5EB7F08C8CB65C0"></image>
+  <view class="absolute inline-block text-white f24" style="background-color:rgba(0,0,0,.7);top:0;left:0;margin-top:15rpx;margin-left:10rpx;border-radius: 1em;padding:.2em .5em;" catchtap="goHome">回到首页</view>
+  <view class="absolute inline-block text-white f24" style="background-color:rgba(0,0,0,.7);top:0;right:0;margin-top:15rpx;margin-right:10rpx;border-radius: 1em;padding:.2em .5em;" catchtap="bindOpenActionLink" data-link="xcx:/pages/act_zhounian/rule/rule">活动规则</view>
+</view>
+
+<!-- 大转盘 -->
+<view class="relative bg-white text-center" style="border-radius:10rpx;padding:1em 0;margin:120rpx 30rpx 30rpx 30rpx;">
+  <view class="f34 " style="color:#333;margin-bottom:1em;">累计签到7天即可抽奖！</view>
+
+  <view class="relative" style="width:622rpx;height:622rpx;margin:1em auto;">
+    <image animation="{{animationData}}" bindtransitionend="bindtransitionend" class="w100 h100" style="" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/A1C6EBA9CBDE798C82D4FA44BC05CD3A"></image>
+    <image mode="widthFix" class="absolute cxy" style="width:23%;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/FD0823CD8D8B5F693F9CD6F2929ED8B2" catchtap="turn"></image>
+  </view>
+
+  <view class="f28" style="color:#333;">
+    你有
+    <text style="color:#fc5c25;">{{red_bags.length}}次</text>抽奖机会
+  </view>
+
+  <view class="f26" catchtap="showPrizeRecord">中奖记录>></view>
+
+</view>
+
+
+<!-- 签到记录 -->
+<view class="relative bg-white text-center" style="border-radius:10rpx;padding:1em 0;margin:60rpx 30rpx 30rpx 30rpx;">
+
+  <image mode="widthFix" style="width:70%;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/57E28D3142EA3A4573D105C3F5E9B770"></image>
+
+
+  <view class="f28" style="color:#333;">
+    你已累计签到
+    <text style="color:#fc5c25;">{{dates.length}}天</text>
+  </view>
+
+  <template name="week">
+    <view class="relative flex flex-x text-center" style="background-color:#fff5f0;border-radius:10rpx;margin:1em 20rpx 0 20rpx;padding:.5em 0;">
+      <view wx:for="{{ns}}" wx:key="{{n}}" wx:for-item="n" class="flex-1 f22 relative" style="color:#bfbfbf;">
+        <image mode="widthFix" class="" style="width:70%;" src="{{dates.length>=n?'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/A78E5269547ED14EDD87F7763BD8E3DE':'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/9244073372B2234E336EEB7C73DFD594'}}"></image>
+        <view style="{{dates.length>=n?'color:#fc5c25;':''}}">{{(dates.length==n&&dates[n-1]==today)||(dates.length+1==n&&dates[n-1]!=today)?'今天':'第'+n+'天'}}</view>
+      </view>
+    </view>
+  </template>
+
+  <template is="week" data="{{dates,today,ns:[1,2,3,4,5,6,7]}}" />
+  <template wx:if="{{dates.length>=7*1}}" is="week" data="{{dates,today,ns:[8,9,10,11,12,13,14]}}" />
+  <template wx:if="{{dates.length>=7*2}}" is="week" data="{{dates,today,ns:[15,16,17,18,19,20,21]}}" />
+  <template wx:if="{{dates.length>=7*3}}" is="week" data="{{dates,today,ns:[22,23,24,25,26,27,28]}}" />
+
+</view>
+
+
+
+
+<!-- 二维码 -->
+<view class="text-center" style="margin-bottom:1em;">
+  <image mode="widthFix" class="" style="width:280rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/01026750AD8A2047B2774668DC438207"></image>
+</view>
+
+<!-- 中奖纪录弹窗 -->
+<view wx:if="{{!!showPrizeRecord}}" class="fixed" style="z-index:100;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,.7);">
+
+  <view class="block absolute cxy">
+
+    <view class="relative clearfix">
+      <image mode="widthFix" class="fl" style="width:520rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/677CA1E8B6A30C711E5F9E2BF31454E8"></image>
+      <view class="absolute cx " style="z-index:1;top:21%;width:80%;height:70%;padding:10rpx 15rpx;overflow-y:auto;">
+
+        <view class="flex flex-x f28 " style="border-bottom:solid 1rpx #ebebeb;color:#fa4b0f;">
+          <view class="flex-6 text-center" style="height:60rpx;line-height:60rpx;">中奖时间</view>
+          <view class="flex-4 text-center" style="height:60rpx;line-height:60rpx;">获得奖品</view>
+        </view>
+
+
+        <view wx:for="{{prizeRecord}}" wx:for-item="prize" class="flex flex-x text-333 f24 " style="border-bottom:solid 1rpx #ebebeb;">
+          <view class="flex-6 text-center" style="height:60rpx;line-height:60rpx;">{{prize.receive_time_text}}</view>
+          <view class="flex-4 text-center" style="height:60rpx;line-height:60rpx;">{{prize.price_title}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="text-center" style="margin-top:50rpx;">
+      <view class="icon icon-close " style="width:80rpx;height:80rpx;" catchtap="hidePrizeRecord"></view>
+    </view>
+  </view>
+</view>
+
+
+
+<!-- 中奖弹窗 -->
+<PrizeModal id="prizeModal"></PrizeModal>

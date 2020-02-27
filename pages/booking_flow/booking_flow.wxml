@@ -1,0 +1,2 @@
+<include wx:if="{{booking&&booking.status==4}}" src="./fragment/flow_running.wxml" />
+<include wx:if="{{booking&&booking.status==8}}" src="./fragment/flow_success.wxml" />

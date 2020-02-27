@@ -1,15 +1,21 @@
 const storageService = require('./storageService.js').default
 
+var {
+  Message,
+  type,
+} = require("./common.js")
+
 const app = getApp();
 
 const urlDomain = app.globalData.debug ?
-  'http://dev.xiangshuispace.com:18083' :
-  // 'http://dev.xiangshuispace.com:18084' :
+  'http://localhost:8080' :
+  // 'http://dev.xiangshuispace.com:18083' :
   'https://www.xiangshuispace.com';
+
 
 function request(opt = {}) {
   let localUserCache = storageService.getLocalUserCache();
-  let url = `${urlDomain}${opt.url}`;
+  let url = `${opt.domain || urlDomain}${opt.url}`;
   let method = opt.method ? opt.method.toUpperCase() : 'GET';
   let header = {
     'content-type': 'application/json',
@@ -42,22 +48,33 @@ function request(opt = {}) {
     data,
     dataType: opt.dataType || 'json',
     responseType: opt.responseType || 'text',
-    success: function(response) {
+    success: function (response) {
       if (opt.loading) {
         wx.hideLoading();
       }
       if (response.statusCode == 200) {
         let resp = response.data;
+        if (!type(resp.ret, 'Number') && type(resp.code, 'Number')) {
+          resp.ret = resp.code;
+        }
+        if (!type(resp.err, 'String') && type(resp.msg, 'String')) {
+          resp.err = resp.msg;
+        }
         if (resp.ret == 0) {
           console.log('response', resp);
           if (opt.success) {
             opt.success(resp);
           }
-        } else if (resp.ret == -103) {
-          wx.showToast({
-            title: '未登录，或登录已超时！',
-            icon: 'none',
-          });
+        } else if (resp.ret == -103 || resp.ret == -110 || resp.ret == -105) {
+          if (opt.hand103) {
+            opt.hand103();
+          } else {
+            wx.showToast({
+              title: '未登录，或登录已超时！',
+              icon: 'none',
+            });
+          }
+
         } else {
           console.warn('response', resp);
           wx.showToast({
@@ -74,19 +91,19 @@ function request(opt = {}) {
         });
       }
     },
-    fail: function(error) {
+    fail: function (error) {
       if (opt.loading) {
         wx.hideLoading();
       }
     },
-    complete: function() {
+    complete: function () {
       if (opt.complete) {
         opt.complete();
       }
     },
   });
   return {
-    abort: function() {
+    abort: function () {
       if (opt.loading) {
         wx.hideLoading();
       }
@@ -95,7 +112,7 @@ function request(opt = {}) {
   };
 }
 
-request.loadUserInfo = function(page) {
+request.loadUserInfo = function (page) {
   request({
     url: '/api/user/info',
     success: resp => {

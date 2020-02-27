@@ -2,13 +2,22 @@
 var network = require('../../utils/network.js')
 var app = getApp()
 var QR = require("../../utils/qrcode.js")
+var utils = require("../../utils/util.js")
+var request = require('../../utils/request.js').default
+const {
+  mixins,
+  checkPhone,
+  Message,
+} = require('../../utils/common.js')
+
 Page({
+  ...mixins,
   /**
    * 页面的初始数据
    */
   data: {
     rules_hide: true,
-    page_type: 0,//0,邀请好友 1，邀请好友注册 2，邀请好友发放优惠券 3，重复邀请 4、月卡页面进入 5、邀请好友页面进入
+    page_type: 0, //0,邀请好友 1，邀请好友注册 2，邀请好友发放优惠券 3，重复邀请 4、月卡页面进入 5、邀请好友页面进入
     phone: '',
     code: '',
     timeCount: 60,
@@ -18,18 +27,18 @@ Page({
     login_disabled: true,
     invite_code: '',
     page_from: 0,
-    show_alert: 0,// 0 我的，1 结束订单 
+    show_alert: 0, // 0 我的，1 结束订单 
     code_hide: true,
     first_show_id: 0,
     hasUin: false,
-    invite_bonus:  (app.globalData.config.invite_bonus / 100),
+    invite_bonus: (app.globalData.config.invite_bonus / 100),
     invited_bonus: (app.globalData.config.invited_bonus / 100),
-    codeUrl: 'https://www.xiangshuispace.com/invite/'//默认二维码生成文本 http://dev.h5.xiangshuispace.com/invite/
+    codeUrl: 'https://www.xiangshuispace.com/invite/' //默认二维码生成文本 http://dev.h5.xiangshuispace.com/invite/
   },
-  onReady: function () {
+  onReady: function() {
 
   },
-  onShow: function () {
+  onShow: function() {
     let hasUin
     if (app.globalData.localUserInfo.uin === 100000) {
       hasUin = false
@@ -43,7 +52,7 @@ Page({
   /**
    * 控制活动规则的显示和隐藏
    */
-  toggleRulesAction: function () {
+  toggleRulesAction: function() {
     this.setData({
       rules_hide: !this.data.rules_hide
     })
@@ -51,7 +60,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log('newInvite options====================')
     console.log(options)
     // toast组件实例
@@ -69,7 +78,7 @@ Page({
       })
     }
   },
-  inputPhone: function (e) {
+  inputPhone: function(e) {
     var phone = e.detail.value
     this.setData({
       phone: phone
@@ -100,7 +109,7 @@ Page({
       })
     }
   },
-  inputCode: function (e) {
+  inputCode: function(e) {
     var loginDisabled = false
     if (this.data.phone.length == 11 && e.detail.value.length == 4) {
       loginDisabled = false
@@ -113,57 +122,39 @@ Page({
     })
   },
   /*发送验证码 */
-  getCodeAction: function (e) {
-    var label = e.target
-    var that = this
-    verifyCodeRequest(that)
-    that.setData({
-      code_disabled: true
-    })
-    // 倒计时功能
-    function timeCutDown() {
-      var time = that.data['motto']
-      var count = that.data.timeCount;
-      if (count == 60) {
-        that.setData({
-          code_disabled: true
-        })
-      }
-      if (count > 1) {
-        that.setData({
-          motto: (--count) + 's后重发',
-          timeCount: count,
-          code_font: 22
-        })
-        setTimeout(function () {
-          timeCutDown()
-        }, 1000)
-      } else {
-        // this.data.motto = '重新发送'
-        that.setData({
-          motto: '重新发送',
-          timeCount: 60,
-          code_disabled: false
-        })
-      }
-    }
-    function verifyCodeRequest(that) {
-      network.shareSleepNetwork("user/getverificationcode", { phone: that.data['phone'] }, "POST", function complete(res) {
-        if (res.data && res.data.ret == 0) {
-          timeCutDown()
-          that.show('验证码发送成功');
-        } else {
-          that.setData({
-            motto: '重新发送',
-            timeCount: 60,
-            code_disabled: false
-          })
+  getCodeAction: function (event) {
+    if (!checkPhone(this.data.phone)) return Message.msg('手机号码输入有误！');
+    const phone = this.data.phone;
+    this.selectComponent('#imageCodeModal').open((noncestr, timestamp, sign, code) => {
+      request({
+        url: '/api/user/getverificationcode',
+        method: 'post',
+        loading: true,
+        data: {
+          phone,
+          noncestr: noncestr || '',
+          timestamp: timestamp || 0,
+          sign: sign || '',
+          image_code: code || '',
+          type: event.currentTarget.dataset.sendtype || 0,
+        },
+        success: resp => {
+          this.selectComponent('#imageCodeModal').close();
+          if (event.currentTarget.dataset.sendtype == 1) {
+            Message.msg('语音验证码发送成功，请注意接听电话！');
+          } else {
+            Message.msg('验证码发送成功！');
+          }
         }
-      },that)
-    }
+      });
+    });
   },
   /**登录 */
-  loginAction: function () {
+  loginAction: function() {
+
+    if (!checkPhone(this.data.phone)) return Message.msg('手机号码输入有误！');
+    if (!/^\d{4,8}$/.test(this.data.code)) return Message.msg('验证码输入有误！');
+
     var that = this
     if (wx.showLoading) {
       wx.showLoading({
@@ -176,9 +167,13 @@ Page({
       })
     }
     wx.login({
-      success: function (res) {
+      success: function(res) {
         console.log('wx.login' + res.code)
-        var params = { phone: that.data['phone'], verify_code: that.data['code'], wechat_code: res.code }
+        var params = {
+          phone: that.data['phone'],
+          verify_code: that.data['code'],
+          wechat_code: res.code
+        }
         if (that.data.invite_code != 100000) {
           params['invite_code'] = that.data.invite_code
         }
@@ -195,11 +190,11 @@ Page({
             wx.setStorage({
               key: 'localUserCache',
               data: userinfo,
-              complete: function (res) {
+              complete: function(res) {
                 console.log(res)
               }
             })
-            if (that.data.page_type in [0,2,3]) {
+            if (that.data.page_type in [0, 2, 3]) {
               var pages = getCurrentPages()
               if (wx.reLaunch) {
                 wx.reLaunch({
@@ -214,9 +209,9 @@ Page({
               wx.showModal({
                 content: '领取成功，大礼包已发放至你的账户，请到“我的-钱包-优惠券”页面查看',
                 confirmText: "确定",
-                success: function (res) {
+                success: function(res) {
                   if (res.confirm) {
-                    that.getLocalUserInfo();                    
+                    that.getLocalUserInfo();
                   }
                 }
               })
@@ -225,43 +220,43 @@ Page({
             that.setData({
               login_disabled: false
             })
-            if (res.data.ret == -1017 || res.data.ret == -1016) {//重复领取、老用户使用
+            if (res.data.ret == -1017 || res.data.ret == -1016) { //重复领取、老用户使用
               wx.showModal({
                 content: '亲已注册过了，您可邀请新用户注册领取大礼包哦!',
                 confirmText: "确定",
-                success: function (res) {
+                success: function(res) {
                   if (res.confirm) {
-                    if (that.data.page_type in [0,1,2,3]){
+                    if (that.data.page_type in [0, 1, 2, 3]) {
                       wx.reLaunch({
                         url: '/pages/scanCode/scanCode',
                       })
-                    }else{
+                    } else {
                       that.getLocalUserInfo()
                     }
-                   
+
                   }
                 }
               })
             }
           }
 
-        },that)
+        }, that)
       },
-      fail: function (res) {
+      fail: function(res) {
         // fail
       },
-      complete: function (res) {
+      complete: function(res) {
         // complete
       }
     })
 
   },
-  onShareAppMessageBefore: function () {
+  onShareAppMessageBefore: function() {
     if (app.globalData.localUserInfo.uin === 100000) {
       wx.showModal({
         content: '登录后才能邀请好友哦~',
         confirmText: '去登录',
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             wx.navigateTo({
               url: "/pages/login/login"
@@ -276,7 +271,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     var ret = lowerVersion('6.5.8')
     console.log(ret)
     if (ret == true) {
@@ -292,7 +287,7 @@ Page({
         wx.showModal({
           content: '登录后才能邀请好友哦~',
           confirmText: '去登录',
-          success: function (res) {
+          success: function(res) {
             if (res.confirm) {
               wx.navigateTo({
                 url: "/pages/login/login"
@@ -307,19 +302,19 @@ Page({
         title: `您的好友送您${this.data.invited_bonus}元头等舱红包!新用户尊享1小时免费体验！`,
         path: '/pages/scanCode/scanCode?invite=1&uin=' + app.globalData.localUserInfo.uin + "&type=1",
         imageUrl: 'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/7C202C26F8DCFED2F5DE4786567D66EF',
-        success: function (res) {
+        success: function(res) {
           that.show('邀请成功');
         },
-        fail: function (res) {
+        fail: function(res) {
           that.show('邀请失败，请重试');
         }
       }
-    }else{
+    } else {
       if (app.globalData.localUserInfo.uin === 100000) {
         wx.showModal({
           content: '登录后才能邀请好友哦~',
           confirmText: '去登录',
-          success: function (res) {
+          success: function(res) {
             if (res.confirm) {
               wx.navigateTo({
                 url: "/pages/login/login"
@@ -334,10 +329,10 @@ Page({
         title: `您的好友送您${this.data.invited_bonus}元头等舱红包!新用户尊享1小时免费体验！`,
         path: '/pages/scanCode/scanCode?invite=1&uin=' + app.globalData.localUserInfo.uin + "&type=1",
         imageUrl: 'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/7C202C26F8DCFED2F5DE4786567D66EF',
-        success: function (res) {                    
+        success: function(res) {
           that.show('邀请成功');
         },
-        fail: function (res) {
+        fail: function(res) {
           console.log(res)
           that.show('邀请失败，请重试');
         }
@@ -345,7 +340,7 @@ Page({
     }
   },
 
-  buttonAction: function () {
+  buttonAction: function() {
     if (this.data.page_type == 0) {
       this.onShareAppMessage()
     } else if (this.data.page_type == 1 || this.data.page_type == 4 || this.data.page_type == 5) {
@@ -356,17 +351,17 @@ Page({
       })
     }
   },
-  action: function () {
+  action: function() {
 
   },
   //适配不同屏幕大小的canvas
-  setCanvasSize: function () {
+  setCanvasSize: function() {
     var size = {};
     try {
       var res = wx.getSystemInfoSync();
-      var scale = 750 / 400;//不同屏幕下canvas的适配比例；设计稿是750宽
+      var scale = 750 / 400; //不同屏幕下canvas的适配比例；设计稿是750宽
       var width = res.windowWidth / scale;
-      var height = width;//canvas画布为正方形
+      var height = width; //canvas画布为正方形
       size.w = width;
       size.h = height;
     } catch (e) {
@@ -375,17 +370,17 @@ Page({
     }
     return size;
   },
-  createQrCode: function (url, canvasId, cavW, cavH) {
+  createQrCode: function(url, canvasId, cavW, cavH) {
     //调用插件中的draw方法，绘制二维码图片
     QR.qrApi.draw(url, canvasId, cavW, cavH);
 
   },
-  creatCodeAction: function () {
+  creatCodeAction: function() {
     if (app.globalData.localUserInfo.uin === 100000) {
       wx.showModal({
         content: '登录后才能邀请好友哦~',
         confirmText: '去登录',
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             wx.navigateTo({
               url: "/pages/login/login"
@@ -405,7 +400,7 @@ Page({
     //绘制二维码
     that.createQrCode(url, "mycanvas", size.w, size.h);
   },
-  hideCodeAction: function(){
+  hideCodeAction: function() {
     this.setData({
       code_hide: true
     })
@@ -413,7 +408,7 @@ Page({
   /**
    * 获取用户信息
    */
-  getLocalUserInfo: function (callBack) {
+  getLocalUserInfo: function(callBack) {
     console.log("获取用户信息");
     var that = this
     var is_verified = false
@@ -457,7 +452,7 @@ Page({
           url: '/pages/depositPay/depositPay?deposit=' + (that.data.deposit_total - that.data.deposit) / 100 + '&back_deposit=' + that.data.back_deposit,
         })
       } else {
-        setTimeout(function () {
+        setTimeout(function() {
           wx.navigateBack({
             delta: 1
           })
@@ -481,14 +476,15 @@ Page({
       //     })
       //   }, 0)
       // }
-    },that)
+    }, that)
   }
 })
+
 function lowerVersion(standardVersion) {
   var baseVersion = ''
   var sysVersion = ''
   wx.getSystemInfo({
-    success: function (res) {
+    success: function(res) {
       // success
       console.log(res)
       baseVersion = res.SDKVersion

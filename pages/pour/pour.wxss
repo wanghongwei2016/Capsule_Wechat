@@ -1,0 +1,7 @@
+/* pages/pour/pour.wxss */
+
+
+.box{
+  border-top-left-radius: 50rpx;
+  border-top-right-radius: 50rpx;
+}

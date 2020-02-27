@@ -5,10 +5,18 @@
 		"es6": true,
 		"postcss": true,
 		"minified": false,
-		"newFeature": true
+		"newFeature": true,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.9",
+	"libVersion": "2.4.4",
 	"appid": "wxb472bc985496fb30",
 	"projectname": "XS_Wechat",
 	"simulatorType": "wechat",
@@ -30,8 +38,12 @@
 			"current": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
-			"current": 27,
+			"current": 37,
 			"list": [
 				{
 					"id": -1,
@@ -55,7 +67,8 @@
 					"id": 3,
 					"name": "orderDetail",
 					"pathName": "pages/orderDetail/orderDetail",
-					"query": "booking_id=1452825818&capsule_id=1100017002&calculate_rule=sdfsdfsdf"
+					"query": "booking_id=14523825818&capsule_id=1100017002&calculate_rule=sdfsdfsdf",
+					"scene": null
 				},
 				{
 					"id": -1,
@@ -82,16 +95,18 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 8,
 					"name": "orderPay",
 					"pathName": "pages/orderPay/orderPay",
-					"query": "time=25:00:54&final_price=1006000&booking_id=1905386419&status=2&capsule_id=1100002001&calculate_rule=233243241&balance=undefined&need_charge=undefined"
+					"query": "booking_id=788030274",
+					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 9,
 					"name": "paySucc",
 					"pathName": "pages/paySucc/paySucc",
-					"query": "time=25:00:54&final_price=1006000&booking_id=1905386419&status=2&capsule_id=1100002001&calculate_rule=233243241&balance=undefined&need_charge=undefined"
+					"query": "time=25:00:54&final_price=1006000&booking_id=33135484&status=2&capsule_id=1100002001&calculate_rule=233243241&balance=undefined&need_charge=undefined",
+					"scene": null
 				},
 				{
 					"id": -1,
@@ -134,14 +149,14 @@
 					"id": 16,
 					"name": "orderDetail",
 					"pathName": "pages/orderDetail/orderDetail",
-					"query": "booking_id=589660813&create_time=1553671434&calculate_rule=6元/半小时，高峰期（11-15点）9.9元/半小时，按分钟计费/最低半小时。活动价格&capsule_id=1100017002",
+					"query": "booking_id=589660863&create_time=1553671434&calculate_rule=6元/半小时，高峰期（11-15点）9.9元/半小时，按分钟计费/最低半小时。活动价格&capsule_id=1100017002",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 17,
 					"name": "webView",
 					"pathName": "pages/webView/webView",
-					"query": "url=https%3A%2F%2Fwww.xiangshuispace.com%2Fwww%2Factivity%2Fyanzhao.html",
+					"query": "url=https%3A%2F%2Fmp.weixin.qq.com%2Fs%2FYExPY8ux-xA4oMJL15gr3A",
 					"scene": null
 				},
 				{
@@ -152,10 +167,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 19,
 					"name": "paySucc",
 					"pathName": "pages/paySucc/paySucc",
-					"query": "time=00:03:36&final_price=100&capsule_id=1100017002&balance=9&capsule_id_origin=1100017002&booking_id=975624384&area_id=1100017&phone=11000000001&appraise_flag=0",
+					"query": "time=00:03:36&final_price=100&capsule_id=1100017002&balance=9&capsule_id_origin=1100017002&booking_id=916813276&area_id=1100017&phone=11000000001&appraise_flag=0",
 					"scene": null
 				},
 				{
@@ -211,6 +226,83 @@
 					"id": -1,
 					"name": "notice_month_card",
 					"pathName": "pages/notice_month_card/notice_month_card",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "orderItem",
+					"pathName": "pages/orderItem/orderItem",
+					"query": "id=1384556398",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "login",
+					"pathName": "pages/login/login",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "test",
+					"pathName": "pages/test/test",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/act_zhounian/rule/rule",
+					"pathName": "pages/act_zhounian/rule/rule",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/act_zhounian/primary/primary",
+					"pathName": "pages/act_zhounian/primary/primary",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/act_zhounian/saveimg/saveimg",
+					"pathName": "pages/act_zhounian/saveimg/saveimg",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/booking_flow/booking_flow",
+					"pathName": "pages/booking_flow/booking_flow",
+					"query": "booking_id=916813276",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/openDoor/openDoor",
+					"pathName": "pages/openDoor/openDoor",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/faultReport/faultReport",
+					"pathName": "pages/faultReport/faultReport",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 37,
+					"name": "pages/areaInfo/areaInfo",
+					"pathName": "pages/areaInfo/areaInfo",
+					"query": "area_id=1100126",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pour",
+					"pathName": "pages/pour/pour",
 					"query": "",
 					"scene": null
 				}

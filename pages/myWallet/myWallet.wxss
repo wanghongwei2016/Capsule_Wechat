@@ -1,20 +1,24 @@
 /* myWallet.wxss */
+
 page {
   background-color: #f0f0f0;
 }
+
 .type_contain {
   width: 100%;
   background-color: #f0f0f0;
 }
+
 .item_contain {
   background-color: white;
   width: 100%;
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   flex-direction: row;
   padding-top: 50rpx;
   padding-left: 30rpx;
 }
+
 .item {
   border-radius: 4rpx;
   width: 208rpx;
@@ -23,30 +27,34 @@ page {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   margin-right: 30rpx;
   margin-bottom: 40rpx;
 }
+
 view.item {
   border-style: solid;
   border-color: #189df9;
   border-width: 2rpx;
   border-radius: 8rpx;
 }
-view.item:focus,.item:focus,view.item:active,.item:active,.item.active {
+
+view.item:focus, .item:focus, view.item:active, .item:active, .item.active {
   background-color: #189df9;
 }
 
-view.item:active .title,view.item:active .des,.title.active,.des.active{
+view.item:active .title, view.item:active .des, .title.active, .des.active {
   color: white !important;
 }
 
-view.title:focus,view.des:focus,.des:focus,.title:focus { 
+view.title:focus, view.des:focus, .des:focus, .title:focus {
   color: white;
 }
-view.title:active,view.des:active,.des:active,.title:active { 
+
+view.title:active, view.des:active, .des:active, .title:active {
   color: white;
 }
+
 .title {
   font-size: 30rpx;
   color: #189df9;
@@ -64,6 +72,15 @@ view.title:active,view.des:active,.des:active,.title:active {
   font-size: 34rpx;
 }
 
+.sharebutton {
+  margin-top: 67rpx;
+  height: 80rpx;
+  width: 90%;
+  font-size: 34rpx;
+  background-color: rgba(0, 0, 0, 0);
+  color: #189df9;
+  border: solid 1px #189df9;
+}
 
 .recharge_details {
   position: fixed;

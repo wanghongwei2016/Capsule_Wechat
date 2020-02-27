@@ -1,3 +1,5 @@
 {
-  "disableScroll": true
+  "usingComponents": {
+    "ScratchCard": "/component/scratch_card/scratch_card"
+  }
 }

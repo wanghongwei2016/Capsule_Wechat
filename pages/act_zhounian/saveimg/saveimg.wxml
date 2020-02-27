@@ -1,0 +1,28 @@
+<view class="fixed flex flex-y" style="top:0;bottom:0;left:0;right:0;padding:30rpx 0;">
+
+  <view class="flex-1 text-center" style="margin-bottom:40rpx;">
+  
+   <image mode="aspectFit" class="w100 h100" style="" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/2E529E7BD431A7E9B704685880714DB1"></image>
+  
+  </view>
+
+
+
+
+
+  <view class="text-center" style="margin-bottom:20rpx;">
+    <image mode="widthFix" class="" style="width:290rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/621FA4C23B71C667DEE53CC152F5C8A3"></image>
+  </view>
+
+
+  <view class="text-center" style="margin-bottom:40rpx;">
+    <image mode="widthFix" class="" style="width:460rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/A9D6E0D1CE4E1FFA4BE79152A7FE3F34"></image>
+  </view>
+
+
+  <view class="text-center">
+    <image mode="widthFix" class="" style="width:166rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/FDAA9A1BD14F587B9D1C87A32A5CFCA6" catchtap="saveimg"></image>
+  </view>
+
+
+</view>

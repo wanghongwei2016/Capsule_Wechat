@@ -2,7 +2,11 @@
 var app = getApp()
 var network = require("../../utils/network.js")
 var utils = require("../../utils/util.js")
+var request = require("../../utils/request.js").default
 Page({
+
+  ...require('../../component/red_envelopes/red_envelopes.js').mixins,
+
   data: {
     time: 0,
     payRightNowDisabled: false,
@@ -12,6 +16,9 @@ Page({
     need_charge: 0
   },
   onLoad: function (options) {
+    this.setData({
+      booking_id: options.booking_id
+    });
     // toast组件实例
     new app.ToastPannel();
     if (options.booking_id){
@@ -55,6 +62,8 @@ Page({
         wx.redirectTo({
           url: '../paySucc/paySucc?time=' + timeString + '&final_price=' + price + '&balance=' + balance + '&capsule_id_origin=' + that.data.capsule_id_origin + '&booking_id=' + that.data.booking_id + '&area_id=' + that.data.area_id + '&phone=' + app.globalData.localUserInfo.phone + '&appraise_flag=' + resp.data.appraise_flag
         })
+      }else{
+        this.checkPrizeQuota(bookingid);
       }
 
       
@@ -78,7 +87,8 @@ Page({
       to_status: 3,
       from_status: parseInt(that.data.booking_status),
       booking_id: parseInt(that.data.booking_id),
-      pay_type: 9
+      pay_type: 9,
+      // pay_type: 7,
     }, "POST", function complete(res) {
       if (wx.hideLoading) {
         wx.hideLoading()
@@ -131,5 +141,22 @@ Page({
     wx.navigateTo({
       url: '/pages/myWallet/myWallet?booking_id=' + this.data.booking_id,
     })
-  }
+  },
+
+  payByGuohang() {
+    request({
+      url: `/jpi/booking/${this.data.booking_id}/create_guohang_link`,
+      loading: true,
+      success: resp => {
+        wx.navigateToMiniProgram({
+          appId: resp.data.xcx_appid,
+          path: resp.data.xcx_path,
+          extraData: {
+            param: resp.data.param
+          },
+          success: res => { }
+        })
+      }
+    });
+  },
 })

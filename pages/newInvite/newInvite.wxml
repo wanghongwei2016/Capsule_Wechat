@@ -52,13 +52,13 @@
 
 
     <view class="input_contain">
-      <input placeholder="请输入手机号" class="phone_input" type="number" placeholder-class="input_placeholder" bindinput="inputPhone" cursor-spacing="100" auto-focus="true" />
+      <input placeholder="请输入手机号" class="phone_input" type="number" placeholder-class="input_placeholder" bindinput="bindInputValue" data-field='phone' cursor-spacing="100" auto-focus="true" />
     </view>
     <view class="input_contain input_contain_bottom">
-      <input placeholder="请输入验证码" class="code_input" type="number" placeholder-class="input_placeholder" bindinput="inputCode" cursor-spacing="40" />
-      <button class="code_get_button" bindtap="getCodeAction" plain="true" disabled="{{code_disabled}}">{{motto}}</button>
+      <input placeholder="请输入验证码" class="code_input" type="number" placeholder-class="input_placeholder" bindinput="bindInputValue" data-field='code' cursor-spacing="40" />
+      <button class="code_get_button" catchtap="getCodeAction" plain="true" >获取验证码</button>
     </view>
-    <button class="invite_button" bindtap="buttonAction" disabled="{{login_disabled}}">立即领取</button>
+    <button class="invite_button" bindtap="buttonAction">立即领取</button>
   </view>
 
   <!--活动规则  -->
@@ -92,3 +92,6 @@
     </view>
   </view>
 </view>
+
+
+<ImageCodeModal id='imageCodeModal'/>

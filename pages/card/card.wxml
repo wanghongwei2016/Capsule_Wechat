@@ -26,7 +26,7 @@
           <text class='card_middle_right_title middle_title'>原价300元/月</text>
         </view>
         <view>
-          <text class='use_date' style='color:#fae54f;'>月卡延长至35天 限时抢购</text>
+          <text class=' use_date' style='color:#fae54f;'>非高峰期使用，现金红包秒提现</text>
         </view>
         <view>
         </view>
@@ -71,7 +71,7 @@
       <view bindtap='bindSelect' data-mom='1' class='text-center' style='position: relative; {{mom==1?"background:#e6f8ff;":""}} border:solid 1px {{mom==1?"#e84338":"#bfbfbf"}};border-radius:10rpx;display: inline-block;width:200rpx;height:240rpx;margin-left:100rpx;'>
         <view style='font-size:40rpx;margin-top:1em;'>
           月卡
-          <text style='font-size:.5em;'>(限时35天)</text>
+          <text class='hide' style='font-size:.5em;'>(限时35天)</text>
         </view>
         <view style='font-size:50rpx;color:#e84338;'>
           <text style='font-size:.5em;'>¥</text>59.8
@@ -180,7 +180,7 @@
   <view class='modal-dialog' style='width:80%'>
     <view class='modal-content'>
       <view class='modal-body'>
-        <image mode='widthFix' class='w100' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/38E53DBBE0AB99D79D56F59A95829685'></image>
+        <image mode='widthFix' class='w100' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/580F8D99178AB13B3315F15DC7A11EA8'></image>
         <view class='text-center' style='margin-top:30rpx;'>
           <image mode='widthFix' style='width:80rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/0AEABDBA84DECFDB442412E853F77C17' bindtap='hideNoticeModal'></image>
         </view>

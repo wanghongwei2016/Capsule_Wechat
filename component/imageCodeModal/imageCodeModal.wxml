@@ -1,0 +1,19 @@
+<!--component/imageCodeModal/imageCodeModal.wxml-->
+<view wx:if='{{show}}' class='fixed top-0 bottom-0 left-0 right-0' style='z-index:100;background-color:rgba(0,0,0,.5);' catchtap="bindInputValue"></view>
+<view wx:if='{{show}}'  class='fixed z-index-100 cxy bg-white' style='z-index:101;width:80%;border-radius: .5em;'>
+  <view style='padding:1em;'>
+    <view class='f34 text-center'>请输入图形验证码</view>
+    <view class='flex flex-x ' style='margin-top:2em;'>
+      <input bindinput='bindInputValue' data-field='code' class='flex-1 f22' style='padding:0 .5em;height:60rpx;line-height:60rpx;border:solid 1px #ddd;border-radius: 10rpx;color:black;' placeholder-style='color:#999999' placeholder='请输入图片中的字符'></input>
+      <view class='text-center' style='margin-left:.5em;'>
+        <image mode='' class='' style='width:140rpx;height:60rpx;border:solid 1px #ddd;border-radius: 10rpx;' src='data:image/png;base64,{{image}}' catchtap='update'></image>
+        <view class='f18' style='color:#9f9f9f;'>点击图片刷新</view>
+      </view>
+    </view>
+
+  </view>
+  <view class='flex flex-x f34' style='border-top:solid 1px #ddd;'>
+    <view class='flex-1 text-center' style='line-height:100rpx;border-right:solid 1px #ddd;' catchtap='close'>取消</view>
+    <view class='flex-1 text-center' style='line-height:100rpx;color:#6acc5d;' catchtap='ok'>确定</view>
+  </view>
+</view>

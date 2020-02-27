@@ -2,22 +2,47 @@
 var network = require("../../utils/network")
 var utils = require("../../utils/util.js")
 var app = getApp()
-Page({
 
+
+function openActionLink(actionlink) {
+  if (!actionlink) return;
+  if (/^xcx:.+$/.test(actionlink)) {
+    wx.navigateTo({
+      url: actionlink.substring('xcx:'.length),
+    })
+  } else if (/^https:.+$/.test(actionlink)) {
+    wx.navigateTo({
+      url: `/pages/webView/webView?url=${encodeURIComponent(actionlink)}`,
+    })
+  } else if (/^article:.+$/.test(actionlink)) {
+    wx.navigateTo({
+      url: `/pages/article/article?article_id=${actionlink.substring('article:'.length)}`,
+    })
+  }
+}
+
+
+function bindOpenActionLink(event) {
+  openActionLink(event.currentTarget.dataset.link);
+}
+
+
+Page({
+  bindOpenActionLink,
   /**
    * 页面的初始数据
    */
   data: {
     type_list: [],
     charge_id: 20,
-    is_mine_page:0,
-    booking_id:0
+    is_mine_page: 0,
+    booking_id: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // toast组件实例
     new app.ToastPannel();
     var that = this
@@ -26,19 +51,19 @@ Page({
         is_mine_page: options.is_mine_page
       })
     }
-    if (options.booking_id){
+    if (options.booking_id) {
       this.setData({
         booking_id: options.booking_id
       })
     }
     network.shareSleepNetwork("charge/get", {}, "GET", function complete(res) {
-      if(res.data.ret == 0){
+      if (res.data.ret == 0) {
         that.setData({
-          type_list:res.data.charge_infos,
+          type_list: res.data.charge_infos,
           charge_id: res.data.charge_infos[0].charge_id
         })
       }
-    },that)
+    }, that)
   },
   /**
    * 选择充值类型
@@ -51,15 +76,18 @@ Page({
   /**
    * 钱包充值
    */
-  rechargeAction: function () {
+  rechargeAction: function() {
     var that = this
-    if(wx.showLoading){
+    if (wx.showLoading) {
       wx.showLoading({
         title: '支付环境准备中',
+        mask: true,
       })
     }
-    network.shareSleepNetwork("charge/update", {charge_id:this.data.charge_id}, "POST", function complete(res) {
-      if(wx.hideLoading){
+    network.shareSleepNetwork("charge/update", {
+      charge_id: this.data.charge_id
+    }, "POST", function complete(res) {
+      if (wx.hideLoading) {
         wx.hideLoading()
       }
       if (res.data && res.data.ret == 0) {
@@ -71,7 +99,7 @@ Page({
           package: res.data.wechat_pay_info['package'],
           signType: res.data.wechat_pay_info['signType'],
           paySign: res.data.wechat_pay_info['paySign'],
-          complete: function (result) {
+          complete: function(result) {
             // complete
             console.log(that.data.is_mine_page)
             if (result.errMsg == "requestPayment:ok") {
@@ -80,14 +108,14 @@ Page({
                 var booking_page = pages[pages.length - 2]
                 // if (booking_page.updateBookingStatus()){
                 booking_page.setData({
-                  need_update:1
+                  need_update: 1
                 })
                 // }
               }
               wx.navigateBack({
                 // delta: that.data.is_mine_page == 1 ? 2 : 1,
                 delta: 1,
-                success: function () {
+                success: function() {
                   that.show('充值成功');
                   // wx.showToast({
                   //   title: '充值成功',
@@ -110,23 +138,30 @@ Page({
       } else {
 
       }
-    },that)
+    }, that)
+  },
+
+
+  shareAction: function() {
+    wx.navigateTo({
+      url: '/pages/newInvite/newInvite',
+    })
   },
 
   /**
    * 充值明细
    */
-  chargeDetailAction: function (e) {
+  chargeDetailAction: function(e) {
     wx.navigateTo({
       url: '/pages/depositList/depositList?type=2',
     })
   },
-  bindChargeShuoming: function () {
+  bindChargeShuoming: function() {
     this.setData({
       showShuoming: true,
     });
   },
-  hideShuoming: function () {
+  hideShuoming: function() {
     this.setData({
       showShuoming: false,
     });

@@ -14,7 +14,7 @@
         <view class='phone_wrap'>
           <text>手机号</text>
         </view>
-        <input class="input_phone" bindinput="inputPhone" type="number" maxlength="13" placeholder="请输入手机号码" placeholder-style="color:#999999" value='{{phone}}' />
+        <input class="input_phone" bindinput="bindInputValue" data-field='phone' type="number" maxlength="11" placeholder="请输入手机号码" placeholder-style="color:#999999"  />
         <view class='login_close_wrap' bindtap="deleteAction" data-type='phone'>
           <image src='../../images/login_close.png' class='login_close login_close_phone' wx:if="{{phone_delete}}" bindtap="deleteAction" data-type='phone'></image>
         </view>
@@ -26,19 +26,18 @@
           <view class='phone_wrap'>
             <text>验证码</text>
           </view>
-          <input class="input_password" bindinput="inputCode" maxlength="4" type="number" placeholder="请输入验证码" placeholder-style="color:#999999" value='{{code}}' />
+          <input class="input_password" bindinput="bindInputValue" data-field='code' maxlength="4" type="number" placeholder="请输入验证码" placeholder-style="color:#999999" value='{{code}}' />
           <view class='login_close_wrap' bindtap="deleteAction" data-type='code'>
             <image src='../../images/login_close.png' class='login_close' wx:if="{{code_delete}}" bindtap="deleteAction" data-type='code'></image>
           </view>
         </view>
       </view>
-
       <button class="checkNumber" bindtap="getCodeAction" disabled="{{code_disabled}}">{{motto}}</button>
     </view>
   </view>
   <label class="voice_show" hidden="{{protocol_label_hiden}}">
     <p class='agree_left'>收不到验证码？</p>
-    <p class='agree_protocol' bindtap='sendVoiceCodeAction'>使用语音验证码</p>
+    <p class='agree_protocol' bindtap='getCodeAction' data-sendtype="1">使用语音验证码</p>
   </label>
   <view class="login_btn_container">
     <button class="button_login" size="default" bindtap="loginAction" disabled="{{login_disabled}}">登录</button>
@@ -57,6 +56,8 @@
     <view style='height:80rpx;'></view>
     <p class='agree_left'>
       <button class='span' open-type="getUserInfo" bindgetuserinfo="loginByWeChatAction">点击登录</button>，即表示已阅读同意</p>
-    <p class='agree_protocol' bindtap='protocolShowAction'>《享+用户协议》</p>
+    <p class='agree_protocol' catchtap='bindOpenActionLink' data-link="https://www.xiangshuispace.com/www/termsofuse.html">《享+用户协议》</p>
   </label>
 </view>
+
+<ImageCodeModal id='imageCodeModal'/>

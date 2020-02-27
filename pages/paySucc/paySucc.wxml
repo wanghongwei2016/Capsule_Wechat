@@ -682,3 +682,9 @@
 
 <RedpModal id='redpModal'></RedpModal>
 <ZqPrizeModal id='zqPrizeModal'></ZqPrizeModal>
+
+<PrizeModal id="prizeModal"></PrizeModal>
+
+<include src="/fragment/scratch.wxml"/>
+
+<include src="/component/red_envelopes/red_envelopes.wxml"/>

@@ -1,5 +1,8 @@
 //app.js
 
+const md5 = require('/utils/md5.js');
+
+
 const debug = false;
 
 function type(o, t) {
@@ -18,7 +21,7 @@ function typeValue(o, t, d) {
 
 let UUID = {
   cs: '012346789abcdef'.toUpperCase().split(''),
-  get: function(n) {
+  get: function (n) {
     n = n || 32;
     var _uuid = "";
     for (var i = 0; i < n; i++) {
@@ -29,11 +32,11 @@ let UUID = {
   }
 };
 
-Date.prototype.format = function(fmt) {
+Date.prototype.format = function (fmt) {
   if (!fmt) fmt = "yyyy-MM-dd hh:mm:ss";
   var o = {
     "M+": this.getMonth() + 1, //月份
-    "W": (function(date) {
+    "W": (function (date) {
       switch (date.getDay()) {
         case 0:
           return "日";
@@ -94,9 +97,7 @@ wx.T = T
 
 App({
   ToastPannel,
-  onLaunch: function(options) {
-    console.log('options====================')
-    console.log(options)
+  onLaunch: function (options) {
     var that = this
     showVersionUpdate()
     // wx.removeStorage({
@@ -110,8 +111,6 @@ App({
     that.globalData.rate = rate;
     try {
       var res = wx.getStorageSync('localUserCache')
-      console.log("app onLaunch")
-      console.log(res)
 
       if (res["uin"] && res["uin"] != 100000) {
         that.globalData.localUserInfo = res
@@ -123,7 +122,7 @@ App({
     }
     if (wx.getNetworkType) {
       wx.getNetworkType({
-        success: function(res) {
+        success: function (res) {
           if (res.networkType == "none") {
             wx.navigateBack({
               delta: 1
@@ -133,7 +132,7 @@ App({
               content: '无法打开小程序，请检查网络状态',
               showCancel: false,
               confirmText: "知道了",
-              success: function(resp) {
+              success: function (resp) {
                 if (resp.confirm) {
                   wx.navigateBack({
                     delta: 1
@@ -145,8 +144,33 @@ App({
         },
       })
     }
+
+
+
+    setTimeout(() => {
+      const updateManager = wx.getUpdateManager()
+      updateManager.onCheckForUpdate(function (res) {
+        // 请求完新版本信息的回调
+        console.log('请求完新版本信息的回调', res.hasUpdate)
+      })
+      updateManager.onUpdateReady(() => {
+        wx.showModal({
+          title: '更新提示',
+          content: '新版本已经准备好，是否重启应用？',
+          success(res) {
+            if (res.confirm) {
+              // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+              updateManager.applyUpdate();
+            }
+          }
+        })
+      })
+    }, 1000 * 60);
+
+
+
   },
-  onShow: function() {
+  onShow: function () {
     var that = this;
     if (this.globalData.websocket == 0) {
       this.createSocket(this.globalData.localUserInfo.uin, this.globalData.localUserInfo.token)
@@ -154,7 +178,7 @@ App({
     wx.request({
       url: this.globalData.baseUrl + 'sysconfig',
       method: 'GET',
-      success: function(res) {
+      success: function (res) {
         console.log('config===============')
         console.log(res);
         if (res.data.ret == 0) {
@@ -163,16 +187,16 @@ App({
           that.globalData.config = that.globalData.configDefault
         }
       },
-      fail: function() {
+      fail: function () {
         that.globalData.config = that.globalData.configDefault
       }
     })
   },
-  onHide: function() {
+  onHide: function () {
 
   },
 
-  createSocket: function(uin, token) {
+  createSocket: function (uin, token) {
     var that = this;
     var baseUrl = this.globalData.baseUrl;
     this.globalData.websocket = 1;
@@ -194,7 +218,7 @@ App({
         }),
         method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         header: headerDict, // 设置请求的 header
-        success: function(res) {
+        success: function (res) {
           console.log(res.data)
         }
       })
@@ -204,7 +228,7 @@ App({
         url: 'wss://www.xiangshuispace.com/chat'
       })
 
-      wx.onSocketOpen(function(res) {
+      wx.onSocketOpen(function (res) {
         console.log('WebSocket连接已打开！')
         socketOpen = true
         sendSocketMessage(JSON.stringify({
@@ -213,11 +237,11 @@ App({
         }))
       })
 
-      wx.onSocketError(function(res) {
+      wx.onSocketError(function (res) {
         console.log('WebSocket连接打开失败，请检查！')
       })
 
-      wx.onSocketClose(function(res) {
+      wx.onSocketClose(function (res) {
         console.log('WebSocket 已关闭！')
         console.log(res);
         console.log(that.globalData.timer)
@@ -243,7 +267,7 @@ App({
         }
       }
 
-      wx.onSocketMessage(function(res) {
+      wx.onSocketMessage(function (res) {
         console.log('收到服务器内容：' + res.data)
         var reqData = JSON.parse(res.data)
         console.log(reqData);
@@ -254,7 +278,7 @@ App({
             data: {},
             method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
             header: headerDict, // 设置请求的 header
-            success: function(resp) {
+            success: function (resp) {
               console.log("booking/bookingid/=========")
               console.log(resp.data)
               var timeString = utils.timeShowString(resp.data.booking_info.end_time - resp.data.booking_info.create_time)
@@ -274,16 +298,16 @@ App({
     }
     //链接websocket结束
   },
-  getUserInfo: function(cb) {
+  getUserInfo: function (cb) {
     var that = this
     if (this.globalData.userInfo) {
       typeof cb == "function" && cb(this.globalData.userInfo)
     } else {
       //调用登录接口
       wx.login({
-        success: function() {
+        success: function () {
           wx.getUserInfo({
-            success: function(res) {
+            success: function (res) {
               console.log(res)
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo)
@@ -293,7 +317,7 @@ App({
       })
     }
   },
-  getLocalUserInfo: function(cb) {
+  getLocalUserInfo: function (cb) {
     var that = this
     if (that.globalData.localUserInfo) {
       typeof cb == "function" && cb(that.globalData.userInfo)
@@ -304,10 +328,10 @@ App({
       })
     }
   },
-  setUserInfo: function(info) {
+  setUserInfo: function (info) {
     that.globalData.userInfo = userinfo
   },
-  setLocalUserInfo: function(info) {
+  setLocalUserInfo: function (info) {
     var that = this
     that.globalData.rotateOrigin = 0
     that.globalData.musicPlayId = null
@@ -320,11 +344,11 @@ App({
     }
   },
   //初始化健康报告数据
-  initHealthReportCache: function() {
+  initHealthReportCache: function () {
     wx.setStorage({
       key: 'healthReportCache',
       data: {},
-      complete: function(res) {
+      complete: function (res) {
         console.log(res)
       }
     })
@@ -365,7 +389,7 @@ function showVersionUpdate() {
   var baseVersion = ''
   var sysVersion = ''
   wx.getSystemInfo({
-    success: function(res) {
+    success: function (res) {
       console.log(res)
       baseVersion = res.SDKVersion
       sysVersion = res.version
@@ -380,7 +404,7 @@ function showVersionUpdate() {
       content: "未避免影响您使用“享+”的部分功能，建议您升级微信客户端",
       showCancel: false,
       confirmText: "知道了",
-      complete: function(res) {
+      complete: function (res) {
         console.log(res)
       }
     })

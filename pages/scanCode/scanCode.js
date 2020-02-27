@@ -28,7 +28,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this
     console.log(options)
     // toast组件实例
@@ -44,11 +44,11 @@ Page({
         content: '您的账号在另一台设备登录，如非本人操作，账户可能被盗用，请重新登录。',
         confirmText: "确定",
         showCancel: false,
-        success: function(res) {
+        success: function (res) {
           if (res.confirm) {
             wx.removeStorage({
               key: 'localUserCache',
-              success: function(res) {
+              success: function (res) {
                 const backgroundAudioManager = wx.getBackgroundAudioManager();
                 if (backgroundAudioManager.src) {
                   backgroundAudioManager.stop()
@@ -142,7 +142,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onShow: function() {
+  onShow: function () {
     this.setData({
       firstShow: 1
     })
@@ -174,7 +174,7 @@ Page({
   /**
    * 跳转到活动页面
    */
-  webViewAction: function(event) {
+  webViewAction: function (event) {
     var chooseId = event.currentTarget.dataset.index;
     try {
       request({
@@ -183,7 +183,7 @@ Page({
         data: {
           page_id: 1000 + this.data.activityList[chooseId].id
         },
-        error: () => {}
+        error: () => { }
       });
     } catch (exception) {
       console.error(exception.message);
@@ -191,7 +191,9 @@ Page({
     var canIUse = wx.canIUse('web-view');
     console.log(canIUse)
     if (canIUse) {
-      if (this.data.activityList[chooseId].url == 'xiangshui://mine/convert') {
+      if (!this.data.activityList[chooseId].url || !this.data.activityList[chooseId].url.trim()) {
+        return;
+      } else if (this.data.activityList[chooseId].url == 'xiangshui://mine/convert') {
         wx.navigateTo({
           url: "/pages/redeem/redeem"
         })
@@ -229,19 +231,19 @@ Page({
   /**
    * 常见问题
    */
-  normalQuestionsAction: function() {
+  normalQuestionsAction: function () {
     network.downloadWebPage("https://www.xiangshuispace.com/www/Q&A.pdf")
   },
   /** 
    *打开定位 
    */
-  openLocation: function() {
+  openLocation: function () {
     var that = this;
     wx.showModal({
       title: '请允许享+定位',
       content: '请确保微信开启了定位服务，且允许享+确定您的位置',
       confirmText: "设置",
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           wx.openSetting({
             success: (res) => {
@@ -261,12 +263,12 @@ Page({
   /**
    * 获取定位
    */
-  getLocation: function() {
+  getLocation: function () {
     var that = this;
     //获取定位
     wx.getLocation({
       // type:"2",
-      success: function(res) {
+      success: function (res) {
         console.log('获取定位')
         console.log(res)
         var loc = utils.convert_GCJ02_To_BD09(res.latitude, res.longitude)
@@ -276,7 +278,7 @@ Page({
         })
         that.requestArea_List()
       },
-      fail: function() {
+      fail: function () {
         that.show('定位失败')
         // wx.showToast({
         //   title: '定位失败',
@@ -288,7 +290,7 @@ Page({
   /**
    * 我的页面
    */
-  callServiceAction: function() {
+  callServiceAction: function () {
     wx.navigateTo({
       url: '/pages/mine/mine',
     })
@@ -296,13 +298,13 @@ Page({
   /**
    * 扫码活动
    */
-  scanCodeAction: function() {
+  scanCodeAction: function () {
     scanCode(this)
   },
   /**
    * 点击区域进入详情
    */
-  areaDetailAction: function(e) {
+  areaDetailAction: function (e) {
     wx.navigateTo({
       url: '/pages/areaInfo/areaInfo?area_id=' + e,
     })
@@ -310,12 +312,12 @@ Page({
   /**
    * 分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
     return {
       title: "您的自助休息空间+健康加油站",
       path: '/pages/scanCode/scanCode?uin=' + app.globalData.userInfo.uin,
-      success: function(res) {},
-      fail: function(res) {
+      success: function (res) { },
+      fail: function (res) {
         console.log(res)
       }
     }
@@ -323,13 +325,13 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     this.getLocation();
   },
   /**
    * 请求首页数据
    */
-  requestArea_List: function() {
+  requestArea_List: function () {
     var that = this;
     var correctUrl = ''
     wx.stopPullDownRefresh()
@@ -390,13 +392,13 @@ Page({
 
 function scanCode(that) {
   wx.login({
-    success: function(res) {
+    success: function (res) {
       console.log("code===========")
       console.log(res.code)
     }
   })
   wx.scanCode({
-    complete: function(res) {
+    complete: function (res) {
       console.log('............')
       console.log(res)
       if ((res.scanType == "QR_CODE" || res.type == "QR_CODE") && res.errMsg == "scanCode:ok" && res.result.indexOf('id') != -1) {
@@ -447,7 +449,7 @@ function openCapsule(capsule_id, that) {
           wx.showModal({
             content: '晚来一步，太空舱已被占用，看看附近有没有其他的舱可用吧',
             confirmText: '好的',
-            success: function(resp) {
+            success: function (resp) {
               if (resp.confirm) {
                 that.areaDetailAction(res.data.capsule_info.area_id)
               }
@@ -466,7 +468,7 @@ function openCapsule(capsule_id, that) {
                 wx.showModal({
                   content: calculate_rule,
                   confirmText: "立即开舱",
-                  success: function(resp) {
+                  success: function (resp) {
                     if (resp.confirm) {
                       wx.navigateTo({
                         url: '/pages/openDoor/openDoor?capsule_id=' + capsule_id
@@ -491,7 +493,7 @@ function openCapsule(capsule_id, that) {
         wx.showModal({
           content: res.data.err,
           confirmText: confitext,
-          success: function(resp) {
+          success: function (resp) {
             if (resp.confirm) {
               if (confitext == "补全押金") {
                 wx.navigateTo({
@@ -509,7 +511,7 @@ function openCapsule(capsule_id, that) {
         wx.showModal({
           content: res.data.err,
           confirmText: "去充值",
-          success: function(resp) {
+          success: function (resp) {
             if (resp.confirm) {
               wx.navigateTo({
                 url: `/pages/myWallet/myWallet?openCapsuleCmd=${capsule_id}`,
@@ -521,7 +523,7 @@ function openCapsule(capsule_id, that) {
         wx.showModal({
           content: res.data.err,
           confirmText: "去认证",
-          success: function(resp) {
+          success: function (resp) {
             if (resp.confirm) {
               wx.navigateTo({
                 url: `/pages/verifi/verifi?openCapsuleCmd=${capsule_id}`,
@@ -534,7 +536,7 @@ function openCapsule(capsule_id, that) {
   } else {
     wx.removeStorage({
       key: 'localUserCache',
-      success: function(res) {
+      success: function (res) {
         app.setLocalUserInfo();
         wx.navigateTo({
           url: '/pages/login/login'
@@ -560,7 +562,7 @@ function checkBooking(that) {
         if (parseInt(item.status) == 1) {
           wx.redirectTo({
             url: '/pages/orderDetail/orderDetail?booking_id=' + item.booking_id + '&create_time=' + item.create_time + "&calculate_rule=" + item.calculate_rule + "&capsule_id=" + item.capsule_id + "&gate_capsule_id=" + res.data.gate_capsule_id,
-            complete: function(res) {
+            complete: function (res) {
               console.log(res)
             }
           })
@@ -569,7 +571,7 @@ function checkBooking(that) {
           var timeString = utils.timeShowString(item.end_time - item.create_time)
           wx.reLaunch({
             url: '/pages/orderPay/orderPay?time=' + timeString + '&final_price=' + item.final_price + '&booking_id=' + item.booking_id + "&status=" + item.status + "&capsule_id=" + item.capsule_id + "&calculate_rule=" + item.calculate_rule + "&balance=" + item.balance + "&need_charge=" + item.need_charge,
-            complete: function(res) {
+            complete: function (res) {
               console.log(res)
             }
           })

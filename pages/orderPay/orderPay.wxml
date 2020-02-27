@@ -21,9 +21,14 @@
     <text class="use_time_2" wx:if="{{need_charge==1}}">{{balance?balance:0}}元,余额不足，扣款失败</text>
   </view>
   <view class="button_container">
-    <button class="pay_rightnow" bindtap="payRightNowAction" style="plain">立即支付</button>
+    <button class="pay_rightnow" bindtap="payRightNowAction">立即支付</button>
+    <!-- <button class="pay_rightnow bg-white border border-primary text-primary" catchtap="payByGuohang">国航里程支付</button> -->
     <button class="charge_rightnow" bindtap="chargeRigthNowAction" disabled="{{payRightNowDisabled}}">充值享优惠</button>
     <text class="charge_hint">最高赠送100元！</text>
     <!-- <image src="../../images/call_service_white.png" bindtap="callServiceAction" class="call_service"></image> -->
   </view>
 </view>
+
+
+
+<include src="/component/red_envelopes/red_envelopes.wxml"/>

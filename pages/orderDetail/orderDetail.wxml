@@ -106,22 +106,27 @@
   <view class='count_line'></view>
   <view class='count_functions'>
     <view class='function_item' data-type='music' bindtap='jumpTo'>
-      <image src='../../images/count_function1.png' class='count_function1'></image>
-      <text class='function_item_text' style='color:#fe393d;'>冥想体验月</text>
+      <image src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/19174966B3DD72B5B7AB70B688CCA46D' class='count_function1'></image>
+      <text class='function_item_text' style=''>冥想体验月</text>
     </view>
     <view class='function_item' data-type='skin' bindtap='jumpTo'>
       <image src='../../images/count_function2.png' class='count_function2'></image>
       <text class='function_item_text'>肤质测试</text>
     </view>
-    <view class='function_item' data-type='alarmClock' bindtap='jumpTo'>
+    <!-- <view class='function_item' data-type='alarmClock' bindtap='jumpTo'>
       <image src='../../images/count_function3.png' class='count_function3'></image>
       <text class='function_item_text'>闹钟</text>
+    </view> -->
+    <view class='function_item' data-type='alarmClock' catchtap="bindSetValue" data-field="moreShow2" data-value="{{true}}">
+      <image src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/EBB9F71BF9AF74C555F65EA3F6CAC72F' class='count_function3'></image>
+      <text class='function_item_text'>健康服务</text>
     </view>
     <view class='function_item' data-type='more' bindtap='toggleMoreAction'>
       <image src='../../images/count_function4.png' class='count_function4'></image>
       <text class='function_item_text'>心率/血压</text>
     </view>
   </view>
+  <!-- 心率血压弹层 -->
   <view class='more_content_mask {{moreShow ? "more_content_mask_active" : ""}}'>
     <view class='more_content_black' bindtap='toggleMoreAction'></view>
     <view class='more_content_wrap {{moreShow ? "more_content_wrap_active" : ""}}'>
@@ -156,6 +161,7 @@
       <view class='more_button' bindtap='toggleMoreAction'>关闭</view>
     </view>
   </view>
+
   <view class="order_fault order_fault_flow" bindtap="normalQuestionsAction">使用流程</view>
   <view class="order_fault order_fault_report" bindtap="faultReportAction">故障</view>
   <!--月卡买单特惠  -->
@@ -167,7 +173,7 @@
         </image>
         <text class="text_title">月卡买单特惠</text>
         <text class="text_subtitle">59.8元，每天免费休息45分钟</text>
-        <text class='text_subtitle' style='color:#fae54f;margin-top:.5em;'>购买季卡低至8折</text>
+        <text class='text_subtitle' style='color:#fae54f;margin-top:.5em;'>非高峰期使用，现金红包秒提现</text>
       </view>
       <view class="text_content">
         <text class="text_content_item">
@@ -199,8 +205,8 @@
           <image mode='widthFix' style='width:600rpx;height:auth;' src='{{act_img_url}}' bindtap='gotoActPage'></image>
           <!-- <image mode='widthFix' class='absolute right-0 top-0' style='margin-top:20rpx;margin-right:20rpx;width:30rpx;height:30rpx;' src='images/icon-close.png' bindtap='hideActModal'></image> -->
           <!-- <view class='absolute w100 left-0 bottom-0 text-center' style='padding:65rpx 0;'> -->
-            <!-- <image mode='widthFix' style='width:350rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/1B28BD84C3AE64E496F134413B82479B' bindtap='gotoActPage'></image> -->
-            <!-- <view class='text-white f24' style='margin-bottom:25rpx; margin-top:20rpx;' bindtap='gotoMusicActDetail'>活动详情>></view> -->
+          <!-- <image mode='widthFix' style='width:350rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/1B28BD84C3AE64E496F134413B82479B' bindtap='gotoActPage'></image> -->
+          <!-- <view class='text-white f24' style='margin-bottom:25rpx; margin-top:20rpx;' bindtap='gotoMusicActDetail'>活动详情>></view> -->
           <!-- </view> -->
         </view>
         <image mode='widthFix' class='cx' style='margin-top:20rpx;margin-left:50%;width:60rpx;height:60rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/090813358E7F020F48F2AEF9BDAFDD16' bindtap='hideActModal'></image>
@@ -229,5 +235,49 @@
         </view>
       </view>
     </view>
+  </view>
+</view>
+
+<!-- 健康弹层 -->
+<view wx:if="{{!!moreShow2}}" class="fixed top-0 left-0 w100 h100 z-index-1000" style="">
+  <view class="absolute z-index-800 top-0 left-0 w100 h100" style="background-color:rgba(0,0,0,.5)" catchtap="bindSetValue" data-field="moreShow2" data-value="{{false}}"></view>
+  <view class="absolute z-index-900 bottom-0 left-0 right-0 bg-white" style="padding-top:35rpx;padding-left:30rpx;padding-right:30rpx;">
+    <view class="flex flex-x f26 text-primary" style="margin-bottom:30rpx;">
+      <view class="flex-1 text-center" catchtap="bindOpenActionLink" data-pageid="{{10001}}" data-link="https://hmall.guahao.com/activity/c385be6b0a52439a9109ddb80785e0b2?chb=jkvipdb&sharecode=emdkwr">
+        <view class="bg relative inline-block" style="width:110rpx;height:110rpx;margin-bottom:18rpx;">
+          <image mode="aspectFit" class="absolute cxy" style="width:50%;height:50%;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/51B8E8F7F0AE3A6142B69EE2BB6BED51"></image>
+        </view>
+        <view>健康体检</view>
+      </view>
+      <view class="flex-1 text-center" catchtap="bindOpenActionLink" data-pageid="{{10002}}" data-link="https://m.chunyuyisheng.com/">
+        <view class="bg relative inline-block" style="width:110rpx;height:110rpx;margin-bottom:18rpx;">
+          <image mode="aspectFit" class="absolute cxy" style="width:50%;height:50%;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/C10E07BF459E8FCFB9783C399C26D980"></image>
+        </view>
+        <view>在线问诊</view>
+      </view>
+      <view class="flex-1 text-center">
+        <view class="bg relative inline-block" style="width:110rpx;height:110rpx;margin-bottom:18rpx;">
+          <image mode="aspectFit" class="absolute cxy" style="width:50%;height:50%;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/654F8E8EB2E4F70BA952A4A26D6543C7"></image>
+        </view>
+        <view style="color:#dddcdc;">心里咨询</view>
+      </view>
+      <view class="flex-1 text-center">
+        <view class="bg relative inline-block" style="width:110rpx;height:110rpx;margin-bottom:18rpx;">
+          <image mode="aspectFit" class="absolute cxy" style="width:50%;height:50%;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/33899A25E00A758ABA12DB86D8621AC5"></image>
+        </view>
+        <view style="color:#dddcdc;">健康保险</view>
+      </view>
+    </view>
+    <view class="flex flex-x f26 text-primary" style="margin-bottom:30rpx;">
+      <view class="flex-1 text-center">
+        <view class="bg relative inline-block" style="width:110rpx;height:110rpx;margin-bottom:18rpx;">
+          <image mode="aspectFit" class="absolute cxy" style="width:50%;height:50%;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/4B137F1E2B4A369B0CC03B6034D6E8C6"></image>
+        </view>
+        <view style="color:#dddcdc;">在线送药</view>
+      </view>
+      <view class="flex-3 text-center">
+      </view>
+    </view>
+    <view class="bottom-top text-center text-666 f30" style="line-height:95rpx;border-top:1px #f0f0f0 solid;" catchtap="bindSetValue" data-field="moreShow2" data-value="{{false}}">关闭</view>
   </view>
 </view>

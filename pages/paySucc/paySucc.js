@@ -3,6 +3,16 @@ var network = require("../../utils/network.js")
 var utils = require("../../utils/util.js")
 var request = require('../../utils/request.js').default
 
+
+const {
+  mixins
+} = require('../../utils/common.js');
+
+const Scratch = require('../../utils/scratch.js').default;
+
+
+const scratch = new Scratch();
+
 function type(o, t) {
   if (t === undefined) {
     if (o !== o) return 'NaN';
@@ -15,6 +25,13 @@ function type(o, t) {
 
 
 Page({
+
+  ...mixins,
+
+  ...require('../../component/red_envelopes/red_envelopes.js').mixins,
+
+  ...scratch.methods(),
+
   data: {
     price: 0,
     balance: 0,
@@ -86,6 +103,9 @@ Page({
     this.getBookingInfo()
   },
   onLoad: function(options) {
+
+
+
     // toast组件实例
     new app.ToastPannel();
     this.initData();
@@ -166,54 +186,44 @@ Page({
     // }, that);
 
     request({
-      url: `/api/booking/bookingid/${that.data.booking_id}`,
+      url: `/api/booking/bookingid/${this.data.booking_id}`,
       success: resp => {
-        if (type(resp.booking_info.red_envelope, 'Number') && resp.booking_info.red_envelope > 0) {
-          this.selectComponent('#redpModal').setData({
-            show: true,
-            title: '躺着也赚钱',
-            sub_title: '恭喜您获得红包',
-            footer_text: '红包将在5分钟内自动放入「我的-钱包-奖金提现」',
-            unit: '元',
-            fail_text: 'String',
-            prize_text: resp.booking_info.red_envelope / 100,
-          })
-        }
+
+
+
+        this.checkPrizeQuota(this.data.booking_id, null, () => {
+          if (type(resp.booking_info.red_envelope, 'Number') && resp.booking_info.red_envelope > 0) {
+            this.selectComponent('#redpModal').setData({
+              show: true,
+              title: '躺着也赚钱',
+              sub_title: '恭喜您获得红包',
+              footer_text: '红包将在5分钟内自动放入「我的-钱包-奖金提现」',
+              unit: '元',
+              fail_text: 'String',
+              prize_text: resp.booking_info.red_envelope / 100,
+            })
+          } else if (resp.red_bag && resp.red_bag.length > 0 && !resp.red_bag[0].status) {
+            // } else if (resp.red_bag && resp.red_bag.length > 0) {
+            scratch.init(this).openModal().start({
+              r: 10, //笔触半径
+              maskColor: "#ddd", //没有图片遮罩层颜色
+              red_bag_id: resp.red_bag[0].id,
+              callback: () => {
+                //清除画布回调  
+                scratch.hideCanvas();
+              }
+            }).priceText(resp.red_bag[0].price / 100);
+          }
+        });
+
       }
     });
 
 
-    network.shareSleepNetwork("booking/bookingid/" + that.data.booking_id, {}, "GET", (res) => {
-      if (res.data.ret == 0 && res.data.booking_info && res.data.booking_info.card_item) {
-        request({
-          url: '/api/acitvity/get_mid_autumn_card_list',
-          loading: true,
-          success: resp => {
-            let countComplete = resp.success_num || 0;
-            let isExchange = resp.status == 1;
-            let cardList = resp.card_list || [];
-            let cardMap = {};
-            cardList.map(card => {
-              cardMap[card] = true;
-            });
-            let isComplete = cardMap['中'] && cardMap['秋'] && cardMap['节'] && cardMap['快'] && cardMap['乐'] ? true : false;
-            this.selectComponent('#zqPrizeModal').setData({
-              show: true,
-              title: '中秋集卡赢大奖',
-              card: res.data.booking_info.card_item,
-              footer_text: isComplete ? '您已集齐卡片，赶快兑换大奖吧' : '集齐五张卡片就可以兑换大奖哦',
-              countComplete,
-              isExchange,
-              cardMap,
-              isComplete,
-              redpModalNode: this.selectComponent('#redpModal')
-            });
-          }
-        });
-      }
-    }, that);
 
   },
+
+  
   showActModal: function() {
     this.setData({
       showActModal: true,

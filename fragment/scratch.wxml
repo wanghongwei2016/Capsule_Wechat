@@ -1,0 +1,29 @@
+<view wx:if="{{!!scratch.show}}" class="fixed" style="z-index:100;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,.7);">
+  <view class="block absolute cxy">
+    <view class="relative clearfix">
+      <image mode="widthFix" class="fl" style="width:600rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/3DA3A4E56F0FD5A2B9DBBD6D448381AF"></image>
+
+
+      <view class="absolute cx text-center w100 f36 text-white" style="top:48%;width: 510rpx; height: 290rpx;border: solid 17rpx white;background-color:#fff5e9;">
+
+        <view class="text-center f30" style="color:#fa4b0f;margin-top:.5em;">恭喜你获得现金</view>
+
+        <view class="text-center" style="font-size:80rpx;color:#fb5411;">{{scratch.priceText}}
+          <text style="font-size:50rpx;">元</text>
+        </view>
+        <view class="text-center">
+          <image mode="widthFix" class="" style="width:375rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/5678FA9C68C338FD6095200DD64C0B7F" catchtap="bindOpenActionLink" data-link="xcx:/pages/act_zhounian/saveimg/saveimg"></image>
+        </view>
+        <view class="text-center f22" style="color:#fa4b0f;">现金24小时内自动放入你的享+钱包</view>
+        <canvas wx:if="{{!scratch.hideCanvas}}" id="scratch" canvas-id="scratch" disable-scroll="{{scratch.show}}" class="absolute w100 h100" style="z-index:10;top:{{scratch.hideStartButton?'0':'1000%'}};left:0;background:transparent;" bindtouchstart="scratchTouchStart"
+          bindtouchmove="scratchTouchMove" bindtouchend="scratchTouchEnd"></canvas>
+
+        <image wx:if="{{!scratch.hideStartButton}}" class="absolute w100 h100" style="top:0;left:0;z-index:20;" catchtap="bindTapStartButton" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/21D42E021EC151E9ACDAD2B0924240A9"></image>
+      </view>
+      <view class="f26 text-white absolute w100 text-center" style="bottom:.5em;" catchtap="bindOpenActionLink" data-link="xcx:/pages/act_zhounian/primary/primary">下单签到7天赢大奖>></view>
+    </view>
+    <view class="text-center" style="margin-top:60rpx;">
+      <view class="icon icon-close " style="width:80rpx;height:80rpx;" catchtap="scratchClose"></view>
+    </view>
+  </view>
+</view>

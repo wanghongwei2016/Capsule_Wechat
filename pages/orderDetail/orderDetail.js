@@ -4,6 +4,9 @@ var network = require("../../utils/network.js")
 var utils = require("../../utils/util.js")
 var request = require("../../utils/request.js").default
 var storageService = require('../../utils/storageService.js').default
+var {
+  mixins, clickSum
+} = require('../../utils/common.js')
 
 
 function openActionLink(actionlink) {
@@ -30,6 +33,7 @@ function bindOpenActionLink(event) {
 
 
 var pageData = {
+  ...mixins,
   data: {
     count_show: "00:00:00",
     count_end: false,
@@ -59,7 +63,7 @@ var pageData = {
     showed_buy_card: 1, //默认不显示买单特惠， 第一次点击结束订单才会显示 1初始状态，未请求过接口，不显示弹框 2 请求过预结算 可弹出窗口  3 请求过 被关闭 不再请求接口
     auto_end: false
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     // 生命周期函数--监听页面加载
     // toast组件实例
     new app.ToastPannel();
@@ -83,7 +87,7 @@ var pageData = {
         count_show: timeShow
       })
     }
-    setInterval(function() {
+    setInterval(function () {
       timeKeeper(that.data.count)
     }, 1000)
     this.checkHealthReportCache()
@@ -96,7 +100,7 @@ var pageData = {
     }
 
   },
-  showActModal: function() {
+  showActModal: function () {
     request({
       url: '/api/booking/get_booking_advertising',
       success: resp => {
@@ -108,12 +112,12 @@ var pageData = {
       }
     });
   },
-  hideActModal: function() {
+  hideActModal: function () {
     this.setData({
       showActModal: false,
     });
   },
-  gotoActPage: function() {
+  gotoActPage: function () {
     request({
       url: `/api/statistics/click_sum`,
       method: 'post',
@@ -127,18 +131,18 @@ var pageData = {
     //   url: '/pages/act_yanzhao/act_yanzhao',
     // })
   },
-  gotoMusic: function() {
+  gotoMusic: function () {
     this.hideActModal();
     wx.navigateTo({
       url: '/pages/music/music',
     })
   },
-  gotoMusicActDetail: function() {
+  gotoMusicActDetail: function () {
     wx.navigateTo({
       url: '/pages/act_music/act_music',
     })
   },
-  onShow: function() {
+  onShow: function () {
     var that = this;
     wx.setNavigationBarTitle({
       title: '正在使用'
@@ -167,13 +171,13 @@ var pageData = {
     }
     //如果auto_end 为true  则自动显示结束弹框
     if (this.data.auto_end == true) {
-      this.handEndBooking(() => {})
+      this.handEndBooking(() => { })
     }
   },
   /**
    * 跳转到活动页面
    */
-  webViewAction: function(event) {
+  webViewAction: function (event) {
     var url = event.currentTarget.dataset.url;
     var canIUse = wx.canIUse('web-view');
     console.log(canIUse)
@@ -207,7 +211,7 @@ var pageData = {
     }
   },
   //获取活动列表
-  requestActivityList: function() {
+  requestActivityList: function () {
     var that = this
     network.shareSleepNetwork("/booking/get_activity_list", {}, "GET", function complete(res) {
       if (parseInt(res.data.ret) == 0 && res.data.activity_list && res.data.activity_list.length > 0) {
@@ -219,7 +223,7 @@ var pageData = {
     }, that)
   },
   //检测有无健康数据缓存，没有的话初始化healthReportCache
-  checkHealthReportCache: function() {
+  checkHealthReportCache: function () {
     try {
       var value = wx.getStorageSync('healthReportCache')
       console.log(value)
@@ -232,7 +236,7 @@ var pageData = {
     }
   },
   //跳转到故障页面
-  faultReportAction: function() {
+  faultReportAction: function () {
     // utils.callService()
     wx.navigateTo({
       url: '../faultReport/faultReport?capsule_id=' + this.data.capsule_id_origin + '&booking_id=' + this.data.booking_id + '&area_id=' + this.data.area_id + '&phone=' + app.globalData.localUserInfo.phone
@@ -240,7 +244,7 @@ var pageData = {
   },
 
   //使用流程
-  normalQuestionsAction: function() {
+  normalQuestionsAction: function () {
     console.log(1)
     var canIUse = wx.canIUse('web-view');
     if (canIUse) {
@@ -257,7 +261,7 @@ var pageData = {
       })
     }
   },
-  repeatRequest: function() {
+  repeatRequest: function () {
     var that = this
     that.setData({
       failReqestNum: that.data.failReqestNum + 1
@@ -285,7 +289,7 @@ var pageData = {
     }, 0)
   },
   //结束入住，更新订单信息
-  terminateSleepAction: function(e) {
+  terminateSleepAction: function (e) {
     var that = this
 
 
@@ -312,7 +316,7 @@ var pageData = {
     }
   },
 
-  endOrderAction: function() {
+  endOrderAction: function () {
 
     var that = this
     if (wx.showLoading) {
@@ -367,7 +371,7 @@ var pageData = {
             wx.showModal({
               content: res.data.err,
               confirmText: "结束使用",
-              success: function(resp) {
+              success: function (resp) {
                 if (resp.confirm) {
                   that.endOrderAction();
                 }
@@ -396,7 +400,7 @@ var pageData = {
         wx.showModal({
           content: res.data.err,
           confirmText: "结束使用",
-          success: function(resp) {
+          success: function (resp) {
             if (resp.confirm) {
               // that.setData({ failReqestNum: 0 });
               // that.repeatRequest()
@@ -414,7 +418,7 @@ var pageData = {
           content: '如您已出舱并关闭舱门,请点击“确认”结束订单',
           showCancel: true,
           confirmText: "确认",
-          success: function(resp) {
+          success: function (resp) {
             if (resp.confirm) {
               // that.setData({ failReqestNum: 0 });
               // that.repeatRequest()
@@ -439,7 +443,7 @@ var pageData = {
     }, that.data.hideErrorTag)
   },
 
-  openGateAction: function() {
+  openGateAction: function () {
     var that = this
     network.shareSleepNetwork("capsule/" + that.data.gate_capsule_id + "/info", {}, "GET", function complete(res) {
       if (parseInt(res.data.ret) == 0) {
@@ -450,7 +454,7 @@ var pageData = {
     }, that)
   },
   // 开窗
-  openTemporaryAction: function(callback) {
+  openTemporaryAction: function (callback) {
     var that = this
     if (wx.showLoading) {
       wx.showLoading({
@@ -474,7 +478,7 @@ var pageData = {
     }
   },
   // 关窗
-  closeTemporaryAction: function() {
+  closeTemporaryAction: function () {
     var that = this
     if (wx.showLoading) {
       wx.showLoading({
@@ -487,16 +491,16 @@ var pageData = {
       if (wx.hideLoading) {
         wx.hideLoading()
       }
-      if (res.data && res.data.ret == 0) {}
+      if (res.data && res.data.ret == 0) { }
     }, that)
   },
   //跳转到音乐界面
-  openMusicAction: function() {
+  openMusicAction: function () {
     wx.navigateTo({
       url: '/pages/music/music',
     })
   },
-  handEndBooking: function(callback) {
+  handEndBooking: function (callback) {
     var that = this;
 
     if (!storageService.hadMonthCardModal(this.data.booking_id)) {
@@ -522,7 +526,7 @@ var pageData = {
       title: "是否已出舱？",
       content: '结束使用后，紫外灯消毒即将启动',
       confirmText: "已出舱",
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           that.endOrderAction()
         }
@@ -532,7 +536,7 @@ var pageData = {
       callback()
     }
   },
-  searchChargeAction: function() {
+  searchChargeAction: function () {
     var that = this;
     if (wx.showLoading) {
       wx.showLoading({
@@ -559,13 +563,13 @@ var pageData = {
   /**
    * 拨打客服电话
    */
-  callServiceAction: function() {
+  callServiceAction: function () {
     utils.callService(this.data.phoneService)
   },
   /**
    * 底部跳转页面
    */
-  jumpTo: function(e) {
+  jumpTo: function (e) {
     var jumpType = e.currentTarget.dataset.type
     if (jumpType == 'music') {
       wx.navigateTo({
@@ -597,7 +601,7 @@ var pageData = {
   /**
    * 切换按键状态
    */
-  changeStatus: function(e) {
+  changeStatus: function (e) {
     var functionType = e.currentTarget.dataset.function
     console.log(functionType)
     if (functionType == 'end') {
@@ -641,7 +645,7 @@ var pageData = {
       })
     }
   },
-  backStatus: function(e) {
+  backStatus: function (e) {
     var functionType = e.currentTarget.dataset.function
     if (functionType == 'end') {
       this.setData({
@@ -684,7 +688,7 @@ var pageData = {
       })
     }
   },
-  handleSearchRule: function() {
+  handleSearchRule: function () {
     var that = this
     wx.showModal({
       title: "使用规则",
@@ -692,7 +696,7 @@ var pageData = {
       showCancel: false,
     })
   },
-  handleFunction: function(e) {
+  handleFunction: function (e) {
     var functionType = e.currentTarget.dataset.function
     var that = this
     if (functionType == 'end') {
@@ -868,7 +872,7 @@ var pageData = {
       })
     }
   },
-  toggleMoreAction: function() {
+  toggleMoreAction: function () {
     this.setData({
       moreShow: !this.data.moreShow
     })
@@ -877,7 +881,7 @@ var pageData = {
    * 月卡试结算
    */
 
-  cardPayTryAction: function(tryComplete) {
+  cardPayTryAction: function (tryComplete) {
 
     if (this.data.month_card_flag == 1 && this.data.month_card_end_time && this.data.month_card_end_time > 0) { //月卡过期提醒
       if (!storageService.hadMonthCardModal(this.data.booking_id)) {
@@ -915,7 +919,7 @@ var pageData = {
    * 购买月卡
    */
 
-  buyRightNowAction: function() {
+  buyRightNowAction: function () {
     wx.navigateTo({
       url: '/pages/card/card?bougth_card=' + (this.data.month_card_flag == 1 ? true : false) + "&page_from=1",
     })
@@ -924,12 +928,12 @@ var pageData = {
   /**
    * 月卡优惠关闭
    */
-  toggleRulesAction: function(e) {
+  toggleRulesAction: function (e) {
     this.setData({
       showed_buy_card: 3
     })
     // setTime/out(()=>{
-    this.handEndBooking(() => {})
+    this.handEndBooking(() => { })
 
     // },2000)
   },
@@ -939,7 +943,7 @@ var pageData = {
 
 
 
-  onFinishBtnClick: function() {
+  onFinishBtnClick: function () {
     if (!storageService.hadMonthCardModal(this.data.booking_id)) {
       if (this.data.month_card_flag != 1) { //没有月卡 月卡价格弹窗
         network.shareSleepNetwork("wallet/month_card_price", {
@@ -970,7 +974,7 @@ var pageData = {
   },
 
 
-  onMonthCardModalClose: function() {
+  onMonthCardModalClose: function () {
     this.setData({
       showed_buy_card: 1,
     });
@@ -978,7 +982,7 @@ var pageData = {
   },
 
 
-  confirmModalToUpdateBooking: function() {
+  confirmModalToUpdateBooking: function () {
     wx.showModal({
       title: "是否已出舱并关闭舱门？",
       content: '结束使用后，紫外灯消毒即将启动',
@@ -993,7 +997,7 @@ var pageData = {
 
 
 
-  updateBookingFn: function(repeatFn) {
+  updateBookingFn: function (repeatFn) {
     if (wx.showLoading) {
       wx.showLoading({
         title: "正在结束订单"

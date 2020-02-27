@@ -83,9 +83,9 @@ Page({
    */
   onShareAppMessage: function() {
     return {
-      title: '躺着也赚钱！不只是休息，还有奖金拿！',
+      title: '现金拿去花，不仅免费休息，还有奖金拿。',
       path: `/pages/scanCode/scanCode?assignUrl=${encodeURIComponent('xiangshui:/pages/act_make_money/act_make_money')}`,
-      imageUrl: 'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/87850955C251B926AF79A6B3248641F8',
+      imageUrl: 'https://s3.cn-north-1.amazonaws.com.cn/areaimgs/E55C83C2BC8B3198CFAE1328959F1C7E',
     }
 
   },

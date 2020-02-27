@@ -1,0 +1,28 @@
+<view wx:if="{{!!show}}" class="fixed" style="z-index:100;top:0;bottom:0;left:0;right:0;background-color:rgba(0,0,0,.7);">
+
+  <view class="block absolute cxy">
+
+    <view class="relative clearfix">
+      <image mode="widthFix" class="fl" style="width:520rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/BAFBB01DFA45380F21347AE62DCBD545"></image>
+
+      <view class="absolute text-center w100 f36 text-white" style="top:27%;">恭喜你获得</view>
+
+
+      <view class="absolute text-center w100 f64" style="top:39%;color:#ffe358;line-height:1;">
+        <view>{{title}}</view>
+        <view style="font-size:.7em;">{{sub_title}}</view>
+      </view>
+
+      <image mode="widthFix" class="absolute cx" style="width:375rpx;top:70%;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/ABD56C43B30D9A4CA875A4E72AAECC69" catchtap="close"></image>
+
+
+      <view class="absolute cx f24 text-white text-center" style="bottom:0;height:15%;width:375rpx;">
+        优惠券将在24小时内放入您的
+        <br/>享+账户：「我的-钱包-优惠券」
+      </view>
+    </view>
+    <view class="text-center hide">
+      <view class="icon icon-close " style="width:80rpx;height:80rpx;" catchtap="close"></view>
+    </view>
+  </view>
+</view>

@@ -1,9 +1,9 @@
 <!--pages/act_make_money/act_make_money.wxml-->
-<image mode='widthFix' class='w100 fl' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/1F39FF2360B54675E57256650D1B6824'></image>
-<view id='animationBox' class='absolute f30 w100 text-white text-center' style='top:940rpx;height:150rpx;overflow:hidden;'>
+<image mode='widthFix' class='w100 fl' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/60B666DA14E4F157728C2E6CCB149606'></image>
+<view id='animationBox' class='absolute f30 w100 text-white text-center' style='top:560rpx;height:150rpx;overflow:hidden;'>
   <view animation="{{animationData}}">
     <view wx:for="{{recordList}}" wx:for-item="record" style='height:50rpx;'>{{record.nickName}}刚刚获得了{{record.price/100}}元红包</view>
   </view>
 </view>
 
-<image mode='widthFix' class='absolute cx' style='top:1110rpx;width:440rpx;' src='https://s3.cn-north-1.amazonaws.com.cn/areaimgs/2D26EF2A6635D08DFB8D7BBF7DD80918' bindtap='gotoActPage'></image>
+<view class='absolute cx' style='top:740rpx;width:440rpx;height:100rpx;' bindtap='gotoActPage'></view>

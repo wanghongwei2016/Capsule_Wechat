@@ -1,0 +1,44 @@
+<view class="relative clearfix">
+  <image mode="widthFix" class="fl w100" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/CD7D908BC35586DD2100CFD245888D8B"></image>
+  <image mode="widthFix" class="fl w100" style="margin-top:-1px;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/303204ECF3A31ECEEDACA11071B67013"></image>
+  <image mode="widthFix" class="fl w100" style="margin-top:-1px;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/A2EF26E55A445197FBDE1CE9125BE0B0"></image>
+  <image mode="widthFix" class="absolute cx" style="top:100rpx;width:450rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/2E8310EA153E10E2057E07EDA5BA7797"></image>
+  <view class="absolute cx w100 text-center text-white" style="bottom:110rpx;">
+    <view class="f36">生活的压力 感情的困扰 情绪的焦虑</view>
+    <view class="f30">在这里，总有一个人愿意倾听您的声音</view>
+  </view>
+</view>
+<view class="relative z-index-2 bottom-0 left-0 right-0 w100 bg-white box text-center pt-1" style="top:-100rpx;">
+  <image mode="widthFix" class=" block" style="width:500rpx;margin-left:auto;margin-right:auto;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/95C34487FA181743CBD9CB9DC6A2B0F8"></image>
+  <view class="mt-1 text-gray f22">收费标准：倾听服务1元/分钟，来电收取市话费</view>
+  <view class="mt-1 text-primary">我的倾诉订单</view>
+
+  <view class="mx-1 mt-1 px-1 border border-radius relative flex flex-x flex-cross-center btn-active" style="padding-top:15rpx;padding-bottom:15rpx;">
+    <view class="flex-1 text-left">
+      <view class="f22">2020-02-27 12:56</view>
+      <view class="text-gray f22">通话时长 15分9秒 25.4元</view>
+    </view>
+    <text class="text-danger f30 blod ">待支付</text>
+  </view>
+
+
+  <view class="bolder mt-1">倾诉流程</view>
+  <view class="relative  flex flex-x mt-1 px-2">
+    <view class="flex-1 text-center">
+      <image mode="widthFix" class="" style="width:100rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/ECA8FF7042757F3CE5DC315A171CD871"></image>
+      <view class="f26 bold">点击马上倾诉</view>
+      <view class="f26 bold">匹配倾听员</view>
+    </view>
+    <image mode="widthFix" style="width:40rpx;margin-top:50rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/01571C3F9D375CD9610C0AE5198E4D64"></image>
+    <view class="flex-1 text-center">
+      <image mode="widthFix" class="" style="width:100rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/9FA16F742C504FB9A62D78752BFC1697"></image>
+      <view class="f26 bold">倾诉交流</view>
+    </view>
+    <image mode="widthFix" style="width:40rpx;margin-top:50rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/01571C3F9D375CD9610C0AE5198E4D64"></image>
+    <view class="flex-1 text-center">
+      <image mode="widthFix" class="" style="width:100rpx;" src="https://s3.cn-north-1.amazonaws.com.cn/areaimgs/70F95FEE1A0B4E93F603C5FA82FCFFD0"></image>
+      <view class="f26 bold">结束倾诉</view>
+      <view class="f26 bold">支付订单</view>
+    </view>
+  </view>
+</view>

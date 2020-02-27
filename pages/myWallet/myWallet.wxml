@@ -10,7 +10,10 @@
       <text class="des {{item.charge_id==charge_id?'active':''}}" style='color:#e84338!important;' data-chargeid="{{item.charge_id}}">得{{(item.money+item.bonus)/100.0}}元</text>
     </view>
   </view>
+  <view class='text-center f24 bg-white' style='color:#e84338!important;padding-bottom:1em;'>充值送等额现金礼包（含现金＋优惠券）</view>
+  
   <button class="rechargebutton" bindtap="rechargeAction">充值</button>
+  <button class="sharebutton" bindtap="bindOpenActionLink" data-link='https://www.xiangshuispace.com/www/activity/%E6%B8%85%E5%87%89%E4%B8%80%E5%A4%8F%E8%AF%A6%E6%83%85%E9%82%80%E8%AF%B7%E5%A5%BD%E5%8F%8B.html'>分享新用户最高得<text style="color:#e84338;">100元</text></button>
 </view>
 <view class="recharge_details">
   <text style='margin:0 20rpx;' bindtap="chargeDetailAction">充值明细</text>

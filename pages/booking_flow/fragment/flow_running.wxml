@@ -1,0 +1,67 @@
+<view class="relative w100 h100 flex flex-y">
+  <!-- 计时器 -->
+  <view class="relative clearfix">
+    <image mode="widthFix" class="w100 fl" src="/images/booking_time.png"></image>
+
+    <swiper class="absolute w100 left-0 top-0" style="background-color:#189df9;height:50rpx;" autoplay="true" vertical="true">
+      <swiper-item wx:for="{{radioList}}" wx:for-item="radio" wx:key="{{index}}" class="f22 text-white pl-1" style="line-height:50rpx;" catchtap="bindOpenActionLink" data-link="{{radio.activity_url}}">
+        {{radio.activity_title}}
+      </swiper-item>
+    </swiper>
+
+    <view class="absolute w100 text-right text-white f24" style="top:60rpx;">
+      <view class="inline-block px-1" style="" catchtap="bindOpenActionLink" data-link="https://www.xiangshuispace.com/www/qa.html">使用流程</view>
+      <view class="inline-block px-1" style="" catchtap="bindOpenActionLink" data-link="">故障</view>
+    </view>
+
+    <view class="absolute w100 cx text-center text-white bold" style="font-size:80rpx;top:35%;">{{time_text}}</view>
+
+    <view class="inline-block cx absolute border border-white text-white text-center f24" style="border-radius:1em;width:10em;bottom:10%;">查询当前费用</view>
+
+  </view>
+  <!-- 遥控器面板 -->
+  <view class="flex-1 relative">
+
+    <view class="cxy absolute">
+
+
+    </view>
+
+
+  </view>
+  <!-- 其他功能 -->
+  <view class="border-top flex flex-x f22" style="height:120rpx;">
+    <view class="flex-1 text-center flex flex-y py-2">
+      <view class="flex-1 relative">
+        <image mode="aspectFit" class="absolute cxy" style="width:1.5em;height:1.5em;" src="/images/count_function1.png"></image>
+      </view>
+      <view class="flex-1 relative">
+        <view class="line text-center px-1 absolute w100 cxy">冥想体验月</view>
+      </view>
+    </view>
+    <view class="flex-1 text-center flex flex-y py-2">
+      <view class="flex-1 relative">
+        <image mode="aspectFit" class="absolute cxy" style="width:1.5em;height:1.5em;" src="/images/count_function2.png"></image>
+      </view>
+      <view class="flex-1 relative">
+        <view class="line text-center px-1 absolute w100 cxy">肤质测试</view>
+      </view>
+    </view>
+    <view class="flex-1 text-center flex flex-y py-2">
+      <view class="flex-1 relative">
+        <image mode="aspectFit" class="absolute cxy" style="width:1.5em;height:1.5em;" src="/images/count_function3.png"></image>
+      </view>
+      <view class="flex-1 relative">
+        <view class="line text-center px-1 absolute w100 cxy">闹钟</view>
+      </view>
+    </view>
+    <view class="flex-1 text-center flex flex-y py-2">
+      <view class="flex-1 relative">
+        <image mode="aspectFit" class="absolute cxy" style="width:1.5em;height:1.5em;" src="/images/count_function4.png"></image>
+      </view>
+      <view class="flex-1 relative">
+        <view class="line text-center px-1 absolute w100 cxy">心率/血压</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,5 +1,9 @@
 /**app.wxss**/
 
+
+
+@import './utils/xcx.base.wxss';
+
 .flex {
   display: flex;
 }
@@ -427,8 +431,24 @@ button.span {
   display: none !important;
 }
 
+.f18 {
+  font-size: 18rpx;
+}
+
+.f20 {
+  font-size: 20rpx;
+}
+
+.f22 {
+  font-size: 22rpx;
+}
+
 .f24 {
   font-size: 24rpx;
+}
+
+.f28 {
+  font-size: 28rpx;
 }
 
 .f34 {
@@ -847,4 +867,34 @@ button.span {
 .test {
   border-radius: 15rpx;
   border: solid 1px #27a4fc;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.test {
+  border-radius: 0.5em;
+  border: solid 17rpx white;
+  background: url() no-repeat center;
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.icon.icon-close {
+  background-image: url("https://s3.cn-north-1.amazonaws.com.cn/areaimgs/090813358E7F020F48F2AEF9BDAFDD16");
+}
+
+.bg{
+  background-image:url(https://s3.cn-north-1.amazonaws.com.cn/areaimgs/2100E7FE534CAAF8900161490E525793);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }

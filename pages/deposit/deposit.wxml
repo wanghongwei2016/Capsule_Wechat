@@ -11,7 +11,7 @@
         </view>
         <text style='position:absolute;top:35rpx;right:35rpx;font-size:24rpx;'>每天免费休息45分钟</text>
         <text class='card_middle_top_title middle_title'>月卡・59.8/月</text>
-        <text class='card_middle_bottom_title middle_title' style='color:#fae54f;'>月卡延长至35天 限时抢购</text>
+        <text class='card_middle_bottom_title middle_title' style='color:#fae54f;'>非高峰期使用，现金红包秒提现</text>
         <button class='card_right_buy' id='buy_rightnow'>立即抢购</button>
       </view>
       <!-- 月卡用户 -->
